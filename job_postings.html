@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Simple HTML Page</title>
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 40%;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            padding: 2px 16px;
+            background-color: #f1f1f1;
+            color: black;
+        }
+
+        .card-body {
+            padding: 2px 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to My Simple HTML Page</h1>
+    <p>This is a basic HTML page.</p>
+
+    <div id="industry-list"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+
+    <script>
+       var firebaseConfig = {
+          apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
+          authDomain: "levelup-65b5b.firebaseapp.com",
+          projectId: "levelup-65b5b",
+          storageBucket: "levelup-65b5b.appspot.com",
+          messagingSenderId: "13469845736",
+          appId: "1:13469845736:web:aa4b300ead478eac30215d",
+          measurementId: "G-B7HVG7T7VZ"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                var userId = localStorage.getItem('userId');
+
+                var jobsRef = firebase.firestore().collection('job_postings').where('userId', '==', userId);
+
+                jobsRef.get().then((industrySnapshot) => {
+                    if (industrySnapshot.empty) {
+                        console.log('No matching documents.');
+                        return;
+                    }  
+
+                    industrySnapshot.forEach((industryDoc) => {
+                        var card = document.createElement('div');
+                        card.className = 'card';
+
+                        var cardBody = document.createElement('div');
+                        cardBody.className = 'card-body';
+
+                        var industryName = document.createTextNode(industryDoc.id);
+                        cardBody.appendChild(industryName);
+
+                        card.appendChild(cardBody);
+
+                        var container = document.getElementById('industry-list');
+                        if (container) {
+                            container.appendChild(card);
+                        } else {
+                            console.log('Container not found.');
+                        }
+                    });
+                }).catch((error) => {
+                    console.log("Error getting documents: ", error);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

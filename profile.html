@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Profile - LevelUp</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+    <link href="css/swiper.css" rel="stylesheet">
+    <link href="css/magnific-popup.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    
+    
+    <link rel="icon" href="images/white_logo.png">
+</head>
+<body data-spy="scroll" data-target=".fixed-top">
+    
+    <!-- Preloader -->
+    <div class="spinner-wrapper">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top", style="background-color: rgb(135, 25, 206); padding: 1rem 0.75rem 1rem 0.75rem">
+        <div class="container">
+
+            <!-- Text Logo - Use this if you don't have a graphic logo -->
+            <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">LevelUp</a> -->
+
+            <!-- Image Logo -->
+            <a class="navbar-brand logo-image" href="index.html"><img src="images/logo_transparent.png" alt="alternative"></a> 
+            
+            <!-- Mobile Menu Toggle Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-awesome fas fa-bars"></span>
+                <span class="navbar-toggler-awesome fas fa-times"></span>
+            </button>
+            <!-- end of mobile menu toggle button -->
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="index.html#header">HOME <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle page-scroll" href="#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown", style="border: 1.5px solid rgb(50, 100, 200)">
+                            <a class="dropdown-item" href="article-details.html"><span class="item-text">ABOUT US</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">NEWSROOM</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">CONTACT US</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">CAREER OPPORTUNITIES</span></a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="index.html#features">FEATURES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="index.html#details">DETAILS</a>
+                    </li>
+
+                    <!-- Dropdown Menu -->          
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle page-scroll" href="index.html#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">VIDEO</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="article-details.html"><span class="item-text">ARTICLE DETAILS</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">TERMS CONDITIONS</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">PRIVACY POLICY</span></a>
+                        </div>
+                    </li>
+                    <!-- end of dropdown menu -->
+
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="index.html#pricing">PRICING</a>
+                    </li>
+                </ul>
+                <span class="nav-item">
+                    <li class="nav-item dropdown">
+                        <a class="btn-outline-sm", id="navbarDropdown", role="button", aria-haspopup="true" aria-expanded="false">MY PROFILE</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown", style="background-color: rgb(135, 25, 206); border: 1.5px solid rgb(50)">
+                            <a class="dropdown-item" href="#" onclick="signOut()"><span class="item-text">SIGN OUT</span></a>
+                        </div>
+                    </li>
+
+                </span>
+            </div>
+        </div> <!-- end of container -->
+    </nav> <!-- end of navbar -->
+    <!-- end of navigation -->
+
+
+    <!-- Header -->
+    <!-- <header id="header" class="ex-header-profile">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12"> -->
+                    <!-- <h1></h1> -->
+                <!-- </div> end of col -->
+            <!-- </div> end of row -->
+        <!-- </div> end of container -->
+    <!-- </header> end of ex-header -->
+    <!-- end of header -->
+      <!-- Breadcrumbs -->
+      <div class="ex-basic-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumbs">
+                        <!-- <a href="index.html">Home</a><i class="fa fa-angle-double-right"></i><span>Terms & Conditions</span> -->
+                    </div> <!-- end of breadcrumbs -->
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of ex-basic-1
+    end of breadcrumbs -->
+       <!-- Profile -->
+   <!-- Profile -->
+<div id="details" class="profile-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6"> 
+                <div class="profile-image-container">
+                    <img class="profile-image" src="images/empty_profile_picture-new.png" alt="alternative">
+                </div> <!-- end of profile-image-container -->
+            </div> <!-- end of col -->
+            <div class="col-lg-6">
+                <div class="profile-text-container">
+                    <h2 class="company_name_welcome" id="company_name"></h2>
+                    <!-- <p>Target the right customers for your business with the help of LevelUp's patented segmentation technology and deploy efficient Recruitment campaigns. Keep your customers happy and loyal.</p> -->
+                    <!-- <ul class="profile-list">
+                        <li class="profile-list-item">
+                            <i class="fas fa-square"></i>
+                            <div class="profile-list-item-text">Understand customers and meet their requirements</div>
+                        </li>
+                        <li class="profile-list-item">
+                            <i class="fas fa-square"></i>
+                            <div class="profile-list-item-text">Targeted client base with LevelUp's efficient technology</div>
+                        </li>
+                    </ul> -->
+                    <!-- <a class="profile-button" href="sign-up.html" style="border: 0.2rem rgb(135, 25, 206); margin-right: 1rem;">EDIT PROFILE</a> -->
+                    <a class="profile-button" onclick="goToForm()" href="#">NEW JOB</a>
+                </div> <!-- end of profile-text-container -->
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div> <!-- end of profile-section -->
+    <!-- <h1 ></h1> New element for displaying the company name -->
+    <!-- <button onclick="goToForm()">Create a New Application</button> -->
+ <!-- Applications -->
+ <div id="pricing" class="cards-2", style="padding-top: 2.5rem; display: flex; flex-wrap: nowrap; justify-content: space-between;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- <div class="above-heading">APPLICATIONS</div> -->
+                <h2 class="h2-heading-profile">Open Positions</h2>
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="industry-list"></div>
+                <!-- Card-->
+                <!-- <div class="cards-container-applications">
+                    <div class="card-profile_new" style="display: flex; width: 20rem; border: 1px solid rgb(211, 1, 1); border-radius: 5px; box-shadow: 0 2px 4px rgb(202, 202, 202);">
+                        <div class="card-body" style="display: flex; align-items: center; padding: 20px; margin-left: 1rem;">
+                            <img class="application-image" src="images/logger.png" data-hover-src="images/logger_2.png" alt="alternative" style="width: 5rem; height: auto; margin-right: 2rem;">
+                            <div style="margin-left: 1.8rem;">
+                                <div class="card-title" style="font-size: 20px; margin-bottom: 10px;">LOGGER</div>
+                                <div class="button-wrapper" style="text-align: center;">
+                                    <a class="btn-solid-reg-profile page-scroll" href="job_postings.html">MORE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-profile_new2" style="display: flex; width: 20rem; border: 1px solid rgb(3, 142, 3); border-radius: 5px; box-shadow: 0 2px 4px rgb(202, 202, 202);">
+                        <div class="card-body2" style="display: flex; align-items: center; padding: 20px;">
+                            <img class="application-image" src="images/mechanic_black.png" data-hover-src="images/mechanic_white.png" alt="alternative" style="width: 5rem; height: auto; margin-right: 2rem; margin-top: -0.8rem;">
+                            <div>
+                                <div class="card-title" style="font-size: 20px; margin-bottom: 10px;">DIESEL MECHANIC</div>
+                                <div class="button-wrapper2" style="text-align: center;">
+                                    <a class="btn-solid-reg-profile page-scroll", style="border-color: rgb(3, 142, 3)"; href="application1.html">MORE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-profile_new3" style="display: flex; width: 20rem; border: 1px solid rgb(1, 1, 211); border-radius: 5px; box-shadow: 0 2px 4px rgb(202, 202, 202);">
+                        <div class="card-body3" style="display: flex; align-items: center; padding: 20px; margin-left: 1rem;">
+                            <img class="application-image" src="images/electrician.png" data-hover-src="images/electrician_2.png" alt="alternative" style="width: 5rem; height: auto; margin-right: 2rem;">
+                            <div style="margin-left: 1.6rem;">
+                                <div class="card-title" style="font-size: 20px; margin-bottom: 10px;">ELECTRICIAN</div>
+                                <div class="button-wrapper" style="text-align: center;">
+                                    <a class="btn-solid-reg-profile page-scroll", style="border-color: rgb(1, 1, 211);" href="sign-up.html">MORE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div> <!-- end of cards-2 -->
+<!-- end of pricing -->
+
+
+<!-- Breadcrumbs -->
+<div class="ex-basic-1">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a><i class="fa fa-angle-double-right"></i><span>Profile</span>
+            </div> <!-- end of breadcrumbs -->
+        </div> <!-- end of col -->
+    </div> <!-- end of row -->
+</div> <!-- end of container -->
+</div> <!-- end of ex-basic-1 -->
+<!-- end of breadcrumbs -->
+
+
+<!-- Footer -->
+<!-- <svg class="ex-footer-frame" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 79"><defs><style>.cls-2{fill:rgb(135, 25, 206);}</style></defs><title>footer-frame</title><path class="cls-2" d="M0,72.427C143,12.138,255.5,4.577,328.644,7.943c147.721,6.8,183.881,60.242,320.83,53.737,143-6.793,167.826-68.128,293-60.9,109.095,6.3,115.68,54.364,225.251,57.319,113.58,3.064,138.8-47.711,251.189-41.8,104.012,5.474,109.713,50.4,197.369,46.572,89.549-3.91,124.375-52.563,227.622-50.155A338.646,338.646,0,0,1,1920,23.467V79.75H0V72.427Z" transform="translate(0 -0.188)"/></svg> -->
+<div class="footer">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="footer-col first">
+                <h4>About LevelUp</h4>
+                <p class="p-small">We're passionate about offering some of the best business growth services for start more words</p>
+            </div>
+        </div> <!-- end of col -->
+        <div class="col-md-4">
+            <div class="footer-col middle">
+                <h4>Important Links</h4>
+                <ul class="list-unstyled li-space-lg p-small">
+                    <li class="media">
+                        <i class="fas fa-square"></i>
+                        <div class="media-body">Our business partners <a class="white" href="#your-link">startupguide.com</a></div>
+                    </li>
+                    <li class="media">
+                        <i class="fas fa-square"></i>
+                        <div class="media-body">Read our <a class="white" href="terms-conditions.html">Terms & Conditions</a>, <a class="white" href="privacy-policy.html">Privacy Policy</a></div>
+                    </li>
+                </ul>
+            </div>
+        </div> <!-- end of col -->
+        <div class="col-md-4">
+            <div class="footer-col last">
+                <h4>Contact</h4>
+                <ul class="list-unstyled li-space-lg p-small">
+                    <li class="media">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="media-body">Florence, AL, USA</div>
+                    </li>
+                    <li class="media">
+                        <i class="fas fa-envelope"></i>
+                        <div class="media-body"><a class="white" href="mailto:contact@LevelUp.com">contact@LevelUp.com</a> <i class="fas fa-globe"></i><a class="white" href="#your-link">www.LevelUp.com</a></div>
+                    </li>
+                </ul>
+            </div> 
+        </div> <!-- end of col -->
+    </div> <!-- end of row -->
+</div> <!-- end of container -->
+</div> <!-- end of footer -->  
+<!-- end of footer -->
+
+
+<!-- Copyright -->
+<div class="copyright">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="p-small">Copyright © 2024 <a href="https://levelup.com">LevelUp</a></p>
+        </div> <!-- end of col -->
+    </div> <!-- enf of row -->
+</div> <!-- end of container -->
+</div> <!-- end of copyright --> 
+<!-- end of copyright -->
+    <script>
+        function goToForm() {
+            window.location.href = "form.html";
+        }
+
+        // Initialize Firebase
+        var firebaseConfig = {
+          apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
+          authDomain: "levelup-65b5b.firebaseapp.com",
+          projectId: "levelup-65b5b",
+          storageBucket: "levelup-65b5b.appspot.com",
+          messagingSenderId: "13469845736",
+          appId: "1:13469845736:web:aa4b300ead478eac30215d",
+          measurementId: "G-B7HVG7T7VZ"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                // Fetch the document with the user id from Firestore
+                db.collection("employers").doc(user.uid).get().then(doc => {
+                    if (doc.exists) {
+                        // Get the company name from the document
+                        const companyName = doc.data().company_name;
+
+                        // Set the company name in the HTML
+                        document.getElementById('company_name').textContent = `Welcome, ${companyName}!`;
+                    } else {
+                        console.log("No such document!");
+                    }
+                }).catch((error) => {
+                    console.log("Error getting document:", error);
+                });
+            }
+        });
+    </script>
+    <!-- <script>
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                // Get the user id from local storage
+                var userId = localStorage.getItem('userId');
+
+                var jobsRef = firebase.firestore().collection('job_postings');
+
+                jobsRef.get().then((industrySnapshot) => {
+                    if (industrySnapshot.empty) {
+                        console.log('No matching documents.');
+                        return;
+                    }  
+
+                    industrySnapshot.forEach((industryDoc) => {
+                        var industryName = document.createTextNode(industryDoc.id + '\n');
+                        var span = document.createElement('span');
+                        span.style.color = 'black';
+                        span.appendChild(industryName);
+
+                        var container = document.getElementById('industry-list');
+                        if (container) {
+                            container.appendChild(span);
+                        } else {
+                            console.log('No element with id "industry-list" found.');
+                        }
+                    });
+                }).catch((error) => {
+                    console.log("Error getting documents: ", error);
+                });
+            } else {
+                console.log('User is not authenticated.');
+            }
+        });
+    </script> -->
+    <script>
+auth.onAuthStateChanged(user => {
+    if (user) {
+        var userId = localStorage.getItem('userId'); // Get the user ID from local storage
+
+        var jobsRef = firebase.firestore().collection('job_postings');
+
+        jobsRef.where('userIds', 'array-contains', userId).get().then((industrySnapshot) => {
+    if (industrySnapshot.empty) {
+        console.log('No matching documents.');
+        return;
+    }  
+            industrySnapshot.forEach((industryDoc) => {
+                var card = document.createElement('div');
+                card.className = 'card';
+                card
+
+                card.addEventListener('click', function() {
+                    localStorage.setItem('selectedIndustry', industryDoc.id); // Save the industry name to local storage
+                    localStorage.setItem('userId', userId); // Save the user ID to local storage
+                });
+
+                var cardContent = document.createElement('div');
+                cardContent.className = 'card-content';
+
+                var cardTitle = document.createElement('h3');
+                cardTitle.className = 'card-title';
+                cardTitle.style.marginBottom = '-0.4rem'; // Modify the style here
+                cardTitle.style.marginTop = '0.4rem'; // Modify the style here
+                cardTitle.textContent = industryDoc.id.toUpperCase();
+                cardContent.appendChild(cardTitle);
+
+                var btn = document.createElement('a');
+                btn.className = 'btn-solid-reg-profile page-scroll';
+                btn.style.borderColor = 'rgb(3, 142, 3)'; // Modify the style here
+                btn.style.padding = '0.7rem 1rem'; // Modify the style here
+                btn.style.margin = '1rem 0'; // Modify the style here
+                btn.href = `postings.html`; // assuming you have pages named logger_details.html, diesel_mechanic_details.html, etc.
+                btn.textContent = 'MORE';
+                cardContent.appendChild(btn);
+
+                card.appendChild(cardContent);
+
+                var container = document.getElementById('industry-list');
+                if (container) {
+                    container.appendChild(card);
+                } else {
+                    console.log('No element with id "industry-list" found.');
+                }
+            });
+        }).catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
+    } else {
+        console.log('User is not authenticated.');
+    }
+});
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cards = document.querySelectorAll(".card-profile, .card-profile_new3");
+
+            cards.forEach(card => {
+                const image = card.querySelector(".application-image");
+                const originalSrc = image.src;
+                const hoverSrc = image.getAttribute("data-hover-src");
+
+                card.addEventListener("mouseenter", function() {
+                    image.src = hoverSrc;
+                });
+
+                card.addEventListener("mouseleave", function() {
+                    image.src = originalSrc;
+                });
+            });
+        });
+    </script>
+        <!-- Scripts -->
+        <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+        <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+        <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+        <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+        <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+        <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+        <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+        <script src="js/scripts.js"></script> <!-- Custom scripts -->
+        <!-- <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const images = document.querySelectorAll(".application-image");
+        
+                images.forEach(image => {
+                    const originalSrc = image.src;
+                    const hoverSrc = image.getAttribute("data-hover-src");
+        
+                    image.addEventListener("mouseenter", function() {
+                        image.src = hoverSrc;
+                    });
+        
+                    image.addEventListener("mouseleave", function() {
+                        image.src = originalSrc;
+                    });
+                });
+            });
+        </script> -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const cards = document.querySelectorAll(".card-profile_new");
+        
+                cards.forEach(card => {
+                    const image = card.querySelector(".application-image");
+                    const originalSrc = image.src;
+                    const hoverSrc = image.getAttribute("data-hover-src");
+        
+                    card.addEventListener("mouseenter", function() {
+                        image.src = hoverSrc;
+                    });
+        
+                    card.addEventListener("mouseleave", function() {
+                        image.src = originalSrc;
+                    });
+                });
+            });
+            function signOut() {
+        firebase.auth().signOut().then(() => {
+            // Sign-out successful.
+            window.location.href = "/index.html"; // replace with the path to your home page
+        }).catch((error) => {
+            // An error happened.
+            console.error("Sign out error", error);
+        });
+    }
+        </script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cards = document.querySelectorAll(".card-profile_new2");
+    
+            cards.forEach(card => {
+                const image = card.querySelector(".application-image");
+                const originalSrc = image.src;
+                const hoverSrc = image.getAttribute("data-hover-src");
+    
+                card.addEventListener("mouseenter", function() {
+                    image.src = hoverSrc;
+                });
+    
+                card.addEventListener("mouseleave", function() {
+                    image.src = originalSrc;
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cards = document.querySelectorAll(".card-profile_new3");
+    
+            cards.forEach(card => {
+                const image = card.querySelector(".application-image");
+                const originalSrc = image.src;
+                const hoverSrc = image.getAttribute("data-hover-src");
+    
+                card.addEventListener("mouseenter", function() {
+                    image.src = hoverSrc;
+                });
+    
+                card.addEventListener("mouseleave", function() {
+                    image.src = originalSrc;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

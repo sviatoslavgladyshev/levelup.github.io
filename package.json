@@ -1,0 +1,24 @@
+{
+  "name": "-users-sviatoslavgladyshev-desktop-level-up-employer-levelup-employerapp",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "firebase-tools": "^13.5.2",
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "firebase": "^10.9.0",
+    "firebase-admin": "^12.0.0"
+  },
+  "main": "main.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

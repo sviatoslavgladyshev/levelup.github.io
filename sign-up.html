@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Sign Up - LevelUp</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+<!-- Styles -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/fontawesome-all.css" rel="stylesheet">
+<link href="css/swiper.css" rel="stylesheet">
+<link href="css/magnific-popup.css" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet">
+
+<!-- Favicon  -->
+<link rel="icon" href="images/white_logo.png">
+</head>
+<body data-spy="scroll" data-target=".fixed-top">
+
+<!-- Preloader -->
+<div class="spinner-wrapper">
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+<!-- end of preloader -->
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+
+            <!-- Text Logo - Use this if you don't have a graphic logo -->
+            <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">LevelUp</a> -->
+
+            <!-- Image Logo -->
+            <a class="navbar-brand logo-image" href="index.html"><img src="images/logo_transparent.png" alt="alternative"></a> 
+            
+            <!-- Mobile Menu Toggle Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-awesome fas fa-bars"></span>
+                <span class="navbar-toggler-awesome fas fa-times"></span>
+            </button>
+            <!-- end of mobile menu toggle button -->
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="#header">HOME <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle page-scroll" href="#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="article-details.html"><span class="item-text">ABOUT US</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">NEWSROOM</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">CONTACT US</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">CAREER OPPORTUNITIES</span></a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="#features">FEATURES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="#details">DETAILS</a>
+                    </li>
+
+                    <!-- Dropdown Menu -->          
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle page-scroll" href="#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">VIDEO</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="article-details.html"><span class="item-text">ARTICLE DETAILS</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">TERMS CONDITIONS</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">PRIVACY POLICY</span></a>
+                        </div>
+                    </li>
+                    <!-- end of dropdown menu -->
+                    
+
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="#pricing">PRICING</a>
+                    </li>
+                </ul>
+                <span class="nav-item">
+                    <li class="nav-item dropdown">
+                        <a class="btn-outline-sm", id="navbarDropdown-profile", role="button", aria-haspopup="true" aria-expanded="false">MY PROFILE</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown", style="background-color: rgb(135, 25, 206); border: 1.5px solid rgb(50)">
+                            <a class="dropdown-item" href="#" onclick="signOut()"><span class="item-text">SIGN OUT</span></a>
+                        </div>
+                    </li>
+
+                </span>
+
+            </div>
+        </div> <!-- end of container -->
+    </nav> <!-- end of navbar -->
+    <!-- end of navigation -->
+     <!-- Header -->
+     <header id="header" class="ex-2-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Sign Up</h1>
+                   <p>Fill out the form below to sign up for LevelUp. Already signed up? Then just <a class="white" href="log-in.html">Log In</a></p> 
+                   <div class="form-container" style="margin-bottom: 10rem; padding-bottom: 3rem;">
+    <form id="signup-form"> <div class="form-group">
+        <input type="text" class="form-control-input" id="companyName" required pattern="\S+.*">
+        <label class="label-control" for="sname">Company name</label>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <input type="email" class="form-control-input" id="email" required>
+        <label class="label-control" for="semail">Email</label>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <input type="password" class="form-control-input" id="password"required minlength="8">
+        <label class="label-control" for="spassword">Password</label>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <input type="tel" class="form-control-input" id="phoneNumber" required pattern="\+1[0-9]{10}">
+        <label class="label-control" for="spaphone">Phone Number</label>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <select id="state" class="form-control-input" required>
+            <option value=""></option>
+            <option value="Alabama">Alabama</option>
+            <option value="Alaska">Alaska</option>
+            <option value="Arizona">Arizona</option>
+            <option value="Arkansas">Arkansas</option>
+            <option value="California">California</option>
+            <option value="Colorado">Colorado</option>
+            <option value="Connecticut">Connecticut</option>
+            <option value="Delaware">Delaware</option>
+            <option value="Florida">Florida</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Hawaii">Hawaii</option>
+            <option value="Idaho">Idaho</option>
+            <option value="Illinois">Illinois</option>
+            <option value="Indiana">Indiana</option>
+            <option value="Iowa">Iowa</option>
+            <option value="Kansas">Kansas</option>
+            <option value="Kentucky">Kentucky</option>
+            <option value="Louisiana">Louisiana</option>
+            <option value="Maine">Maine</option>
+            <option value="Maryland">Maryland</option>
+            <option value="Massachusetts">Massachusetts</option>
+            <option value="Michigan">Michigan</option>
+            <option value="Minnesota">Minnesota</option>
+            <option value="Mississippi">Mississippi</option>
+            <option value="Missouri">Missouri</option>
+            <option value="Montana">Montana</option>
+            <option value="Nebraska">Nebraska</option>
+            <option value="Nevada">Nevada</option>
+            <option value="New Hampshire">New Hampshire</option>
+            <option value="New Jersey">New Jersey</option>
+            <option value="New Mexico">New Mexico</option>
+            <option value="New York">New York</option>
+            <option value="North Carolina">North Carolina</option>
+            <option value="North Dakota">North Dakota</option>
+            <option value="Ohio">Ohio</option>
+            <option value="Oklahoma">Oklahoma</option>
+            <option value="Oregon">Oregon</option>
+            <option value="Pennsylvania">Pennsylvania</option>
+            <option value="Rhode Island">Rhode Island</option>
+            <option value="South Carolina">South Carolina</option>
+            <option value="South Dakota">South Dakota</option>
+            <option value="Tennessee">Tennessee</option>
+            <option value="Texas">Texas</option>
+            <option value="Utah">Utah</option>
+            <option value="Vermont">Vermont</option>
+            <option value="Virginia">Virginia</option>
+            <option value="Washington">Washington</option>
+            <option value="West Virginia">West Virginia</option>
+            <option value="Wisconsin">Wisconsin</option>
+            <option value="Wyoming">Wyoming</option>
+        </select>
+        <label class="label-control" for="state">State</label>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <input type="text" id="city" class="form-control-input" required pattern="\S+.*">
+        <label class="label-control" for="city">City</label>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <input type="text" id="street" class="form-control-input" required pattern="\S+.*">
+        <label class="label-control" for="street">Street</label>
+        <div class="help-block with-errors"></div>
+    </div>
+    <div class="form-group">
+        <input type="text" id="zipCode" class="form-control-input" required pattern="\d{5}">
+        <label class="label-control" for="zipCode">Zip Code</label>
+        <div class="help-block with-errors"></div>
+    </div>
+    <div class="form-group">
+        
+        <select id="industry" class="form-control-input" required>
+            <option value=""></option>
+            <option value="accounting">Accounting</option>
+            <option value="advertising">Advertising</option>
+            <option value="agriculture">Agriculture</option>
+            <option value="automotive">Automotive</option>
+            <option value="banking">Banking</option>
+            <option value="construction">Construction</option>
+            <option value="consulting">Consulting</option>
+            <option value="education">Education</option>
+            <option value="energy">Energy</option>
+            <option value="engineering">Engineering</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="environmental">Environmental</option>
+            <option value="finance">Finance</option>
+            <option value="food-service">Food Service</option>
+            <option value="government">Government</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="hospitality">Hospitality</option>
+            <option value="insurance">Insurance</option>
+            <option value="manufacturing">Manufacturing</option>
+            <option value="media">Media</option>
+            <!-- <option value="other">Other</option> -->
+            <option value="pharmaceutical">Pharmaceutical</option>
+            <option value="real-estate">Real Estate</option>
+            <option value="retail">Retail</option>
+            <option value="sport">Sport</option>
+            <option value="technology">Technology</option>
+            <option value="telecommunications">Telecommunications</option>
+            <option value="tourism">Tourism</option>
+            <option value="transportation">Transportation</option>
+        </select>
+        <label class="label-control" for="spaphone">Industry</label>
+        <div class="help-block with-errors"></div>   
+        </div>
+        <!-- <input type="text" id="otherIndustry" placeholder="Other Industry" style="display: none;"> -->
+        <div class="form-group checkbox">
+        <input type="checkbox" id="chkAgree" required>I agree with LevelUp's <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-conditions.html">Terms Conditions</a>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <button type="submit" class="form-control-submit-button">Sign Up</button>
+    </div>
+    <div class="form-message">
+        <div id="smsgSubmit" class="h3 text-center hidden"></div>
+    </div>
+    </form>
+                </div>
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</header> <!-- end of ex-header -->
+<!-- end of header -->
+    <script>
+        // Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
+            authDomain: "levelup-65b5b.firebaseapp.com",
+            projectId: "levelup-65b5b",
+            storageBucket: "levelup-65b5b.appspot.com",
+            messagingSenderId: "13469845736",
+            appId: "1:13469845736:web:aa4b300ead478eac30215d"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Get elements
+        const signupForm = document.getElementById('signup-form');
+        const companyNameInput = document.getElementById('companyName');
+        const emailInput = document.getElementById('email');
+        const phoneNumberInput = document.getElementById('phoneNumber');
+        const stateDropdown = document.getElementById('state');
+        const cityInput = document.getElementById('city');
+        const streetInput = document.getElementById('street');
+        const zipCodeInput = document.getElementById('zipCode');
+        const industryDropdown = document.getElementById('industry');
+        const otherIndustryInput = document.getElementById('otherIndustry');
+        const agreeCheckbox = document.getElementById('chkAgree');
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Gather the data from the form
+            const data = {
+                company_name: companyNameInput.value,
+                email: emailInput.value,
+                phone_number: phoneNumberInput.value,
+                state: stateDropdown.value,
+                city: cityInput.value,
+                street: streetInput.value,
+                zip_code: zipCodeInput.value,
+                industry: industryDropdown.value,
+                otherIndustry: otherIndustryInput.value,
+                agree: agreeCheckbox.checked,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            };
+
+            // Check if the email already exists in the "employers" collection
+            firebase.firestore().collection('employers').where('email', '==', data.email).get()
+                .then((querySnapshot) => {
+                    if (!querySnapshot.empty) {
+                        // Email already exists, show an alert
+                        alert('Email already exists');
+                    } else {
+                        // Email doesn't exist, create a new user with Firebase Auth
+                        firebase.auth().createUserWithEmailAndPassword(data.email, document.getElementById('password').value)
+                            .then((userCredential) => {
+                                // User created, now add the user data to Firestore
+                                firebase.firestore().collection('employers').doc(userCredential.user.uid).set(data)
+                                    .then(() => {
+                                        // Data successfully written, redirect to the profile.html page
+                                        window.location.href = 'profile.html';
+                                    })
+                                    .catch((error) => {
+                                        // Handle any errors
+                                        console.error('Error writing new user to Firebase Firestore', error);
+                                    });
+                                    localStorage.setItem('userId', userCredential.user.uid);
+                            })
+                            .catch((error) => {
+                                // Handle any errors
+                                console.error('Error creating new user in Firebase Auth', error);
+                            });
+                    }
+                })
+                .catch((error) => {
+                    // Handle any errors
+                    console.error('Error checking email in Firebase Firestore', error);
+                });
+        });
+    </script>
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+    <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+    <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+    <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="js/scripts.js"></script> <!-- Custom scripts -->
+</body>
+</html>

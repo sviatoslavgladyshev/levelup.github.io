@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Website Title -->
+  <title>Diesel Mechanic - LevelUp</title>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+  
+  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/fontawesome-all.css" rel="stylesheet">
+  <link href="css/swiper.css" rel="stylesheet">
+  <link href="css/magnific-popup.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <style>
+    #data {
+      margin: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+  <link rel="icon" href="images/white_logo.png">
+
+</head>
+<body data-spy="scroll" data-target=".fixed-top">
+  <!-- Preloader -->
+	<div class="spinner-wrapper">
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+<!-- end of preloader -->
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top", style="background-color: rgb(135, 25, 206); padding: 1rem 0.75rem 1rem 0.75rem">
+    <div class="container">
+
+        <!-- Text Logo - Use this if you don't have a graphic logo -->
+        <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">LevelUp</a> -->
+
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="index.html"><img src="images/logo_transparent.png" alt="alternative"></a> 
+        
+        <!-- Mobile Menu Toggle Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-awesome fas fa-bars"></span>
+            <span class="navbar-toggler-awesome fas fa-times"></span>
+        </button>
+        <!-- end of mobile menu toggle button -->
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="index.html#header">HOME <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle page-scroll" href="#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown", style="border: 1.5px solid rgb(50, 100, 200)">
+                        <a class="dropdown-item" href="article-details.html"><span class="item-text">ABOUT US</span></a>
+                        <div class="dropdown-items-divide-hr"></div>
+                        <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">NEWSROOM</span></a>
+                        <div class="dropdown-items-divide-hr"></div>
+                        <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">CONTACT US</span></a>
+                        <div class="dropdown-items-divide-hr"></div>
+                        <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">CAREER OPPORTUNITIES</span></a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="index.html#features">FEATURES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="index.html#details">DETAILS</a>
+                </li>
+
+                <!-- Dropdown Menu -->          
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle page-scroll" href="index.html#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">VIDEO</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="article-details.html"><span class="item-text">ARTICLE DETAILS</span></a>
+                        <div class="dropdown-items-divide-hr"></div>
+                        <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">TERMS CONDITIONS</span></a>
+                        <div class="dropdown-items-divide-hr"></div>
+                        <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">PRIVACY POLICY</span></a>
+                    </div>
+                </li>
+                <!-- end of dropdown menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="index.html#pricing">PRICING</a>
+                </li>
+            </ul>
+            <span class="nav-item">
+                <li class="nav-item dropdown">
+                <a class="btn-outline-sm", id="navbarDropdown", role="button", aria-haspopup="true" aria-expanded="false">MY PROFILE</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown", style="background-color: rgb(135, 25, 206); border: 1.5px solid rgb(50)">
+                        <a class="dropdown-item" href="article-details.html"><span class="item-text">ARTICLE DETAILS</span></a>
+                        <div class="dropdown-items-divide-hr"></div>
+                        <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">TERMS CONDITIONS</span></a>
+                        <div class="dropdown-items-divide-hr"></div>
+                        <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">PRIVACY POLICY</span></a>
+                    </div>
+                </li>
+
+            </span>
+        </div>
+    </div> <!-- end of container -->
+</nav> <!-- end of navbar -->
+<!-- end of navigation -->
+
+
+<!-- Header -->
+<!-- <header id="header" class="ex-header-profile">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12"> -->
+                <!-- <h1></h1> -->
+            <!-- </div> end of col -->
+        <!-- </div> end of row -->
+    <!-- </div> end of container -->
+<!-- </header> end of ex-header -->
+<!-- end of header -->
+
+
+<!-- Breadcrumbs -->
+<div class="ex-basic-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumbs">
+                    <!-- <a href="index.html">Home</a><i class="fa fa-angle-double-right"></i><span>Terms & Conditions</span> -->
+                </div> <!-- end of breadcrumbs -->
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div> <!-- end of ex-basic-1
+end of breadcrumbs -->
+
+<!-- Main content -->
+<div class="application">
+  <h2 class="h2-heading-profile", style="display: block; padding-top: 2.5rem; display: flex; flex-wrap: nowrap; justify-content: space-between;">APPLICATIONS RECIEVED</h2>
+  <div id="data"></div>
+</div>
+<!-- end of main content-->
+
+      <!-- Breadcrumbs -->
+      <div class="ex-basic-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumbs">
+                        <a href="profile.html">Profile</a><i class="fa fa-angle-double-right"></i><span>Delivery man</span>
+                    </div> <!-- end of breadcrumbs -->
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of ex-basic-1 -->
+    <!-- end of breadcrumbs -->
+
+
+    <!-- Footer -->
+    <!-- <svg class="ex-footer-frame" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 79"><defs><style>.cls-2{fill:rgb(135, 25, 206);}</style></defs><title>footer-frame</title><path class="cls-2" d="M0,72.427C143,12.138,255.5,4.577,328.644,7.943c147.721,6.8,183.881,60.242,320.83,53.737,143-6.793,167.826-68.128,293-60.9,109.095,6.3,115.68,54.364,225.251,57.319,113.58,3.064,138.8-47.711,251.189-41.8,104.012,5.474,109.713,50.4,197.369,46.572,89.549-3.91,124.375-52.563,227.622-50.155A338.646,338.646,0,0,1,1920,23.467V79.75H0V72.427Z" transform="translate(0 -0.188)"/></svg> -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="footer-col first">
+                        <h4>About LevelUp</h4>
+                        <p class="p-small">We're passionate about offering some of the best career services for the people</p>
+                    </div>
+                </div> <!-- end of col -->
+                <div class="col-md-4">
+                    <div class="footer-col middle">
+                        <h4>Important Links</h4>
+                        <ul class="list-unstyled li-space-lg p-small">
+                           
+                            <li class="media">
+                                <i class="fas fa-square"></i>
+                                <div class="media-body">Read our <a class="white" href="terms-conditions.html">Terms & Conditions</a>, <a class="white" href="privacy-policy.html">Privacy Policy</a></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div> <!-- end of col -->
+                <div class="col-md-4">
+                    <div class="footer-col last">
+                        <h4>Contact</h4>
+                        <ul class="list-unstyled li-space-lg p-small">
+                            <li class="media">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="media-body">Florence, AL, USA</div>
+                            </li>
+                            <li class="media">
+                                <i class="fas fa-envelope"></i>
+                                <div class="media-body"><a class="white" href="mailto:contact@LevelUp.com">contact@LevelUp.com</a> <i class="fas fa-globe"></i><a class="white" href="#your-link">www.LevelUp.com</a></div>
+                            </li>
+                        </ul>
+                    </div> 
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of footer -->  
+    <!-- end of footer -->
+
+
+    <!-- Copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="p-small">Copyright © 2024 <a href="https://levelup.com">LevelUp</a></p>
+                </div> <!-- end of col -->
+            </div> <!-- enf of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of copyright --> 
+    <!-- end of copyright -->
+
+    <script>
+      // Your Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
+        authDomain: "levelup-65b5b.firebaseapp.com",
+        projectId: "levelup-65b5b",
+        storageBucket: "levelup-65b5b.appspot.com",
+        messagingSenderId: "13469845736",
+        appId: "1:13469845736:web:aa4b300ead478eac30215d",
+        measurementId: "G-B7HVG7T7VZ"
+      };
+  
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  const db = firebase.firestore();
+  const uid = "dPrK0aN5keYkRnZi0QtglZeYpRu2"; // replace with your uid
+
+  const dataDiv = document.getElementById('data');
+
+  // Get today's date
+  const today = new Date();
+
+  db.collection('applications').doc(uid).get()
+      .then((doc) => {
+          if (doc.exists) {
+              const docData = doc.data();
+
+              const nameData = docData.first_name;
+              let daysElapsed = null;
+              if (docData.end_date) {
+                  const endDateString = docData.end_date;
+                  const endDate = moment(endDateString, "MMMM D, YYYY [at] h:mm A Z").toDate();
+                  const timeElapsed = today - endDate;
+                  daysElapsed = timeElapsed / (1000 * 60 * 60 * 24);
+              }
+
+              const applicationData = daysElapsed !== null ? Math.floor(daysElapsed) : null;
+
+              const birthDate = docData.birthday.toDate();
+              let age = today.getFullYear() - birthDate.getFullYear();
+              const m = today.getMonth() - birthDate.getMonth();
+              if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                  age--;
+              }
+
+              const ageData = age;
+
+              const positionData = {
+                  position: docData.position,
+                  experience: docData.experience,
+                  company: docData.company_name
+              };
+              const cityData = docData.city; // Extract city from document data
+            const stateData = docData.state; // Extract state from document data
+            const streetAddress1Data =docData.street_address_1; // Define street address data
+              
+              const educationData = {
+                  major: docData.major,
+                  college_year: docData.college_year,
+                  enrollment_year: docData.enrollment_year
+              };
+
+              dataDiv.innerHTML = "<div class='data-output'><b>Name:</b> " + nameData +" Parker"+"</div>";
+              dataDiv.innerHTML += "<div class='data-output'><b>Location:</b> " + streetAddress1Data + ", " + cityData + ", " + stateData + "</div>"; // Add street address, city, and state to HTML output in one line
+              dataDiv.innerHTML += "<div class='data-output'><b>Application:</b> " + "1" + " day ago</div>";
+              dataDiv.innerHTML += "<div class='data-output'><b>Age:</b> " + "24" + " years</div>";
+              dataDiv.innerHTML += "<div class='data-output'><b>Position:</b> " + positionData.position + ", " + positionData.company + "</div>";
+              dataDiv.innerHTML += "<div class='data-output'><b>Education:</b> High school diploma</div>";
+              dataDiv.innerHTML += "<div style='text-align: center;'><button onclick='openPopup()' class='know-more-button'>Know More</button></div>";
+          } else {
+              dataDiv.innerText = "No such document!";
+          }
+      })
+      .catch((error) => {
+          console.error('Error getting document:', error);
+          dataDiv.innerText = "Error getting document: " + error;
+      });
+</script>
+<script>
+  function openPopup() {
+      window.open("applicant_details.html", "Applicant Details", "height=600,width=800");
+  }
+  </script>
+   <!-- Scripts -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+   <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+   <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+   <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+   <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+   <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+   <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+   <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+   <script src="js/scripts.js"></script> <!-- Custom scripts -->
+   <!-- <script>
+       document.addEventListener("DOMContentLoaded", function() {
+           const images = document.querySelectorAll(".application-image");
+   
+           images.forEach(image => {
+               const originalSrc = image.src;
+               const hoverSrc = image.getAttribute("data-hover-src");
+   
+               image.addEventListener("mouseenter", function() {
+                   image.src = hoverSrc;
+               });
+   
+               image.addEventListener("mouseleave", function() {
+                   image.src = originalSrc;
+               });
+           });
+       });
+   </script> -->
+   <script>
+       document.addEventListener("DOMContentLoaded", function() {
+           const cards = document.querySelectorAll(".card-profile_new");
+   
+           cards.forEach(card => {
+               const image = card.querySelector(".application-image");
+               const originalSrc = image.src;
+               const hoverSrc = image.getAttribute("data-hover-src");
+   
+               card.addEventListener("mouseenter", function() {
+                   image.src = hoverSrc;
+               });
+   
+               card.addEventListener("mouseleave", function() {
+                   image.src = originalSrc;
+               });
+           });
+       });
+   </script>
+   
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Simple Page</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+</head>
+<body>
+    <h1>Welcome to My Simple Page</h1>
+    <p>This is a basic web page.</p>
+
+
+<script>
+    var firebaseConfig = {
+          apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
+          authDomain: "levelup-65b5b.firebaseapp.com",
+          projectId: "levelup-65b5b",
+          storageBucket: "levelup-65b5b.appspot.com",
+          messagingSenderId: "13469845736",
+          appId: "1:13469845736:web:aa4b300ead478eac30215d",
+          measurementId: "G-B7HVG7T7VZ"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+
+    const userId = localStorage.getItem('userId'); // Get the user ID from local storage
+    const selectedIndustry = localStorage.getItem('selectedIndustry'); // Get the selected industry from local storage
+
+    const employersRef = db.collection('employers');
+
+    employersRef.doc(userId).get().then((userDoc) => {
+        if (!userDoc.exists) {
+            console.log('No such user.');
+            return;
+        }
+
+        const jobPostedRef = userDoc.ref.collection('job_posted');
+
+        jobPostedRef.get().then((jobSnapshot) => {
+            if (jobSnapshot.empty) {
+                console.log('No matching job postings.');
+                return;
+            }
+
+            jobSnapshot.forEach((jobDoc) => {
+                const jobData = jobDoc.data();
+                if (jobData.industry === selectedIndustry) {
+                    const jobName = jobDoc.id.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()); // Convert from snake_case to title case
+                    const jobCard = document.createElement('div');
+                    jobCard.style.border = '1px solid black'; // Add a border to the card
+                    jobCard.style.padding = '10px'; // Add some padding to the card
+                    jobCard.style.margin = '10px'; // Add some margin to the card
+                    const jobNameElement = document.createElement('p');
+                    jobNameElement.textContent = jobName;
+                    jobCard.appendChild(jobNameElement); // Append the job name to the card
+
+                    const jobSalaryElement = document.createElement('p');
+                    jobSalaryElement.textContent = 'Salary: $' + jobData.salary + '/hour'; // Add the salary data to the card
+                    jobCard.appendChild(jobSalaryElement);
+
+                    const jobHoursElement = document.createElement('p');
+                    jobHoursElement.textContent = 'Work hours: ' + jobData.workHours + '/week'; // Add the hours data to the card
+                    jobCard.appendChild(jobHoursElement);
+
+                    document.body.appendChild(jobCard); // Append the card to the body of the webpage
+                }
+            });
+        }).catch((error) => {
+            console.log("Error getting job postings: ", error);
+        });
+    }).catch((error) => {
+        console.log("Error getting user: ", error);
+    });
+</script>
+</body>
+</html>
