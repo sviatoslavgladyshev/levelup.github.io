@@ -1,188 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Job Posting Form - LevelUp</title>
+    <title>Job Posting Form</title>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
- <!-- Styles -->
- <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
- <link href="css/bootstrap.css" rel="stylesheet">
- <link href="css/fontawesome-all.css" rel="stylesheet">
- <link href="css/swiper.css" rel="stylesheet">
- <link href="css/magnific-popup.css" rel="stylesheet">
- <link href="css/styles.css" rel="stylesheet">
- 
- <!-- Favicon  -->
- <link rel="icon" href="images/white_logo.png">
 </head>
-<body data-spy="scroll" data-target=".fixed-top">
-        <!-- Preloader -->
-	<div class="spinner-wrapper">
-        <div class="spinner">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-        </div>
-    </div>
-    <!-- end of preloader -->
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-        <div class="container">
-
-            <!-- Text Logo - Use this if you don't have a graphic logo -->
-            <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">LevelUp</a> -->
-
-            <!-- Image Logo -->
-            <a class="navbar-brand logo-image" href="index.html"><img src="images/logo_transparent.png" alt="alternative"></a> 
-            
-            <!-- Mobile Menu Toggle Button -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-awesome fas fa-bars"></span>
-                <span class="navbar-toggler-awesome fas fa-times"></span>
-            </button>
-            <!-- end of mobile menu toggle button -->
-
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link page-scroll" href="#header">HOME <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle page-scroll" href="#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="article-details.html"><span class="item-text">ABOUT US</span></a>
-                            <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">NEWSROOM</span></a>
-                            <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">CONTACT US</span></a>
-                            <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">CAREER OPPORTUNITIES</span></a>
-                        </div>
-                    </li>
-
-                    
-
-                    <!-- <li class="nav-item">
-                        <a class="nav-link page-scroll" href="#pricing">PRICING</a>
-                    </li> -->
-                </ul>
-                <span class="nav-item">
-                    <li class="nav-item dropdown">
-                        <a class="btn-outline-sm", id="navbarDropdown-profile", role="button", aria-haspopup="true" aria-expanded="false">MY PROFILE</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown", style="background-color: rgb(135, 25, 206); border: 1.5px solid rgb(50)">
-                            <a class="dropdown-item" href="#" onclick="signOut()"><span class="item-text">SIGN OUT</span></a>
-                        </div>
-                    </li>
-
-                </span>
-
-            </div>
-        </div> <!-- end of container -->
-    </nav> <!-- end of navbar -->
-    <!-- end of navigation -->
-    <!-- Header -->
-    <header id="header" class="ex-2-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>New Job</h1>
-                   <p>Fill out the form to publish a job on the LevelUp</a></p> 
-        <div class="form-container" style="margin-bottom: 10rem">
+<body>
     <form id="jobForm">
-        <div class="form-group">
-        <input type="text" id="title" class="form-control-input">
-        <label class="label-control" for="title">Job Title</label>
-        <div class="help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-            <select id="salaryType" class="form-control-input" required>
-                <option value=""></option>
-                <option value="hourly">Hourly</option>
-                <option value="salary">Salary</option>
-                <option value="commission">Commission</option>
-            </select>
-            <label class="label-control" for="salaryType">Type of Salary</label>
-            <div class="help-block with-errors"></div>
-        </div>
-        <div class="form-group" id="estimatedSalaryRange" style="display: none;">
-            <input type="text" id="estimatedSalary" class="form-control-input">
-            <label class="label-control" for="estimatedSalary">Estimated Salary Range</label>
-            <div class="help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-        <input type="number" id="salary" min="0" class="form-control-input">
-        <label class="label-control" for="salary">Salary</label>
-        <div class="help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-        <input type="number" id="workHours" name="workHours" min="0" class="form-control-input">
-        <label class="label-control" for="workHours">Work Hours</label>
-        <div class="help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-        <select id="industry" class="form-control-input">
-            <option value=""></option>
+        <input type="text" id="title" placeholder="Job Title" required>
+        <input type="text" id="description" placeholder="Job Description" required>
+        <input type="text" id="salary" placeholder="Salary" required>
+        <input type="number" id="workHours" name="workHours" min="0" placeholder="Enter work hours" required>
+        <select id="industry" required>
+            <option value="">Select Industry</option>
             <option value="accounting">Accounting</option>
             <option value="advertising">Advertising</option>
-            <option value="agriculture">Agriculture</option>
-            <option value="automotive">Automotive</option>
-            <option value="banking">Banking</option>
-            <option value="construction">Construction</option>
-            <option value="consulting">Consulting</option>
-            <option value="education">Education</option>
-            <option value="energy">Energy</option>
-            <option value="engineering">Engineering</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="environmental">Environmental</option>
-            <option value="finance">Finance</option>
-            <option value="food-service">Food Service</option>
-            <option value="government">Government</option>
-            <option value="healthcare">Healthcare</option>
-            <option value="hospitality">Hospitality</option>
-            <option value="insurance">Insurance</option>
-            <option value="manufacturing">Manufacturing</option>
-            <option value="media">Media</option>
-            <!-- <option value="other">Other</option> -->
-            <option value="pharmaceutical">Pharmaceutical</option>
-            <option value="real-estate">Real Estate</option>
-            <option value="retail">Retail</option>
-            <option value="sport">Sport</option>
-            <option value="technology">Technology</option>
-            <option value="telecommunications">Telecommunications</option>
-            <option value="tourism">Tourism</option>
-            <option value="transportation">Transportation</option>
+            <!-- Other industry options -->
+            <option value="other">Other</option>
         </select>
-        <label class="label-control" for="industry">Industry</label>
-        <div class="help-block with-errors"></div>
-    </div>
-    <div class="form-group">
-        <input type="text" id="description" class="form-control-input">
-        <label class="label-control" for="description">Job Description</label>
-        <div class="help-block with-errors"></div>
-        </div>
-        <!-- <input type="text" id="otherindustry" placeholder="Other Industry" style="display: none;"> -->
-        <div class="form-group">
-        <input type="submit" class="form-control-submit-button" value="Post Job">
-    </div>
-    <div id="statusMessage" style="display: none;"></div>
-    <div class="form-message">
-        <button id="backToProfile" class="form-control-submit-button">Back to Profile</button>
+        <input type="text" id="otherindustry" placeholder="Other Industry" style="display: none;">
+        <input type="submit" value="Post Job">
+        <button id="backToProfile">Back to Profile</button>
     </form>
-    <p id="error-message"></p>
-</div>
-</div>
-                </div>
-            </div>
-        </div>
-        </header>
+    <div id="userIdDisplay"></div>
     <script>
         // Your Firebase configuration
         const firebaseConfig = {
-          apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
+            apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
           authDomain: "levelup-65b5b.firebaseapp.com",
           projectId: "levelup-65b5b",
           storageBucket: "levelup-65b5b.appspot.com",
@@ -194,6 +38,21 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+        document.getElementById('industry').addEventListener('change', function() {
+            if (this.value === 'other') {
+                document.getElementById('otherindustry').style.display = 'inline-block';
+            } else {
+                document.getElementById('otherindustry').style.display = 'none';
+            }
+        });
+        // Show or hide the "otherindustry" input based on the selected industry
+        document.getElementById('industry').addEventListener('change', function() {
+            if (this.value === 'other') {
+                document.getElementById('otherindustry').style.display = 'inline-block';
+            } else {
+                document.getElementById('otherindustry').style.display = 'none';
+            }
+        });
 
         // Add event listener for the button
         document.getElementById('backToProfile').addEventListener('click', function() {
@@ -201,139 +60,73 @@
             window.location.href = 'profile.html';
         });
 
+        // Function to handle form submission
         document.getElementById('jobForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission behavior
+            event.preventDefault(); // Prevent default form submission behavior
 
-    // Get form values
-    const title = document.getElementById('title').value;
-    const description = document.getElementById('description').value;
-    const salary = document.getElementById('salary').value;
-    const workHours = document.getElementById('workHours').value;
-    const industry = document.getElementById('industry').value;
-    const otherIndustry = ''; // You may need to define this if you have an "other" option
+            // Get form values
+            const title = document.getElementById('title').value.toLowerCase().split(' ').join('_');
+            const description = document.getElementById('description').value;
+            const salary = document.getElementById('salary').value;
+            const workHours = document.getElementById('workHours').value;
+            const industry = document.getElementById('industry').value.toLowerCase();
+            const otherIndustry = document.getElementById('otherindustry').value.toLowerCase();
 
-    // Get userId from local storage
-    let userId = localStorage.getItem('userId');
-    console.log('User ID:', userId);
+            // Check for empty fields
+            if (!title || !description || !salary || !workHours || !industry) {
+                alert("Please fill in all required fields.");
+                return;
+            }
 
-    // Check if userId exists
-    if (userId) {
-        let formattedTitle = title.toLowerCase().replace(/ /g, '_');
-        let jobRef;
+            // Get userId from local storage
+            let userId = localStorage.getItem('userId');
+            // Check if userId exists
+            if (userId) {
+                let jobRef;
 
-        if (industry === 'other') {
-            jobRef = db.collection('job_postings').doc(otherIndustry);
-        } else {
-            jobRef = db.collection('job_postings').doc(industry);
-        }
+                if (industry === 'other') {
+                    jobRef = db.collection('job_postings').doc(otherIndustry);
+                } else {
+                    jobRef = db.collection('job_postings').doc(industry);
+                }
 
-        console.log('Job Reference:', jobRef);
+                // Set the document data
+                jobRef.set({
+                    userId: userId,
+                    job_title: title,
+                    description: description,
+                    salary: salary,
+                    workHours: workHours,
+                    industry: industry === 'other' ? otherIndustry : industry
+                })
+                .then(() => {
+                    console.log("Document successfully written!");
+                    // Clear the form
+                    document.getElementById('jobForm').reset();
+                })
+                .catch((error) => {
+                    console.error("Error writing document: ", error);
+                });
 
-        // Update the document data
-        jobRef.update({
-            userIds: firebase.firestore.FieldValue.arrayUnion(userId),
-        })
-        .then(() => {
-            console.log("Document successfully updated!");
-            setStatusMessage("Job successfully posted!", true);
-        })
-        .catch((error) => {
-            console.error("Error updating document: ", error);
-            setStatusMessage("Error posting job. Please try again.", false);
-        });
+                // Set the document data for job posted by employer
+                let employerRef = db.collection('employers').doc(userId);
+                let jobPostedRef = employerRef.collection('job_posted').doc(title);
 
-        // Set the document data for job posted by employer
-        let employerRef = db.collection('employers').doc(userId);
-        let jobPostedRef = employerRef.collection('job_posted').doc(formattedTitle);
-
-        console.log('Employer Reference:', employerRef);
-        console.log('Job Posted Reference:', jobPostedRef);
-
-        jobPostedRef.set({
-            title: title,
-            description: description,
-            salary: salary,
-            workHours: workHours,
-            industry: industry === 'other' ? otherIndustry : industry,
-        })
-        .then(() => {
-            console.log("Document successfully written for job posted by employer!");
-            setStatusMessage("Job successfully posted!", true);
-            // Clear the form
-            document.getElementById('jobForm').reset();
-            // Redirect to profile page after a delay
-            setTimeout(() => {
-                window.location.href = 'profile.html';
-            }, 2000); // Delay for 2 seconds before redirecting
-        })
-        .catch((error) => {
-            console.error("Error writing document for job posted by employer: ", error);
-            setStatusMessage("Error posting job. Please try again.", false);
-        });
-    }
-});
-
-function setStatusMessage(message, success) {
-    const statusMessageElement = document.getElementById('statusMessage');
-    statusMessageElement.textContent = message;
-    statusMessageElement.style.display = 'block';
-    if (success) {
-        statusMessageElement.style.color = 'green';
-    } else {
-        statusMessageElement.style.color = 'red';
-    }
-}
-    </script>
-    <script>
-        document.getElementById('salaryType').addEventListener('change', function() {
-            var estimatedSalaryRange = document.getElementById('estimatedSalaryRange');
-            if (this.value === 'commission') {
-                // If "Commission" has been selected, show the estimated salary range field
-                estimatedSalaryRange.style.display = 'block';
-            } else {
-                // If "Commission" has not been selected, hide the estimated salary range field
-                estimatedSalaryRange.style.display = 'none';
+                jobPostedRef.set({
+                    title: title,
+                    description: description,
+                    salary: salary,
+                    workHours: workHours,
+                    industry: industry === 'other' ? otherIndustry : industry
+                })
+                .then(() => {
+                    console.log("Job posted document successfully written!");
+                })
+                .catch((error) => {
+                    console.error("Error writing job posted document: ", error);
+                });
             }
         });
     </script>
-        <script>
-    
-            window.onload = function() {
-            firebase.auth().onAuthStateChanged((user) => {
-                var loginLink = document.getElementById("navbarDropdown-profile"); // select the <a> element by id
-    
-                if (user) {
-                    // User is signed in, you can use the user object to get information about the user
-                    // Change navigation bar text and link
-                    loginLink.textContent = "MY PROFILE";
-                    loginLink.href = "/profile.html"; // replace with the path to your profile page
-                } else {
-                    // User is signed out
-                    // Change navigation bar text and link
-                    loginLink.textContent = "LOG IN FOR AN EMPLOYER";
-                    loginLink.href = "/log-in.html"; // replace with the path to your log in page
-                }
-            });
-        };
-        </script>
-        <script>
-            function signOut() {
-            firebase.auth().signOut().then(() => {
-                // Sign-out successful.
-                window.location.href = "/index.html"; // replace with the path to your home page
-            }).catch((error) => {
-                // An error happened.
-                console.error("Sign out error", error);
-            });
-        }
-        </script>
-        <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
-        <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
-        <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
-        <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
-        <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
-        <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
-        <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
-        <script src="js/scripts.js"></script> <!-- Custom scripts -->
 </body>
 </html>
