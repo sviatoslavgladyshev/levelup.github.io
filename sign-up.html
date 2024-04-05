@@ -1,11 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Sign Up</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+    <link href="css/swiper.css" rel="stylesheet">
+    <link href="css/magnific-popup.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="icon" href="images/white_logo.png">
 </head>
-<body>
+<body data-spy="scroll" data-target=".fixed-top">
+    <div class="spinner-wrapper">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
     <h2>Sign Up</h2>
     <form id="sign-up-form">
         <input type="text" id="company_name" placeholder="Company Name" required>
@@ -29,6 +46,7 @@
         </select>
         <input type="checkbox" id="agree" name="agree" required>
         <label for="agree">I agree with the Privacy Policy and Terms of Service</label>
+        <input type="hidden" id="timestamp">
         <button type="submit">Sign Up</button>
     </form>
 
@@ -61,6 +79,9 @@
             const state = document.getElementById('state').value;
             const industry = document.getElementById('industry').value;
             const agree = document.getElementById('agree').checked;
+            const timestamp = new Date().toISOString();
+
+            document.getElementById('timestamp').value = timestamp;
 
             auth.createUserWithEmailAndPassword(email, password)
                 .then((cred) => {
@@ -77,7 +98,8 @@
                             company_name: company_name,
                             state: state,
                             industry: industry,
-                            agree: agree
+                            agree: agree,
+                            timestamp: timestamp
                         });
                     }).then(() => {
                         // Redirect after verification email is sent
@@ -92,5 +114,15 @@
                 });
         });
     </script>
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+    <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+    <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+    <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="js/scripts.js"></script> <!-- Custom scripts -->
+    <!-- <script>
 </body>
 </html>
