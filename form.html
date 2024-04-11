@@ -4,6 +4,7 @@
     <title>Job Posting Form</title>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 </head>
 <body>
     <form id="jobForm">
@@ -76,13 +77,6 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        document.getElementById('industry').addEventListener('change', function() {
-            if (this.value === 'other') {
-                document.getElementById('otherindustry').style.display = 'inline-block';
-            } else {
-                document.getElementById('otherindustry').style.display = 'none';
-            }
-        });
         // Show or hide the "otherindustry" input based on the selected industry
         document.getElementById('industry').addEventListener('change', function() {
             if (this.value === 'other') {
@@ -98,78 +92,120 @@
             window.location.href = 'profile.html';
         });
 
-        // Function to handle form submission
-        document.getElementById('jobForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission behavior
+// Function to handle form submission
+document.getElementById('jobForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission behavior
 
-            // Get form values
-            const title = document.getElementById('title').value.toLowerCase().split(' ').join('_');
-            const description = document.getElementById('description').value;
-            const salary_type = document.getElementById('salary_type').value;
-            const salary = document.getElementById('salary').value;
-            const workHours = document.getElementById('workHours').value;
-            const industry = document.getElementById('industry').value.toLowerCase();
-            const otherIndustry = document.getElementById('otherindustry').value.toLowerCase();
-            const careerPath = document.getElementById('careerPath').value; // Get the selected career path
+    // Get form values
+    const title = document.getElementById('title').value.toLowerCase().split(' ').join('_');
+    const description = document.getElementById('description').value;
+    const salary_type = document.getElementById('salary_type').value;
+    const salary = document.getElementById('salary').value;
+    const workHours = document.getElementById('workHours').value;
+    const industry = document.getElementById('industry').value.toLowerCase();
+    const otherIndustry = document.getElementById('otherindustry').value.toLowerCase();
+    const careerPath = document.getElementById('careerPath').value; // Get the selected career path
+    const timestamp = new Date().toISOString();
 
-            // Check for empty fields
-            if (!title || !description || !salary || !workHours || !industry || !careerPath) {
-                alert("Please fill in all required fields.");
-                return;
-            }
+    // Check for empty fields
+    if (!title || !description || !salary || !workHours || !industry || !careerPath) {
+        alert("Please fill in all required fields.");
+        return;
+    }
 
-            // Get userId from local storage
-            let userId = localStorage.getItem('userId');
-            // Check if userId exists
-            if (userId) {
-                let jobRef;
+    // Get userId from the currently logged in user
+    let user = firebase.auth().currentUser;
+    let userId;
+    if (user) {
+        userId = user.uid;
+    } else {
+        // No user is signed in.
+        console.log("No user is signed in.");
+        return;
+    }
 
-                if (industry === 'other') {
-                    jobRef = db.collection('job_postings').doc(otherIndustry);
-                } else {
-                    jobRef = db.collection('job_postings').doc(industry);
-                }
+    console.log("userId: ", userId);
+    // Check if userId exists
+    if (userId) {
+        let jobRef;
 
-                // Set the document data
-                jobRef.set({
-                    userId: userId,
-                    job_title: title,
-                    description: description,
-                    salary_type: salary_type,
-                    salary: salary,
-                    workHours: workHours,
-                    industry: industry === 'other' ? otherIndustry : industry
+        if (industry === 'other') {
+            jobRef = db.collection('job_postings').doc(otherIndustry);
+        } else {
+            jobRef = db.collection('job_postings').doc(industry);
+        }
+
+        // Set the document data
+        jobRef.update({
+            // userId: userId,
+            // job_title: title,
+            // description: description,
+            // salary_type: salary_type,
+            // salary: salary,
+            // workHours: workHours,
+            // industry: industry === 'other' ? otherIndustry : industry,
+            // timestamp: timestamp,
+        })
+        .then(() => {
+            console.log("Document successfully written!");
+            // Clear the form
+            
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+
+        // Record the industry selected in the collection "job_postings"
+        let industryRef = db.collection('job_postings').doc(industry);
+
+        industryRef.get().then((docSnapshot) => {
+            if (docSnapshot.exists) {
+                industryRef.update({
+                    users: firebase.firestore.FieldValue.arrayUnion(userId)
                 })
                 .then(() => {
-                    console.log("Document successfully written!");
-                    // Clear the form
-                    document.getElementById('jobForm').reset();
+                    console.log("Industry document successfully updated!");
                 })
                 .catch((error) => {
-                    console.error("Error writing document: ", error);
+                    console.error("Error updating industry document: ", error);
                 });
-
-                // Set the document data for job posted by employer
-                let employerRef = db.collection('employers').doc(userId);
-                let jobPostedRef = employerRef.collection('job_posted').doc(title);
-
-                jobPostedRef.set({
-                    title: title,
-                    description: description,
-                    salary: salary,
-                    salary_type: salary_type,
-                    workHours: workHours,
-                    industry: industry === 'other' ? otherIndustry : industry,
-                    career_path: careerPath
+            } else {
+                industryRef.set({
+                    users: [userId]
                 })
                 .then(() => {
-                    console.log("Job posted document successfully written!");
+                    console.log("Industry document successfully created!");
                 })
                 .catch((error) => {
-                    console.error("Error writing job posted document: ", error);
+                    console.error("Error creating industry document: ", error);
                 });
             }
         });
+
+        // Set the document data for job posted by employer
+        let employerRef = db.collection('employers').doc(userId);
+        let jobPostedRef = employerRef.collection('job_posted').doc(title);
+        console.log("jobPostedRef: ", jobPostedRef);
+        jobPostedRef.set({
+            title: title,
+            description: description,
+            salary: salary,
+            salary_type: salary_type,
+            workHours: workHours,
+            industry: industry === 'other' ? otherIndustry : industry,
+            career_path: careerPath,
+            timestamp: timestamp, // Add timestamp here
+        })
+        .then(() => {
+            console.log("Job posted document successfully written!");
+            document.getElementById('jobForm').reset();
+        })
+        .catch((error) => {
+            console.error("Error writing job posted document: ", error);
+        });
+    }
+});
+
     </script>
 </body>
 </html>
