@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Profile</title>
+    <title>Profile - LevelUp</title>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
@@ -106,27 +106,15 @@
 <div id="details" class="profile-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6"> 
+            <!-- <div class="col-lg-6"> 
                 <div class="profile-image-container">
                     <img class="profile-image" src="images/empty_profile_picture-new.png" alt="alternative">
-                </div> <!-- end of profile-image-container -->
-            </div> <!-- end of col -->
+                </div> end of profile-image-container -->
+            <!-- </div> end of col -->
             <div class="col-lg-6">
                 <div class="profile-text-container">
                     <h2 class="company_name_welcome" id="company_name"></h2>
-                    <!-- <p>Target the right customers for your business with the help of LevelUp's patented segmentation technology and deploy efficient Recruitment campaigns. Keep your customers happy and loyal.</p> -->
-                    <!-- <ul class="profile-list">
-                        <li class="profile-list-item">
-                            <i class="fas fa-square"></i>
-                            <div class="profile-list-item-text">Understand customers and meet their requirements</div>
-                        </li>
-                        <li class="profile-list-item">
-                            <i class="fas fa-square"></i>
-                            <div class="profile-list-item-text">Targeted client base with LevelUp's efficient technology</div>
-                        </li>
-                    </ul> -->
-                    <!-- <a class="profile-button" href="sign-up.html" style="border: 0.2rem rgb(135, 25, 206); margin-right: 1rem;">EDIT PROFILE</a> -->
-                    <a class="profile-button" onclick="goToForm()" href="#">NEW JOB</a>
+                    <a class="profile-button-1" onclick="goToForm()" href="#">NEW JOB</a>
                 </div> <!-- end of profile-text-container -->
             </div> <!-- end of col -->
         </div> <!-- end of row -->
@@ -145,7 +133,7 @@
         </div> <!-- end of row -->
         <div class="row">
             <div class="col-lg-12">
-                <div id="industry-list"></div>
+                <div></div>
                 <!-- Card-->
                 <!-- <div class="cards-container-applications">
                     <div class="card-profile_new" style="display: flex; width: 20rem; border: 1px solid rgb(211, 1, 1); border-radius: 5px; box-shadow: 0 2px 4px rgb(202, 202, 202);">
@@ -301,7 +289,6 @@
                 });
             }
         });
-
         window.onload = function() {
         firebase.auth().onAuthStateChanged((user) => {
             var loginLink = document.getElementById("navbarDropdown-profile"); // select the <a> element by id
@@ -320,118 +307,6 @@
         });
     };
     </script>
-    <!-- <script>
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                // Get the user id from local storage
-                var userId = localStorage.getItem('userId');
-
-                var jobsRef = firebase.firestore().collection('job_postings');
-
-                jobsRef.get().then((industrySnapshot) => {
-                    if (industrySnapshot.empty) {
-                        console.log('No matching documents.');
-                        return;
-                    }  
-
-                    industrySnapshot.forEach((industryDoc) => {
-                        var industryName = document.createTextNode(industryDoc.id + '\n');
-                        var span = document.createElement('span');
-                        span.style.color = 'black';
-                        span.appendChild(industryName);
-
-                        var container = document.getElementById('industry-list');
-                        if (container) {
-                            container.appendChild(span);
-                        } else {
-                            console.log('No element with id "industry-list" found.');
-                        }
-                    });
-                }).catch((error) => {
-                    console.log("Error getting documents: ", error);
-                });
-            } else {
-                console.log('User is not authenticated.');
-            }
-        });
-    </script> -->
-    <script>
-auth.onAuthStateChanged(user => {
-    if (user) {
-        var userId = localStorage.getItem('userId'); // Get the user ID from local storage
-
-        var jobsRef = firebase.firestore().collection('job_postings');
-
-        jobsRef.where('userIds', 'array-contains', userId).get().then((industrySnapshot) => {
-    if (industrySnapshot.empty) {
-        console.log('No matching documents.');
-        return;
-    }  
-            industrySnapshot.forEach((industryDoc) => {
-                var card = document.createElement('div');
-                card.className = 'card';
-                card
-
-                card.addEventListener('click', function() {
-                    localStorage.setItem('selectedIndustry', industryDoc.id); // Save the industry name to local storage
-                    localStorage.setItem('userId', userId); // Save the user ID to local storage
-                });
-
-                var cardContent = document.createElement('div');
-                cardContent.className = 'card-content';
-
-                var cardTitle = document.createElement('h3');
-                cardTitle.className = 'card-title';
-                cardTitle.style.marginBottom = '-0.4rem'; // Modify the style here
-                cardTitle.style.marginTop = '0.4rem'; // Modify the style here
-                cardTitle.textContent = industryDoc.id.toUpperCase();
-                cardContent.appendChild(cardTitle);
-
-                var btn = document.createElement('a');
-                btn.className = 'btn-solid-reg-profile page-scroll';
-                btn.style.borderColor = 'rgb(3, 142, 3)'; // Modify the style here
-                btn.style.padding = '0.7rem 1rem'; // Modify the style here
-                btn.style.margin = '1rem 0'; // Modify the style here
-                btn.href = `postings.html`; // assuming you have pages named logger_details.html, diesel_mechanic_details.html, etc.
-                btn.textContent = 'MORE';
-                cardContent.appendChild(btn);
-
-                card.appendChild(cardContent);
-
-                var container = document.getElementById('industry-list');
-                if (container) {
-                    container.appendChild(card);
-                } else {
-                    console.log('No element with id "industry-list" found.');
-                }
-            });
-        }).catch((error) => {
-            console.log("Error getting documents: ", error);
-        });
-    } else {
-        console.log('User is not authenticated.');
-    }
-});
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const cards = document.querySelectorAll(".card-profile, .card-profile_new3");
-
-            cards.forEach(card => {
-                const image = card.querySelector(".application-image");
-                const originalSrc = image.src;
-                const hoverSrc = image.getAttribute("data-hover-src");
-
-                card.addEventListener("mouseenter", function() {
-                    image.src = hoverSrc;
-                });
-
-                card.addEventListener("mouseleave", function() {
-                    image.src = originalSrc;
-                });
-            });
-        });
-    </script>
         <!-- Scripts -->
         <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
         <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
@@ -441,42 +316,7 @@ auth.onAuthStateChanged(user => {
         <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
         <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
         <script src="js/scripts.js"></script> <!-- Custom scripts -->
-        <!-- <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const images = document.querySelectorAll(".application-image");
-        
-                images.forEach(image => {
-                    const originalSrc = image.src;
-                    const hoverSrc = image.getAttribute("data-hover-src");
-        
-                    image.addEventListener("mouseenter", function() {
-                        image.src = hoverSrc;
-                    });
-        
-                    image.addEventListener("mouseleave", function() {
-                        image.src = originalSrc;
-                    });
-                });
-            });
-        </script> -->
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const cards = document.querySelectorAll(".card-profile_new");
-        
-                cards.forEach(card => {
-                    const image = card.querySelector(".application-image");
-                    const originalSrc = image.src;
-                    const hoverSrc = image.getAttribute("data-hover-src");
-        
-                    card.addEventListener("mouseenter", function() {
-                        image.src = hoverSrc;
-                    });
-        
-                    card.addEventListener("mouseleave", function() {
-                        image.src = originalSrc;
-                    });
-                });
-            });
             function signOut() {
         firebase.auth().signOut().then(() => {
             // Sign-out successful.
@@ -487,44 +327,5 @@ auth.onAuthStateChanged(user => {
         });
     }
         </script>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const cards = document.querySelectorAll(".card-profile_new2");
-    
-            cards.forEach(card => {
-                const image = card.querySelector(".application-image");
-                const originalSrc = image.src;
-                const hoverSrc = image.getAttribute("data-hover-src");
-    
-                card.addEventListener("mouseenter", function() {
-                    image.src = hoverSrc;
-                });
-    
-                card.addEventListener("mouseleave", function() {
-                    image.src = originalSrc;
-                });
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const cards = document.querySelectorAll(".card-profile_new3");
-    
-            cards.forEach(card => {
-                const image = card.querySelector(".application-image");
-                const originalSrc = image.src;
-                const hoverSrc = image.getAttribute("data-hover-src");
-    
-                card.addEventListener("mouseenter", function() {
-                    image.src = hoverSrc;
-                });
-    
-                card.addEventListener("mouseleave", function() {
-                    image.src = originalSrc;
-                });
-            });
-        });
-    </script>
 </body>
 </html>
