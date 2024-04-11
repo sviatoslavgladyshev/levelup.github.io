@@ -27,8 +27,8 @@
             <div class="bounce3"></div>
         </div>
     </div>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top", style="background-color: rgb(135, 25, 206); padding: 1rem 0.75rem 1rem 0.75rem">
+       <!-- Navigation -->
+       <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
         <div class="container">
 
             <!-- Text Logo - Use this if you don't have a graphic logo -->
@@ -50,15 +50,13 @@
                         <a class="nav-link page-scroll" href="index.html#header">HOME <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle page-scroll" href="#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown", style="border: 1.5px solid rgb(50, 100, 200)">
+                        <a class="nav-link dropdown-toggle page-scroll" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="article-details.html"><span class="item-text">ABOUT US</span></a>
                             <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">TERMS AND CONDITIONS</span></a>
                             <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">PRIVACY POLICY</span></a>
-                            <!-- <div class="dropdown-items-divide-hr"></div> -->
-                            <!-- <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">CAREER OPPORTUNITIES</span></a> -->
                         </div>
                     </li>
                 </ul>
@@ -69,7 +67,6 @@
                             <a class="dropdown-item" href="#" onclick="signOut()"><span class="item-text">SIGN OUT</span></a>
                         </div>
                     </li>
-
                 </span>
             </div>
         </div> <!-- end of container -->
@@ -77,17 +74,18 @@
     <!-- end of navigation -->
 
 
-    <!-- Header -->
-    <!-- <header id="header" class="ex-header-profile">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12"> -->
-                    <!-- <h1></h1> -->
-                <!-- </div> end of col -->
-            <!-- </div> end of row -->
-        <!-- </div> end of container -->
-    <!-- </header> end of ex-header -->
-    <!-- end of header -->
+  <!-- Header -->
+  <header id="header" class="ex-header" style="padding-bottom: 2rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="company_name_welcome" id="company_name" style="margin-bottom: 2rem;"></h1>
+                <a class="profile-button-1" onclick="goToForm()" href="#">NEW JOB</a>
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</header> <!-- end of ex-header -->
+<!-- end of header -->
       <!-- Breadcrumbs -->
       <div class="ex-basic-1">
         <div class="container">
@@ -103,23 +101,7 @@
     end of breadcrumbs -->
        <!-- Profile -->
    <!-- Profile -->
-<div id="details" class="profile-section">
-    <div class="container">
-        <div class="row">
-            <!-- <div class="col-lg-6"> 
-                <div class="profile-image-container">
-                    <img class="profile-image" src="images/empty_profile_picture-new.png" alt="alternative">
-                </div> end of profile-image-container -->
-            <!-- </div> end of col -->
-            <div class="col-lg-6">
-                <div class="profile-text-container">
-                    <h2 class="company_name_welcome" id="company_name"></h2>
-                    <a class="profile-button-1" onclick="goToForm()" href="#">NEW JOB</a>
-                </div> <!-- end of profile-text-container -->
-            </div> <!-- end of col -->
-        </div> <!-- end of row -->
-    </div> <!-- end of container -->
-</div> <!-- end of profile-section -->
+<!--  -->
     <!-- <h1 ></h1> New element for displaying the company name -->
     <!-- <button onclick="goToForm()">Create a New Application</button> -->
  <!-- Applications -->
