@@ -1,25 +1,136 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Job Posting Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+    <link href="css/swiper.css" rel="stylesheet">
+    <link href="css/magnific-popup.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="icon" href="images/white_logo.png">
+    <title>Job Post</title>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <!-- <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://cdn.tiny.cloud/1/bsc78skko8k48kppgdanwx0cp2aga9p9xl495hm1ocuekozz/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#description',
+            plugins: 'lists link',
+            toolbar: 'undo redo | bold italic underline | bullist numlist | link',
+            height: 200,
+            apiKey: 'bsc78skko8k48kppgdanwx0cp2aga9p9xl495hm1ocuekozz',
+            setup: function (editor) {
+            editor.on('init', function (e) {
+                if (tinymce.activeEditor == null || tinymce.activeEditor.isHidden() != false) {
+                    alert("A valid API key is required to continue using TinyMCE. Please alert the admin to check the current API key.");
+                }
+            });
+        }
+    });
+</script> -->
 </head>
-<body>
-    <form id="jobForm">
-        <input type="text" id="title" placeholder="Job Title" required>
-        <input type="text" id="description" placeholder="Job Description" required>
-        <select id="salary_type" required>
-            <option value="">Select Salary Type</option>
+<body data-spy="scroll" data-target=".fixed-top">
+    <!-- Preloader -->
+    <div class="spinner-wrapper">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top", style="background-color: rgb(135, 25, 206); padding: 1rem 0.75rem 1rem 0.75rem">
+            <div class="container">
+    
+                <!-- Text Logo - Use this if you don't have a graphic logo -->
+                <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">LevelUp</a> -->
+    
+                <!-- Image Logo -->
+                <a class="navbar-brand logo-image" href="index.html"><img src="images/logo_transparent.png" alt="alternative"></a> 
+                
+                <!-- Mobile Menu Toggle Button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-awesome fas fa-bars"></span>
+                    <span class="navbar-toggler-awesome fas fa-times"></span>
+                </button>
+                <!-- end of mobile menu toggle button -->
+    
+                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link page-scroll" href="index.html#header">HOME <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle page-scroll" href="#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown", style="border: 1.5px solid rgb(50, 100, 200)">
+                                <a class="dropdown-item" href="article-details.html"><span class="item-text">ABOUT US</span></a>
+                                <div class="dropdown-items-divide-hr"></div>
+                                <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">TERMS AND CONDITIONS</span></a>
+                                <div class="dropdown-items-divide-hr"></div>
+                                <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">PRIVACY POLICY</span></a>
+                                <!-- <div class="dropdown-items-divide-hr"></div> -->
+                                <!-- <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">CAREER OPPORTUNITIES</span></a> -->
+                            </div>
+                        </li>
+                    </ul>
+                    <span class="nav-item">
+                        <li class="nav-item dropdown">
+                            <a class="btn-outline-sm", id="navbarDropdown", role="button", aria-haspopup="true" aria-expanded="false">MY PROFILE</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown", style="background-color: rgb(135, 25, 206); border: 1.5px solid rgb(50)">
+                                <a class="dropdown-item" href="#" onclick="signOut()"><span class="item-text">SIGN OUT</span></a>
+                            </div>
+                        </li>
+    
+                    </span>
+                </div>
+            </div> <!-- end of container -->
+        </nav> <!-- end of navbar -->
+        <!-- end of navigation -->
+        <header id="header" class="ex-2-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Post a job</h1>
+                       <p>Please fill in the fields to post a job at LevelUp</p> 
+        
+                       <div class="form-container", style="padding: 2.25rem 1.75rem 0.01rem 1.75rem">
+                        <form id="jobForm">
+                            <div class="form-group">
+        <input type="text" id="title" class="form-control-input" required>
+        <label for="title" class="label-control">Job Title</label>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <select id="salary_type" class="form-control-input" required>
+            <option value="" class="form-control-input"></option>
             <option value="salary">Salary</option>
             <option value="hourly">Hourly</option>
             <option value="comission">Comission</option>
         </select>
-        <input type="text" id="salary" placeholder="Salary" required>
-        <input type="number" id="workHours" name="workHours" min="0" placeholder="Enter work hours" required>
-        <select id="industry" required>
-            <option value="">Select Industry</option>
+        <label for="salary_type" class="label-control">Salary Type:</label>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <input type="number" id="salary" min="0" class="form-control-input" required>
+        <label for="salary" class="label-control">Salary:</label>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <input type="number" id="workHours" name="workHours" class="form-control-input" min="0" required>
+        <label for="workHours" class="label-control">Work Hours:</label>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <select id="industry" class="form-control-input" required>
+            <option value="" class="form-control-input"></option>
             <option value="accounting">Accounting</option>
             <option value="advertising">Advertising</option>
             <option value="agriculture">Agriculture</option>
@@ -50,18 +161,57 @@
             <option value="tourism">Tourism</option>
             <option value="transportation">Transportation</option>
         </select>
+        <label for="industry" class="label-control">Industry:</label>
+        <div class="help-block with-errors"></div>
+        </div>
         <input type="text" id="otherindustry" placeholder="Other Industry" style="display: none;">
-        <select id="careerPath" required>
-            <option value="">Select Career Path</option>
+        <div class="form-group">
+        <select id="careerPath" class="form-control-input" required>
+            <option value="" class="form-control-input"></option>
             <option value="Mechanical_Engineering">Mechanical Engineering</option>
             <option value="Business_Development">Business Development</option>
             <option value="Healthcare_And_Medical_Services">Healthcare And Medical Services</option>
             <option value="Electrical_Engineering">Electrical Engineering</option>
         </select>
-        <input type="submit" value="Post Job">
-        <button id="backToProfile">Back to Profile</button>
+        <label for="careerPath" class="label-control">Career Path:</label>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+            <textarea type="text" id="description" class="form-control-input" rows="4" required></textarea>
+            <label for="description" class="label-control">Job Description</label>
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <input type="submit" class="form-control-submit-button" value="Post Job">
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <button id="backToProfile" class="form-control-submit-button">Back to Profile</button>
+        <div class="help-block with-errors"></div>
+        </div>
     </form>
     <div id="userIdDisplay"></div>
+
+                       <!-- </div -->
+</div> <!-- end of form-container -->
+</div> <!-- end of col -->
+</div> <!-- end of row -->
+</div> <!-- end of container -->
+</header> <!-- end of ex-header -->
+<!-- end of header -->
+    
+    
+    <!-- Copyright -->
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="p-small">Copyright © 2024 <a href="https://levelup.com">LevelUp</a></p>
+            </div> <!-- end of col -->
+        </div> <!-- enf of row -->
+    </div> <!-- end of container -->
+    </div> <!-- end of copyright --> 
+    <!-- end of copyright -->
     <script>
         // Your Firebase configuration
         const firebaseConfig = {
@@ -199,13 +349,92 @@ document.getElementById('jobForm').addEventListener('submit', function(event) {
         .then(() => {
             console.log("Job posted document successfully written!");
             document.getElementById('jobForm').reset();
+            alert("Job posted successfully!"); // Add this line
+            setTimeout(function() {
+        window.location.href = 'profile.html'; // replace with your profile page URL
+    }, 2000);
         })
         .catch((error) => {
             console.error("Error writing job posted document: ", error);
         });
     }
 });
+window.onload = function() {
+        firebase.auth().onAuthStateChanged((user) => {
+            var loginLink = document.getElementById("navbarDropdown-profile"); // select the <a> element by id
 
+            if (user) {
+                // User is signed in, you can use the user object to get information about the user
+                // Change navigation bar text and link
+                loginLink.textContent = "MY PROFILE";
+                loginLink.href = "profile.html"; // replace with the path to your profile page
+            } else {
+                // User is signed out
+                // Change navigation bar text and link
+                loginLink.textContent = "LOG IN FOR AN EMPLOYER";
+                loginLink.href = "log-in.html"; // replace with the path to your log in page
+            }
+        });
+    };
+    document.getElementById('salary_type').addEventListener('change', function() {
+        if (this.value) {
+            this.classList.add('notEmpty');
+        } else {
+            this.classList.remove('notEmpty');
+        }
+    });
+    document.getElementById('industry').addEventListener('change', function() {
+        if (this.value) {
+            this.classList.add('notEmpty');
+        } else {
+            this.classList.remove('notEmpty');
+        }
+    });
+    document.getElementById('careerPath').addEventListener('change', function() {
+        if (this.value) {
+            this.classList.add('notEmpty');
+        } else {
+            this.classList.remove('notEmpty');
+        }
+    });
+    document.getElementById('description').addEventListener('input', function () {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+});
+// var description = document.querySelector('#description .ql-editor').innerHTML;
+
+// Initialize Quill editor
+// Include Quill library
+// <script src="https://cdn.quilljs.com/1.3.6/quill.js">
+//     var textarea = document.getElementById('description');
+//     var labelLine = document.getElementById('labelLine');
+
+// textarea.addEventListener('input', function() {
+//     var lineCount = this.value.split('\n').length;
+//     if (lineCount > 4) {
+//         labelLine.style.top = '80px'; // Adjust this value based on your specific styles
+//     } else {
+//         labelLine.style.top = '0';
+//     }
+// });
+    
+    function signOut() {
+        firebase.auth().signOut().then(() => {
+            // Sign-out successful.
+            window.location.href = "index.html"; // replace with the path to your home page
+        }).catch((error) => {
+            // An error happened.
+            console.error("Sign out error", error);
+        });
+    }
     </script>
+    <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+    <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+    <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+    <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="js/scripts.js"></script> <!-- Custom scripts -->
 </body>
 </html>
