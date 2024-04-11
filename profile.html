@@ -291,6 +291,7 @@
 window.onload = function() {
     const db = firebase.firestore();
     const openPositionsElement = document.getElementById("open_positions");
+    openPositionsElement.className = "card-container";
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -300,16 +301,25 @@ window.onload = function() {
                 querySnapshot.forEach((doc) => {
                     // Create a new card for each job posting
                     const card = document.createElement("div");
-                    card.className = "card";
+                    card.className = "profile-card";
 
                     const cardBody = document.createElement("div");
-                    cardBody.className = "card-body";
+                    cardBody.className = "profile-card-body";
 
                     const cardTitle = document.createElement("h5");
-                    cardTitle.className = "card-title";
+                    cardTitle.className = "profile-card-title";
                     cardTitle.textContent = snakeToNormal(doc.id); // Convert snake_case to normal text
 
-                    cardBody.appendChild(cardTitle);
+                    // Create a new button for each card
+                    const cardButton = document.createElement("button");
+                    cardButton.className = "profile-card-button more-button"; // Add a new class for styling
+                    cardButton.textContent = "More";
+                    cardButton.onclick = function() {
+                        window.location.href = 'more.html'; // Redirect to the page more.html
+                    };
+
+                    cardBody.appendChild(cardTitle); // Append the card title first
+                    cardBody.appendChild(cardButton); // Append the button after the card title
                     card.appendChild(cardBody);
                     openPositionsElement.appendChild(card);
                 });
@@ -326,6 +336,7 @@ window.onload = function() {
 function snakeToNormal(str) {
     return str.replace(/_/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 }
+
     </script>
         <!-- Scripts -->
         <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
