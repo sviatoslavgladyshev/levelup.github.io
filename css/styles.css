@@ -2667,5 +2667,123 @@ a:hover.back-to-top {
 	margin-top: 10px;
 }
 
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
+.profile-card {
+    width: calc(30% - 1%); /* Subtract margins */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px; 
+    margin: 2% 2%; /* Add vertical margin */
+    transform: scale(1);
+}
 
+.profile-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    transform: scale(1.05);
+}
+.profile-card:nth-child(3n+1) {
+	background-color: #E6E6FA; /* Lavender */
+}
+
+.profile-card:nth-child(3n+2) {
+	background-color: #D8BFD8; /* Thistle */
+}
+
+.profile-card:nth-child(3n+3) {
+	background-color: #DDA0DD; /* Plum */
+}
+.profile-card:nth-child(3n+1) .profile-card-title {
+	color: #483D8B; /* Dark Slate Blue */
+}
+
+.profile-card:nth-child(3n+2) .profile-card-title {
+	color: #4B0082; /* Indigo */
+}
+
+.profile-card:nth-child(3n+3) .profile-card-title {
+	color: #800080; /* Purple */
+}
+.profile-card:nth-child(3n+1):hover {
+    background-color: #D8BFD8; /* Thistle */
+}
+
+.profile-card:nth-child(3n+2):hover {
+    background-color: #DDA0DD; /* Plum */
+}
+
+.profile-card:nth-child(3n+3):hover {
+    background-color: #E6E6FA; /* Lavender */
+}
+
+.profile-card:nth-child(3n+1) .profile-card-title:hover {
+    color: #4B0082; /* Indigo */
+}
+
+.profile-card:nth-child(3n+2) .profile-card-title:hover {
+    color: #800080; /* Purple */
+}
+
+.profile-card:nth-child(3n+3) .profile-card-title:hover {
+    color: #483D8B; /* Dark Slate Blue */
+}
+
+.profile-card:nth-child(3n+1) .profile-card-button {
+	background-color: #800080; /* Purple */
+	color: #ffffff; /* White text for visibility */
+	transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.profile-card:nth-child(3n+1) .profile-card-button:hover {
+	background-color: #9932CC; /* Dark Orchid when hovered */
+}
+
+.profile-card:nth-child(3n+2) .profile-card-button {
+	background-color: #9932CC; /* Dark Orchid */
+	color: #ffffff; /* White text for visibility */
+	transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.profile-card:nth-child(3n+2) .profile-card-button:hover {
+	background-color: #DA70D6; /* Orchid when hovered */
+}
+
+.profile-card:nth-child(3n+3) .profile-card-button {
+	background-color: #DA70D6; /* Orchid */
+	color: #ffffff; /* White text for visibility */
+	transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.profile-card:nth-child(3n+3) .profile-card-button:hover {
+	background-color: #800080; /* Purple when hovered */
+}
+.profile-card-body {
+    padding: 2px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	/* color: rgb(135, 25, 206); */
+}
+
+.profile-card-title {
+	margin: 0.3rem 0; /* Reduced vertical margin */
+	color: rgb(135, 25, 206);
+}
+
+.profile-card-button.more-button {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	border-radius: 15rem;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 0.3rem 2rem; /* Reduced vertical margin */
+	cursor: pointer;
+}
