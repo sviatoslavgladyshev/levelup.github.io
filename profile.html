@@ -313,7 +313,7 @@ window.onload = function() {
                     // Create a new button for each card
                     const cardButton = document.createElement("button");
                     cardButton.className = "profile-card-button more-button"; // Add a new class for styling
-                    cardButton.textContent = "More";
+                    cardButton.innerHTML = "More <span class='arrow'>&#x276F;</span>";
                     cardButton.onclick = function() {
                         window.location.href = 'more.html'; // Redirect to the page more.html
                     };
