@@ -315,7 +315,9 @@ window.onload = function() {
                     cardButton.className = "profile-card-button more-button"; // Add a new class for styling
                     cardButton.innerHTML = "More <span class='arrow'>&#x276F;</span>";
                     cardButton.onclick = function() {
+                        localStorage.setItem("cardName", cardTitle.textContent); // Store the card title
                         window.location.href = 'more.html'; // Redirect to the page more.html
+                        console.log(localStorage.getItem("cardName")); // Log the value of cardName from the local storage
                     };
 
                     cardBody.appendChild(cardTitle); // Append the card title first
