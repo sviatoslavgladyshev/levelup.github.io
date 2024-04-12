@@ -2783,11 +2783,16 @@ a:hover.back-to-top {
 	border: none;
 	color: white;
 	border-radius: 15rem;
-	padding: 15px 32px;
+	padding: 0.5rem 1rem;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
 	font-size: 16px;
 	margin: 0.3rem 2rem; /* Reduced vertical margin */
 	cursor: pointer;
+}
+
+.arrow {
+    position: relative;
+    bottom: -0.06rem; /* Adjust this value to move the arrow up or down */
 }
