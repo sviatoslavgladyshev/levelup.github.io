@@ -728,19 +728,23 @@ input[type='checkbox'] {
 	margin-top: 1.7px;
 	border: 1.5px solid rgb(50);
 	border-radius: 0.25rem;
-	background-color: rgb(135, 25, 206);
+	background-color: #f7f5f5;
+}
+
+.navbar-custom .dropdown-menu:hover {
+	background-color: #f7f5f5;
 }
 
 .navbar-custom .dropdown-item {
-	color: #f7f5f5;
+	color: rgb(135, 25, 206);
 	opacity: 0.8;
 	font: 700 0.875rem/0.875rem "Open Sans", sans-serif;
 	text-decoration: none;
 }
 
 .navbar-custom .dropdown-item:hover {
-	background-color: rgb(135, 25, 206);
-	color: #fff;
+	background-color: #f7f5f5;
+	color: rgb(206, 25, 191);
 	opacity: 1;
 }
 
