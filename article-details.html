@@ -18,7 +18,7 @@
 	<meta property="og:type" content="article" />
 
     <!-- Website Title -->
-    <title>Article Details - LevelUp</title>
+    <title>Article Details</title>
     
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
@@ -320,6 +320,17 @@ const db = firebase.firestore();
             loginLink.href = "log-in.html";
         }
     });
+</script>
+<script>
+    function signOut() {
+firebase.auth().signOut().then(() => {
+    // Sign-out successful.
+    window.location.href = "index.html"; // replace with the path to your home page
+}).catch((error) => {
+    // An error happened.
+    console.error("Sign out error", error);
+});
+}
 </script>
     <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
     <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
