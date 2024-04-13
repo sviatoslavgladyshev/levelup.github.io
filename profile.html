@@ -62,7 +62,7 @@
                 </ul>
                 <span class="nav-item">
                     <li class="nav-item dropdown" style="position: relative;">
-                        <a class="btn-outline-sm", id="navbarDropdown", role="button", aria-haspopup="true" aria-expanded="false">MY PROFILE</a>
+                        <a class="btn-outline-sm" id="navbarDropdown-profile" role="button" aria-haspopup="true" aria-expanded="false">MY PROFILE</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="position: absolute; top: 100%; left: 2.8rem;">
                             <a class="dropdown-item" href="#" onclick="signOut()"><span class="item-text">SIGN OUT</span></a>
                         </div>
@@ -256,6 +256,7 @@
         auth.onAuthStateChanged(user => {
             if (user) {
                 // Fetch the document with the user id from Firestore
+                localStorage.setItem('userId', user.uid);
                 db.collection("employers").doc(user.uid).get().then(doc => {
                     if (doc.exists) {
                         // Get the company name from the document
@@ -271,73 +272,74 @@
                 });
             }
         });
-        window.onload = function() {
+
         firebase.auth().onAuthStateChanged((user) => {
-            var loginLink = document.getElementById("navbarDropdown-profile"); // select the <a> element by id
+            var loginLink = document.getElementById("navbarDropdown-profile");
 
             if (user) {
-                // User is signed in, you can use the user object to get information about the user
-                // Change navigation bar text and link
                 loginLink.textContent = "MY PROFILE";
-                loginLink.href = "profile.html"; // replace with the path to your profile page
+                loginLink.href = "profile.html";
             } else {
-                // User is signed out
-                // Change navigation bar text and link
                 loginLink.textContent = "LOG IN FOR AN EMPLOYER";
-                loginLink.href = "log-in.html"; // replace with the path to your log in page
+                loginLink.href = "log-in.html";
             }
         });
-    };
-window.onload = function() {
-    const db = firebase.firestore();
-    const openPositionsElement = document.getElementById("open_positions");
-    openPositionsElement.className = "card-container";
 
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            const userId = user.uid; // Get the user ID of the current user
+        // const db = firebase.firestore();
+        const openPositionsElement = document.getElementById("open_positions");
+        openPositionsElement.className = "card-container";
 
-            db.collection("job_postings").where("users", "array-contains", userId).get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    // Create a new card for each job posting
-                    const card = document.createElement("div");
-                    card.className = "profile-card";
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                const userId = user.uid;
 
-                    const cardBody = document.createElement("div");
-                    cardBody.className = "profile-card-body";
+                db.collection("job_postings").where("users", "array-contains", userId).get().then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        const card = document.createElement("div");
+                        card.className = "profile-card";
 
-                    const cardTitle = document.createElement("h5");
-                    cardTitle.className = "profile-card-title";
-                    cardTitle.textContent = snakeToNormal(doc.id); // Convert snake_case to normal text
+                        const cardBody = document.createElement("div");
+                        cardBody.className = "profile-card-body";
 
-                    // Create a new button for each card
-                    const cardButton = document.createElement("button");
-                    cardButton.className = "profile-card-button more-button"; // Add a new class for styling
-                    cardButton.innerHTML = "More <span class='arrow'>&#x276F;</span>";
-                    cardButton.onclick = function() {
-                        localStorage.setItem("cardName", cardTitle.textContent); // Store the card title
-                        window.location.href = 'more.html'; // Redirect to the page more.html
-                        console.log(localStorage.getItem("cardName")); // Log the value of cardName from the local storage
-                    };
+                        const cardTitle = document.createElement("h5");
+                        cardTitle.className = "profile-card-title";
+                        cardTitle.textContent = snakeToNormal(doc.id);
 
-                    cardBody.appendChild(cardTitle); // Append the card title first
-                    cardBody.appendChild(cardButton); // Append the button after the card title
-                    card.appendChild(cardBody);
-                    openPositionsElement.appendChild(card);
+                        const cardButton = document.createElement("button");
+                        cardButton.className = "profile-card-button more-button";
+                        cardButton.innerHTML = "More <span class='arrow'>&#x276F;</span>";
+                        cardButton.onclick = function() {
+                            localStorage.setItem("cardName", cardTitle.textContent);
+                            window.location.href = 'more.html';
+                            console.log(localStorage.getItem("cardName"));
+                        };
+
+                        cardBody.appendChild(cardTitle);
+                        cardBody.appendChild(cardButton);
+                        card.appendChild(cardBody);
+                        openPositionsElement.appendChild(card);
+                    });
+                }).catch((error) => {
+                    console.log("Error getting documents: ", error);
                 });
-            }).catch((error) => {
-                console.log("Error getting documents: ", error);
-            });
-        } else {
-            // No user is signed in.
-            console.log("No user is signed in.");
-        }
-    });
-};
+            } else {
+                console.log("No user is signed in.");
+            }
+        });
 
-function snakeToNormal(str) {
-    return str.replace(/_/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-}
+        function snakeToNormal(str) {
+            return str.replace(/_/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        }
+
+        function signOut() {
+            firebase.auth().signOut().then(() => {
+                // Sign-out successful.
+                window.location.href = "index.html";
+            }).catch((error) => {
+                // An error happened.
+                console.error("Sign out error", error);
+            });
+        }
 
     </script>
         <!-- Scripts -->
@@ -349,16 +351,5 @@ function snakeToNormal(str) {
         <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
         <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
         <script src="js/scripts.js"></script> <!-- Custom scripts -->
-        <script>
-            function signOut() {
-        firebase.auth().signOut().then(() => {
-            // Sign-out successful.
-            window.location.href = "index.html"; // replace with the path to your home page
-        }).catch((error) => {
-            // An error happened.
-            console.error("Sign out error", error);
-        });
-    }
-        </script>
 </body>
 </html>
