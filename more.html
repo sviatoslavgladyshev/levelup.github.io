@@ -239,7 +239,7 @@ if (userId) {
     window.onload = function() {
         try {
             const profileCardTitle = localStorage.getItem("cardName"); // Retrieve the profile card title
-            document.getElementById('industry-button').textContent = `Positions for the ${profileCardTitle} sphere`;
+            document.getElementById('industry-button').textContent = `Applications received for the ${profileCardTitle} sphere`;
             document.title = profileCardTitle; // Set the page title
         } catch (error) {
             console.error('Error getting item from localStorage:', error); // Log any error that occurs when getting the item from localStorage
