@@ -1311,6 +1311,24 @@ input[type='checkbox'] {
 	color: #ffffff
 }
 
+.profile-button-2 {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    background-color: rgb(135, 25, 206);;
+    padding: 12px 30px;
+    border-radius: 50px;
+    transition: background-color 0.3s;
+	border: 0.2rem rgb(135, 25, 206)
+}
+
+.profile-button-2:hover {
+    background-color: #a1a1a1;
+	border: 0.2rem rgb(135, 25, 206);
+	color: #ffffff
+}
+
 /***********************/
 /*     11. Pricing     */
 /***********************/
