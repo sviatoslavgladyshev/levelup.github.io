@@ -101,7 +101,7 @@
     </div> <!-- end of ex-basic-1
     end of breadcrumbs -->
         <h1 style="align-items: center; display: flex; flex-direction: column; justify-content: center; text-align: center;" id="industry-button"></h1>
-        <div class="container" style="margin-bottom: 22rem">
+        <div class="container" style="margin-bottom: 22rem; margin-top: 2rem;">
             <!-- <h1 id="industry-button"></h1> -->
             <!-- <p>This is a simple HTML page with a good design.</p> -->
             <div id="position"></div>
@@ -211,31 +211,96 @@ if (userId) {
                 }
 
                 querySnapshot.forEach((doc) => {
-                    console.log(doc.id, " => ", doc.data());
+                        console.log(doc.id, " => ", doc.data());
 
-                    // Check if the 'industry' field is equal to 'cardName'
-                    if (doc.data().industry === cardName) {
-                        const h3 = document.createElement("h3");
+                        // Check if the 'industry' field is equal to 'cardName'
+                        if (doc.data().industry === cardName) {
+                            // Convert the snake_case job title to a more readable format
+                            const jobTitle = doc.id.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 
-                        // Convert the snake_case job title to a more readable format
-                        const jobTitle = doc.id.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                            // Create the HTML string
+                            const html = `<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <h3>${jobTitle}</h3>
+                                <button class="profile-button-2" onclick="confirmAndDelete('${doc.id}')">Delete</button>
+                            </div>`;
 
-                        h3.textContent = jobTitle; // Display the job title
-                        positionElement.appendChild(h3);
-                    }
-                });
-            }
+                            // Set the innerHTML of the positionElement
+                            positionElement.innerHTML += html;
+                        }
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error("Error getting documents: ", error);
+            });
+    } else {
+        console.log('No user is signed in');
+        // Redirect to the sign-in page or perform any other action
+        // window.location.href = "log-in.html";
+    }
+</script>
+<script>
+    function confirmAndDelete(docId) {
+        // Show a confirmation dialog
+        const confirmation = confirm("Are you sure you want to delete?");
+
+        // If the user clicked "OK", delete the document
+        if (confirmation) {
+            deletePosition(docId);
+        }
+    }
+
+    function deletePosition(jobTitle) {
+        const userId = localStorage.getItem('userId')
+
+        // Convert the jobTitle to snake_case
+        const jobTitleSnakeCase = jobTitle.replace(/\s+/g, '_').toLowerCase();
+        console.log('jobTitleSnakeCase:', jobTitleSnakeCase);
+
+        db.collection('employers').doc(userId).collection('job_posted').doc(jobTitleSnakeCase).delete()
+            .then(() => {
+                console.log("Document successfully deleted!");
+                // location.reload();
+                refreshPositions();
+                // You may want to refresh the positions or perform some other action here
+            })
+            .catch((error) => {
+                console.error("Error removing document: ", error);
+            });
+    }
+    function refreshPositions() {
+    const userId = localStorage.getItem('userId');
+    const positionElement = document.getElementById('position');
+
+    // Clear the current positions
+    positionElement.innerHTML = '';
+
+    // Fetch the positions from the database
+    db.collection('employers').doc(userId).collection('job_posted').get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data());
+
+                // Convert the snake_case job title to a more readable format
+                const jobTitle = doc.id.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+                // Create the HTML string
+                const html = `<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3>${jobTitle}</h3>
+                    <button class="profile-button-2" onclick="confirmAndDelete('${jobTitle}')">Delete</button>
+                </div>`;
+
+                // Add the new position to the positionElement
+                positionElement.innerHTML += html;
+            });
         })
         .catch((error) => {
             console.error("Error getting documents: ", error);
         });
-} else {
-    console.log('No user is signed in');
-    // Redirect to the sign-in page or perform any other action
-    // window.location.href = "log-in.html";
 }
-</script>
-<script>
+
+// Call refreshPositions when the page loads
+window.onload = refreshPositions;
     window.onload = function() {
         try {
             const profileCardTitle = localStorage.getItem("cardName"); // Retrieve the profile card title
