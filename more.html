@@ -89,7 +89,7 @@
 </header> <!-- end of ex-header -->
 <!-- end of header -->
       <!-- Breadcrumbs -->
-      <div class="ex-basic-1">
+      <div class="ex-basic-1" style="padding-top: 1rem; padding-bottom: 0.125rem;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -274,7 +274,12 @@ firebase.auth().onAuthStateChanged(function(user) {
                                     } else {
                                         genderDisplay = 'Prefer not to say';
                                     }
-
+                                    document.addEventListener('DOMContentLoaded', (event) => {
+                                        const gaugeValueElement = document.querySelector('.gauge-value');
+                                        const value = analyzeEmployeeWithMath(applicationData);
+                                        console.log("Super value", value);
+                                        gaugeValueElement.style.width = `${value}%`;
+                                    });
                                     let applicationHtml = `
                                     <div class="col-md-4">
                                         <div id="myCard-${index}" class="card mb-3">
@@ -282,7 +287,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                                                 <h5 class="card-title">${applicationData.first_name}</h5>
                                                 <p><strong>Date Created:</strong> ${timeSinceCreation}</p>
                                                 <p><strong>Gender:</strong> ${genderDisplay}</p>
-                                                <p><strong>Estimation:</strong> ${analyzeEmployeeWithMath(applicationData)}</p>
+                                                <p><strong>Fit to the position:</strong> ${analyzeEmployeeWithMath(applicationData)}/100</p>
                                                 <a href="#myModal-${index}" class="btn btn-primary details-link mt-auto" data-toggle="modal">Details</a>
                                             </div>
                                         </div>
@@ -377,13 +382,13 @@ firebase.auth().onAuthStateChanged(function(user) {
         // Personality Traits
         // Data provided
         const personalityTraitsScore = {
-            agreeableness: applicationData.color_agreeableness * 100,
-            conscientiousness: applicationData.color_conscientiousness * 100,
-            creativity: applicationData.color_creativity * 100,
-            extraversion: applicationData.color_extraversion * 100,
-            neuroticism: applicationData.color_neuroticism * 100,
-            openness_to_experience: applicationData.color_openness_to_experience * 100,
-            satisfaction_with_life_perceptions: applicationData.color_satisfaction_with_life_perceptions * 100
+            agreeableness: applicationData.color_agreeableness * 30,
+            conscientiousness: applicationData.color_conscientiousness * 30,
+            creativity: applicationData.color_creativity * 30,
+            extraversion: applicationData.color_extraversion * 30,
+            neuroticism: applicationData.color_neuroticism * 30,
+            openness_to_experience: applicationData.color_openness_to_experience * 30,
+            satisfaction_with_life_perceptions: applicationData.color_satisfaction_with_life_perceptions * 30
         };
 
         // Assuming referenceScores is provided
