@@ -81,6 +81,7 @@
             <div class="col-md-12">
                 <h1 class="company_name_welcome" id="company_name" style="margin-bottom: 2rem;"></h1>
                 <a class="profile-button-1" onclick="goToForm()" href="#">NEW JOB</a>
+                <!-- <a class="profile-button-1" onclick="goToDelete()" href="#">DELETE A JOB</a> -->
             </div> <!-- end of col -->
         </div> <!-- end of row -->
     </div> <!-- end of container -->
@@ -236,6 +237,10 @@
     <script>
         function goToForm() {
             window.location.href = "form.html";
+        }
+
+        function goToDelete() {
+            window.location.href = "delete.html";
         }
 
         // Initialize Firebase
