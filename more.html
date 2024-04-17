@@ -8,6 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/fontawesome-all.css" rel="stylesheet">
@@ -93,7 +94,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumbs">
-                        <!-- <a href="index.html">Home</a><i class="fa fa-angle-double-right"></i><span>Terms & Conditions</span> -->
+                        <a href="profile.html">❮ Back to the Profile</a>
                     </div> <!-- end of breadcrumbs -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
@@ -102,10 +103,9 @@
     end of breadcrumbs -->
         <h1 style="align-items: center; display: flex; flex-direction: column; justify-content: center; text-align: center;" id="industry-button"></h1>
         <div class="container" style="margin-bottom: 22rem; margin-top: 2rem;">
-            <!-- <h1 id="industry-button"></h1> -->
-            <!-- <p>This is a simple HTML page with a good design.</p> -->
             <div id="position"></div>
         </div>
+        <!-- Add the button here -->
     <!-- Footer -->
 <!-- <svg class="ex-footer-frame" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 79"><defs><style>.cls-2{fill:rgb(135, 25, 206);}</style></defs><title>footer-frame</title><path class="cls-2" d="M0,72.427C143,12.138,255.5,4.577,328.644,7.943c147.721,6.8,183.881,60.242,320.83,53.737,143-6.793,167.826-68.128,293-60.9,109.095,6.3,115.68,54.364,225.251,57.319,113.58,3.064,138.8-47.711,251.189-41.8,104.012,5.474,109.713,50.4,197.369,46.572,89.549-3.91,124.375-52.563,227.622-50.155A338.646,338.646,0,0,1,1920,23.467V79.75H0V72.427Z" transform="translate(0 -0.188)"/></svg> -->
 <div class="footer">
@@ -181,7 +181,7 @@ const db = firebase.firestore();
 
 // Get the current user ID from localStorage
 const userId = localStorage.getItem('userId');
-console.log('userId:', userId);
+console.log('userId 1:', userId);
 
 // Get the cardName from localStorage
 let cardName = localStorage.getItem('cardName');
@@ -191,26 +191,29 @@ console.log('Original cardName:', cardName);
 cardName = cardName.replace(/[A-Z]/g, (letter, index) => index === 0 ? letter.toLowerCase() : `_${letter.toLowerCase()}`);
 console.log('Snake case cardName:', cardName);
 
-// Check if a user ID is stored
-if (userId) {
-    console.log('User is signed in:', userId);
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        const userId = user.uid;
+        console.log('userId 2:', userId); // Add this line
 
-    // Query Firestore for documents in 'job_posted' collection
-    db.collection("employers").doc(userId).collection("job_posted")
-        .get()
-        .then((querySnapshot) => {
-            if (querySnapshot.empty) {
-                console.log('No documents found');
-            } else {
-                console.log('Number of documents:', querySnapshot.size);
+        // Get the positionElement
+        const positionElement = document.getElementById('position');
+        if (!positionElement) {
+            console.log('No position element found');
+            return;
+        }
 
-                const positionElement = document.getElementById('position');
-                if (!positionElement) {
-                    console.log('No position element found');
-                    return;
-                }
+        // Clear the positionElement
+        positionElement.innerHTML = '';
+        db.collection("employers").doc(userId).collection("job_posted")
+            .get()
+            .then((querySnapshot) => {
+                if (querySnapshot.empty) {
+                    console.log('No documents found');
+                } else {
+                    console.log('Number of documents:', querySnapshot.size);
 
-                querySnapshot.forEach((doc) => {
+                    querySnapshot.forEach((doc) => {
                         console.log(doc.id, " => ", doc.data());
 
                         // Check if the 'industry' field is equal to 'cardName'
@@ -219,13 +222,101 @@ if (userId) {
                             const jobTitle = doc.id.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 
                             // Create the HTML string
-                            const html = `<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            let html = `<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                                 <h3>${jobTitle}</h3>
                                 <button class="profile-button-2" onclick="confirmAndDelete('${doc.id}')">Delete</button>
                             </div>`;
 
-                            // Set the innerHTML of the positionElement
-                            positionElement.innerHTML += html;
+                            // Access the subcollection "applications" within each document
+                            doc.ref.collection("applications").get().then((subQuerySnapshot) => {
+                                // Collect all applications
+                                let applications = [];
+                                subQuerySnapshot.forEach((subDoc) => {
+                                    console.log(subDoc.id, " => ", subDoc.data());
+                                    let applicationData = subDoc.data();
+                                    if (applicationData.first_name && applicationData.gender) {
+                                        applications.push(applicationData);
+                                    }
+                                });
+
+                                // Sort applications by date created, most recent first
+                                applications.sort((a, b) => b.dateCreated.toDate() - a.dateCreated.toDate());
+
+                                // Generate HTML for each application
+                                applications.forEach((applicationData, index) => {
+                                    let dateCreated = moment(applicationData.dateCreated.toDate());
+                                    let now = moment();
+                                    let diffDays = now.diff(dateCreated, 'days');
+                                    let diffHours = now.diff(dateCreated, 'hours');
+                                    let diffMinutes = now.diff(dateCreated, 'minutes');
+
+                                    let timeSinceCreation;
+                                    if (diffDays < 1) {
+                                        if (diffHours < 1) {
+                                            timeSinceCreation = `About ${diffMinutes} minute(s) ago`;
+                                        } else {
+                                            timeSinceCreation = `About ${diffHours} hour(s) ago`;
+                                        }
+                                    } else {
+                                        timeSinceCreation = `${diffDays} day(s) ago`;
+                                    }
+
+                                    let genderDisplay;
+                                    if (applicationData.gender.toLowerCase() === 'male') {
+                                        genderDisplay = 'Male (&#9794)'; // HTML entity for male sign
+                                    } else if (applicationData.gender.toLowerCase() === 'female') {
+                                        genderDisplay = 'Female (&#9792)'; // HTML entity for female sign
+                                    } else {
+                                        genderDisplay = 'Prefer not to say';
+                                    }
+
+                                    let applicationHtml = `
+                                    <div class="container">
+                                    <div class="row" style="display: flex; flex-direction: column; flex-wrap: wrap;">
+                                        <div class="card-container" style="margin: 5px; display: flex; flex-direction: row; flex-wrap: wrap;">
+                                            <div id="myCard-${index}" class="card mb-3">
+                                                <div class="card-body d-flex flex-column">
+                                                    <h5 class="card-title">${applicationData.first_name}</h5>
+                                                    <p><strong>Date Created:</strong> ${timeSinceCreation}</p>
+                                                    <p><strong>Gender:</strong> ${genderDisplay}</p>
+                                                    <p><strong>Estimation:</strong> ${analyzeEmployeeWithMath(applicationData)}</p>
+                                                    <a href="#myModal-${index}" class="btn btn-primary details-link mt-auto" data-toggle="modal">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Repeat the above div for each card -->
+                                    </div>
+                                </div>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModal-${index}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">${applicationData.first_name}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><strong>Company Name:</strong> ${applicationData.company_name}</p>
+                                            <p><strong>Life Perceptions:</strong> ${applicationData.color_satisfaction_with_life_perceptions}</p>
+                                            <p><strong>Job Satisfaction:</strong> ${applicationData.first_name}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>`;
+
+                                    html += applicationHtml;
+                                });
+
+                                // Add the generated HTML to the page
+                                positionElement.innerHTML += html;
+                            });
                         }
                     });
                 }
@@ -233,11 +324,220 @@ if (userId) {
             .catch((error) => {
                 console.error("Error getting documents: ", error);
             });
-    } else {
-        console.log('No user is signed in');
-        // Redirect to the sign-in page or perform any other action
-        // window.location.href = "log-in.html";
+
+        } else {
+            console.log('No user is signed in');
+            // Redirect to the sign-in page or perform any other action
+            // window.location.href = "log-in.html";
+        }
+        });
+</script>
+<script>
+    function analyzeEmployeeWithMath(applicationData) {
+        // Education
+        let educationScore = 0;
+        if (applicationData.degree === "Bachelor's Degree") {
+            educationScore += 50;
+        }
+        if (applicationData.college_status === "No") {
+            educationScore += 20;
+        }
+        console.log('Education Score:', educationScore);
+
+        // Work Experience
+        let workExperienceScore = 0;
+        if (applicationData.position === "Professor") {
+            workExperienceScore += 80;
+        }
+        if (applicationData.company_name === "NYU Shanghai") {
+            workExperienceScore += 70;
+        }
+
+
+        // Calculating score based on tenure (start date - end date)
+        // Calculating score based on tenure (start date - end date)
+        const startDate = new Date(applicationData.start_date.seconds * 1000); // Convert to milliseconds by multiplying by 1000
+        const endDate = applicationData.is_current_job ? new Date() : new Date(applicationData.end_date.seconds * 1000); // Convert to milliseconds by multiplying by 1000
+        const tenureMonths = (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth());
+        workExperienceScore += Math.min((tenureMonths / (10 * 12)) * 90, 90);
+        console.log('Work Experience Score:', workExperienceScore);
+        // Add these lines before the calculation of tenureMonths
+        console.log('Start Date:', applicationData.start_date);
+        console.log('End Date:', applicationData.end_date);
+        console.log('Is Current Job:', applicationData.is_current_job);
+
+        // Personality Traits
+        // Data provided
+        const personalityTraitsScore = {
+            agreeableness: applicationData.color_agreeableness * 100,
+            conscientiousness: applicationData.color_conscientiousness * 100,
+            creativity: applicationData.color_creativity * 100,
+            extraversion: applicationData.color_extraversion * 100,
+            neuroticism: applicationData.color_neuroticism * 100,
+            openness_to_experience: applicationData.color_openness_to_experience * 100,
+            satisfaction_with_life_perceptions: applicationData.color_satisfaction_with_life_perceptions * 100
+        };
+
+        // Assuming referenceScores is provided
+        const referenceScores = {
+            agreeableness: 11,
+            conscientiousness: 80,
+            creativity: 98,
+            extraversion: 92,
+            neuroticism: 87,
+            openness_to_experience: 81,
+            satisfaction_with_life_perceptions: 100
+        };
+
+        // Function to calculate Spearman's rank correlation coefficient
+        function spearmanCorrelation(x, y) {
+            const n = Object.keys(x).length;
+            const xRank = rank(x);
+            const yRank = rank(y);
+            let sumD = 0;
+            for (let i = 0; i < n; i++) {
+                sumD += Math.pow(xRank[i] - yRank[i], 2);
+            }
+            const rho = 1 - (6 * sumD) / (n * (n * n - 1));
+            return rho;
+        }
+
+        // Function to calculate Pearson's correlation coefficient
+        function pearsonCorrelation(x, y) {
+            const n = Object.keys(x).length;
+            let sumX = 0;
+            let sumY = 0;
+            let sumXY = 0;
+            let sumX2 = 0;
+            let sumY2 = 0;
+
+            for (let key in x) {
+                sumX += x[key];
+                sumY += y[key];
+                sumXY += x[key] * y[key];
+                sumX2 += x[key] * x[key];
+                sumY2 += y[key] * y[key];
+            }
+
+            const numerator = n * sumXY - sumX * sumY;
+            const denominator = Math.sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY));
+
+            return numerator / denominator;
+        }
+
+        // Function to calculate Root Mean Square Error (RMSE)
+        function rmse(x, y) {
+            const n = Object.keys(x).length;
+            let sumSquaredErrors = 0;
+            for (let key in x) {
+                sumSquaredErrors += Math.pow(x[key] - y[key], 2);
+            }
+            return Math.sqrt(sumSquaredErrors / n);
+        }
+
+        // Function to rank values
+        function rank(obj) {
+            const sortedKeys = Object.keys(obj).sort((a, b) => obj[a] - obj[b]);
+            const ranks = {};
+            let currentRank = 1;
+            let currentVal = obj[sortedKeys[0]];
+            let accumulatedRank = 1; // For handling ties
+            let numTies = 1; // For handling ties
+
+            for (let i = 0; i < sortedKeys.length; i++) {
+                if (obj[sortedKeys[i]] !== currentVal) {
+                    // New value, assign accumulated rank to all keys with the previous value
+                    for (let j = i - numTies; j < i; j++) {
+                        ranks[sortedKeys[j]] = accumulatedRank / numTies;
+                    }
+                    currentRank = i + 1;
+                    currentVal = obj[sortedKeys[i]];
+                    accumulatedRank = currentRank;
+                    numTies = 1;
+                } else {
+                    // Same value, accumulate rank and increment number of ties
+                    accumulatedRank += currentRank;
+                    numTies++;
+                }
+            }
+
+            // Assign accumulated rank to all keys with the last value
+            for (let j = sortedKeys.length - numTies; j < sortedKeys.length; j++) {
+                ranks[sortedKeys[j]] = accumulatedRank / numTies;
+            }
+
+            console.log('Ranks:', ranks); // Debugging line
+            return ranks;
+        }
+// Function to calculate Spearman's rank correlation coefficient
+function spearmanCorrelation(x, y) {
+    const n = Object.keys(x).length;
+    const xRank = rank(x);
+    const yRank = rank(y);
+    let sumD = 0;
+    for (let key in xRank) {
+        const diff = xRank[key] - yRank[key];
+        if (isNaN(diff)) {
+            console.log(`Unexpected non-numeric difference for key ${key}: xRank[key] = ${xRank[key]}, yRank[key] = ${yRank[key]}`);
+        }
+        sumD += Math.pow(diff, 2);
     }
+    const rho = 1 - (6 * sumD) / (n * (n * n - 1));
+    console.log('SumD:', sumD, 'Rho:', rho); // Debugging line
+    return rho;
+}
+        // Calculate and print the results
+        const spearman = spearmanCorrelation(personalityTraitsScore, referenceScores);
+        const pearson = pearsonCorrelation(personalityTraitsScore, referenceScores);
+        const rmsError = rmse(personalityTraitsScore, referenceScores);
+
+        console.log('Spearman\'s Correlation Coefficient:', spearman);
+        console.log('Pearson\'s Correlation Coefficient:', pearson);
+        console.log('Root Mean Square Error (RMSE):', rmsError);
+
+        // Demographic Information
+        let demographicInfoScore = 0;
+        demographicInfoScore += 20;
+        console.log('Demographic Info Score:', demographicInfoScore);
+
+        // Other Information
+        let otherInfoScore = 0;
+        otherInfoScore += 30;
+        console.log('Other Info Score:', otherInfoScore);
+
+        // Calculating total score
+        const totalScore = (educationScore + workExperienceScore + 
+            personalityTraitsScore.agreeableness + personalityTraitsScore.conscientiousness +
+            personalityTraitsScore.creativity + personalityTraitsScore.extraversion +
+            personalityTraitsScore.neuroticism + personalityTraitsScore.openness_to_experience +
+            personalityTraitsScore.satisfaction_with_life_perceptions + demographicInfoScore + 
+            otherInfoScore + spearman + pearson + rmsError) / 14;
+
+        console.log('Total Score:', totalScore);
+        return Math.round(totalScore); // Rounding off to nearest integer
+    }
+    // Add these lines before the calculation of tenureMonths
+    console.log('Start Date:', applicationData.start_date);
+    console.log('End Date:', applicationData.end_date);
+
+    // Add these lines before the calculation of personalityTraitsScore
+    console.log('Agreeableness:', applicationData.color_agreeableness);
+    console.log('Conscientiousness:', applicationData.color_conscientiousness);
+    console.log('Creativity:', applicationData.color_creativity);
+    console.log('Extraversion:', applicationData.color_extraversion);
+    console.log('Neuroticism:', applicationData.color_neuroticism);
+    console.log('Openness to Experience:', applicationData.color_openness_to_experience);
+    console.log('Satisfaction with Life Perceptions:', applicationData.color_satisfaction_with_life_perceptions);
+</script>
+<script>
+    $(document).ready(function() {
+        // Event binding for displaying modals
+        applications.forEach((applicationData, index) => {
+            $(`#myCard-${index}`).click(function() {
+                $(`#myModal-${index}`).modal('show');
+            });
+        });
+    });
 </script>
 <script>
     function confirmAndDelete(docId) {
@@ -251,8 +551,7 @@ if (userId) {
     }
 
     function deletePosition(jobTitle) {
-        const userId = localStorage.getItem('userId')
-
+        const userId = localStorage.getItem('userId');
         // Convert the jobTitle to snake_case
         const jobTitleSnakeCase = jobTitle.replace(/\s+/g, '_').toLowerCase();
         console.log('jobTitleSnakeCase:', jobTitleSnakeCase);
