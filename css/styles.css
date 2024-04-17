@@ -2815,3 +2815,18 @@ a:hover.back-to-top {
     bottom: -0.06rem; /* Adjust this value to move the arrow up or down */
 }
 
+.container1 {
+	width: 100%;
+}
+
+.row1 {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.card-container1 {
+	flex: 0 0 calc(30% - 1%);
+	margin: 5px;
+}
+
