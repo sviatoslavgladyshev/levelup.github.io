@@ -2830,3 +2830,14 @@ a:hover.back-to-top {
 	margin: 5px;
 }
 
+.gauge {
+	width: 100%;
+	height: 20px;
+	background-color: #ddd;
+  }
+  
+  .gauge-value {
+	height: 100%;
+	background-color: #6c5ce7;
+	width: 0;
+  }
