@@ -242,7 +242,12 @@ firebase.auth().onAuthStateChanged(function(user) {
                                 // Sort applications by date created, most recent first
                                 applications.sort((a, b) => b.dateCreated.toDate() - a.dateCreated.toDate());
 
-                                // Generate HTML for each application
+                                let html = `<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h3>${jobTitle}</h3>
+                                    <button class="profile-button-2" onclick="confirmAndDelete('${doc.id}')">Delete</button>
+                                </div>`;
+
+                                html += '<div class="row"  style="display: flex; flex-wrap: wrap; justify-content: center;">'; // Start a new row
                                 applications.forEach((applicationData, index) => {
                                     let dateCreated = moment(applicationData.dateCreated.toDate());
                                     let now = moment();
@@ -271,48 +276,51 @@ firebase.auth().onAuthStateChanged(function(user) {
                                     }
 
                                     let applicationHtml = `
-                                    <div class="container">
-                                    <div class="row" style="display: flex; flex-direction: column; flex-wrap: wrap;">
-                                        <div class="card-container" style="margin: 5px; display: flex; flex-direction: row; flex-wrap: wrap;">
-                                            <div id="myCard-${index}" class="card mb-3">
-                                                <div class="card-body d-flex flex-column">
-                                                    <h5 class="card-title">${applicationData.first_name}</h5>
-                                                    <p><strong>Date Created:</strong> ${timeSinceCreation}</p>
-                                                    <p><strong>Gender:</strong> ${genderDisplay}</p>
-                                                    <p><strong>Estimation:</strong> ${analyzeEmployeeWithMath(applicationData)}</p>
-                                                    <a href="#myModal-${index}" class="btn btn-primary details-link mt-auto" data-toggle="modal">Details</a>
+                                    <div class="col-md-4">
+                                        <div id="myCard-${index}" class="card mb-3">
+                                            <div class="card-body d-flex flex-column">
+                                                <h5 class="card-title">${applicationData.first_name}</h5>
+                                                <p><strong>Date Created:</strong> ${timeSinceCreation}</p>
+                                                <p><strong>Gender:</strong> ${genderDisplay}</p>
+                                                <p><strong>Estimation:</strong> ${analyzeEmployeeWithMath(applicationData)}</p>
+                                                <a href="#myModal-${index}" class="btn btn-primary details-link mt-auto" data-toggle="modal">Details</a>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="myModal-${index}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">${applicationData.first_name}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p><strong>Company Name:</strong> ${applicationData.company_name}</p>
+                                                        <p><strong>Life Perceptions:</strong> ${applicationData.color_satisfaction_with_life_perceptions}</p>
+                                                        <p><strong>Job Satisfaction:</strong> ${applicationData.first_name}</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Repeat the above div for each card -->
-                                    </div>
-                                </div>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="myModal-${index}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">${applicationData.first_name}</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p><strong>Company Name:</strong> ${applicationData.company_name}</p>
-                                            <p><strong>Life Perceptions:</strong> ${applicationData.color_satisfaction_with_life_perceptions}</p>
-                                            <p><strong>Job Satisfaction:</strong> ${applicationData.first_name}</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                        </div>
-                                    </div>
                                     </div>`;
 
                                     html += applicationHtml;
+
+                                    // If the current card is the third in a row, close the current row and start a new one
+                                    if ((index + 1) % 3 === 0) {
+                                        html += '</div><div class="row">';
+                                    }
                                 });
+
+                                // Close the last row
+                                html += '</div>';
 
                                 // Add the generated HTML to the page
                                 positionElement.innerHTML += html;
