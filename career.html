@@ -281,8 +281,12 @@
         <button id="addNewStage" class="form-control-submit-button1">+ Add a new stage</button>
         <div class="help-block with-errors"></div>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
         <input type="submit" class="form-control-submit-button" value="Post Job">
+        <div class="help-block with-errors"></div>
+        </div> -->
+        <div class="form-group">
+        <button id="postCareer" class="form-control-submit-button">Post a career</button>
         <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
@@ -408,6 +412,9 @@
     });
 </script>
 <script>
+    document.getElementById('postCareer').addEventListener('click', function() {
+        window.location.href = 'profiie.html';
+    });
     document.addEventListener('DOMContentLoaded', (event) => {
         var salaryTypeNew = document.getElementById('salary_type1');
 
