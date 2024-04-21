@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Builder</title>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/fontawesome-all.css" rel="stylesheet">
+<link href="css/swiper.css" rel="stylesheet">
+<link href="css/magnific-popup.css" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<!-- Favicon  -->
+<link rel="icon" href="images/white_logo.png">
+</head>
+<body data-spy="scroll" data-target=".fixed-top">
+        <!-- Preloader -->
+	<div class="spinner-wrapper">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <!-- end of preloader -->
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top" style="display: none;">
+        <div class="container">
+
+            <!-- Text Logo - Use this if you don't have a graphic logo -->
+            <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">LevelUp</a> -->
+
+            <!-- Image Logo -->
+            <a class="navbar-brand logo-image" href="index.html"><img src="images/logo_transparent.png" alt="alternative"></a> 
+            
+            <!-- Mobile Menu Toggle Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-awesome fas fa-bars"></span>
+                <span class="navbar-toggler-awesome fas fa-times"></span>
+            </button>
+            <!-- end of mobile menu toggle button -->
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="index.html#header">HOME <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle page-scroll" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="article-details.html"><span class="item-text">ABOUT US</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">TERMS AND CONDITIONS</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">PRIVACY POLICY</span></a>
+                        </div>
+                    </li>
+                </ul>
+                <span class="nav-item">
+                    <li class="nav-item dropdown" style="position: relative;">
+                        <a class="btn-outline-sm" id="navbarDropdown-profile" role="button" aria-haspopup="true" aria-expanded="false">MY PROFILE</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="position: absolute; top: 100%; left: 2.8rem;">
+                            <a class="dropdown-item" href="#" onclick="signOut()"><span class="item-text">SIGN OUT</span></a>
+                        </div>
+                    </li>
+                </span>
+            </div>
+        </div> <!-- end of container -->
+    </nav> <!-- end of navbar -->
+    <!-- end of navigation -->
+<!-- Add the splash screen -->
+<div class="splash-screen">
+    <!-- Add the progress bar -->
+    <div class="progress-bar">
+        <div class="progress-bar-fill"></div>
+    </div>
+    <h1 class="title">Please build your career path</h1>
+</div>
+        <header id="header" class="ex-2-header" style="display: none;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Post a career path</h1>
+                       <p>Please fill in the fields based on the career stages</p> 
+                       <div class="form-container", style="padding: 2.25rem 1.75rem 0.01rem 1.75rem">
+                        <!-- <h3 style="color: #555;">Stage 1</h3> -->
+                        <form id="jobForm">
+                            <div class="form-group">
+                                <input type="text" id="careerPathTitle" class="form-control-input" required>
+                                <label for="career_path" class="label-control">Career Path Title:</label>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group">
+                                <textarea type="text" id="companyCulture" class="form-control-input" rows="4" required></textarea>
+                                <label for="description1" class="label-control">Company Culture:</label>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <h3 style="color: #555;">Stage 1</h3>
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#stage1" aria-expanded="true" aria-controls="stage1" style="display: inline-block; width: 50%; height: 2.125rem; border: 1px solid rgb(232, 187, 3); border-radius: 1.5rem; background-color: rgb(232, 187, 3); color: #fff; font: 700 0.875rem/0 'Open Sans', sans-serif; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
+                                    Toggle Stage 1 <span class="bi bi-arrow-down"></span>
+                                </button>
+                            </div>
+                            <div class="collapse show" id="stage1">
+                                <div class="form-group">
+                                <input type="text" id="title1" class="form-control-input" required>
+                                <label for="title1" class="label-control">Job Title</label>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="form-group">
+                                <select id="salary_type1" class="form-control-input" required>
+                                    <option value="" class="form-control-input"></option>
+                                    <option value="salary">Salary</option>
+                                    <option value="hourly">Hourly</option>
+                                    <option value="comission">Comission</option>
+                                </select>
+                                <label for="salary_type1" class="label-control">Salary Type:</label>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="form-group">
+                                <input type="number" id="salary1" min="0" class="form-control-input" required>
+                                <label for="salary1" class="label-control">Salary (in USD):</label>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="form-group">
+                                <input type="number" id="workHours1" name="workHours" class="form-control-input" min="0" required>
+                                <label for="workHours1" class="label-control">Working Hours (per week):</label>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="form-group">
+                                <select id="industry1" class="form-control-input" required>
+                                    <option value="" class="form-control-input"></option>
+                                    <option value="accounting">Accounting</option>
+                                    <option value="advertising">Advertising</option>
+                                    <option value="agriculture">Agriculture</option>
+                                    <option value="automotive">Automotive</option>
+                                    <option value="banking">Banking</option>
+                                    <option value="construction">Construction</option>
+                                    <option value="consulting">Consulting</option>
+                                    <option value="education">Education</option>
+                                    <option value="energy">Energy</option>
+                                    <option value="engineering">Engineering</option>
+                                    <option value="entertainment">Entertainment</option>
+                                    <option value="environmental">Environmental</option>
+                                    <option value="finance">Finance</option>
+                                    <option value="food-service">Food Service</option>
+                                    <option value="government">Government</option>
+                                    <option value="healthcare">Healthcare</option>
+                                    <option value="hospitality">Hospitality</option>
+                                    <option value="insurance">Insurance</option>
+                                    <option value="manufacturing">Manufacturing</option>
+                                    <option value="media">Media</option>
+                                    <!-- <option value="other">Other</option> -->
+                                    <option value="pharmaceutical">Pharmaceutical</option>
+                                    <option value="real-estate">Real Estate</option>
+                                    <option value="retail">Retail</option>
+                                    <option value="sport">Sport</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="telecommunications">Telecommunications</option>
+                                    <option value="tourism">Tourism</option>
+                                    <option value="transportation">Transportation</option>
+                                </select>
+                                <label for="industry1" class="label-control">Sphere of activity:</label>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                                <input type="text" id="otherindustry1" placeholder="Other Industry" style="display: none;">
+                                <!-- <div class="form-group">
+                                <select id="careerPath1" class="form-control-input" required>
+                                    <option value="" class="form-control-input"></option>
+                                    <option value="Mechanical_Engineering">Mechanical Engineering</option>
+                                    <option value="Business_Development">Business Development</option>
+                                    <option value="Healthcare_And_Medical_Services">Healthcare And Medical Services</option>
+                                    <option value="Electrical_Engineering">Electrical Engineering</option>
+                                </select>
+                                <label for="careerPath1" class="label-control">Career Path:</label>
+                                <div class="help-block with-errors"></div>
+                                </div> -->
+                                <div class="form-group">
+                                    <textarea type="text" id="description1" class="form-control-input" rows="4" required></textarea>
+                                    <label for="description1" class="label-control">Job Description</label>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <hr>
+        <h3 style="color: #555; margin-bottom: 1em;">Stage 2</h3>
+        <div class="form-group">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#stage2" aria-expanded="true" aria-controls="stage2" style="display: inline-block; width: 50%; height: 2.125rem; border: 1px solid rgb(232, 187, 3); border-radius: 1.5rem; background-color: rgb(232, 187, 3); color: #fff; font: 700 0.875rem/0 'Open Sans', sans-serif; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
+                Toggle Stage 2 <span class="bi bi-arrow-down"></span>
+            </button>
+        </div>
+        <div class="collapse show" id="stage2">
+        <div class="form-group">
+            <input type="text" id="title2" class="form-control-input" required>
+            <label for="title2" class="label-control">Job Title</label>
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+            <select id="salary_type2" class="form-control-input" required>
+                <option value="" class="form-control-input"></option>
+                <option value="salary">Salary</option>
+                <option value="hourly">Hourly</option>
+                <option value="comission">Comission</option>
+            </select>
+            <label for="salary_type2" class="label-control">Salary Type:</label>
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+            <input type="number" id="salary2" min="0" class="form-control-input" required>
+            <label for="salary2" class="label-control">Salary (in USD):</label>
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+            <input type="number" id="workHours2" name="workHours" class="form-control-input" min="0" required>
+            <label for="workHours2" class="label-control">Working Hours (per week):</label>
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+            <select id="industry2" class="form-control-input" required>
+                <option value="" class="form-control-input"></option>
+                <option value="accounting">Accounting</option>
+                <option value="advertising">Advertising</option>
+                <option value="agriculture">Agriculture</option>
+                <option value="automotive">Automotive</option>
+                <option value="banking">Banking</option>
+                <option value="construction">Construction</option>
+                <option value="consulting">Consulting</option>
+                <option value="education">Education</option>
+                <option value="energy">Energy</option>
+                <option value="engineering">Engineering</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="environmental">Environmental</option>
+                <option value="finance">Finance</option>
+                <option value="food-service">Food Service</option>
+                <option value="government">Government</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="hospitality">Hospitality</option>
+                <option value="insurance">Insurance</option>
+                <option value="manufacturing">Manufacturing</option>
+                <option value="media">Media</option>
+                <!-- <option value="other">Other</option> -->
+                <option value="pharmaceutical">Pharmaceutical</option>
+                <option value="real-estate">Real Estate</option>
+                <option value="retail">Retail</option>
+                <option value="sport">Sport</option>
+                <option value="technology">Technology</option>
+                <option value="telecommunications">Telecommunications</option>
+                <option value="tourism">Tourism</option>
+                <option value="transportation">Transportation</option>
+            </select>
+            <label for="industry2" class="label-control">Sphere of activity:</label>
+            <div class="help-block with-errors"></div>
+        </div>
+        <input type="text" id="otherindustry2" placeholder="Other Industry" style="display: none;">
+        <!-- <div class="form-group">
+            <select id="careerPath2" class="form-control-input" required>
+                <option value="" class="form-control-input"></option>
+                <option value="Mechanical_Engineering">Mechanical Engineering</option>
+                <option value="Business_Development">Business Development</option>
+                <option value="Healthcare_And_Medical_Services">Healthcare And Medical Services</option>
+                <option value="Electrical_Engineering">Electrical Engineering</option>
+            </select>
+            <label for="careerPath2" class="label-control">Career Path:</label>
+            <div class="help-block with-errors"></div>
+        </div> -->
+        <div class="form-group">
+            <textarea type="text" id="description2" class="form-control-input" rows="4" required></textarea>
+            <label for="description2" class="label-control">Job Description</label>
+            <div class="help-block with-errors"></div>
+        </div>
+        </div>
+        <hr>
+        <div class="form-group">
+        <button id="addNewStage" class="form-control-submit-button1">+ Add a new stage</button>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <input type="submit" class="form-control-submit-button" value="Post Job">
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+        <button id="backToProfile" class="form-control-submit-button2">❮ Back to Profile</button>
+        <div class="help-block with-errors"></div>
+        </div>
+    </form>
+    <div id="userIdDisplay"></div>
+
+                       <!-- </div -->
+</div> <!-- end of form-container -->
+</div> <!-- end of col -->
+</div> <!-- end of row -->
+</div> <!-- end of container -->
+</header> <!-- end of ex-header -->
+    <!-- Copyright -->
+    <div class="copyright" style="display: none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="p-small">Copyright © 2024 <a href="https://levelup.com">LevelUp</a></p>
+                </div> <!-- end of col -->
+            </div> <!-- enf of row -->
+        </div> <!-- end of container -->
+        </div> <!-- end of copyright --> 
+        <!-- end of copyright -->
+<script>
+    const draggables = document.querySelectorAll('.draggable');
+    let offsetX, offsetY;
+
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', dragStart);
+        draggable.addEventListener('dragend', dragEnd);
+    });
+
+    function dragStart(e) {
+        const rect = e.target.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+
+        e.dataTransfer.setData('text/plain', 'placeholder');
+    }
+
+    function dragEnd() {
+        offsetX = null;
+        offsetY = null;
+    }
+
+    document.addEventListener('dragover', e => {
+        e.preventDefault();
+    });
+
+    document.addEventListener('drop', e => {
+        e.preventDefault();
+        const target = e.target;
+        if (target.classList.contains('containerForCareer')) {
+            const draggable = document.querySelector('.draggable');
+            const rect = target.getBoundingClientRect();
+            const x = e.clientX - rect.left - offsetX;
+            const y = e.clientY - rect.top - offsetY;
+            draggable.style.left = x + 'px';
+            draggable.style.top = y + 'px';
+        }
+    });
+
+    // Create the circles immediately when the page loads
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            // Hide the splash screen
+            const splashScreen = document.querySelector('.splash-screen');
+            splashScreen.style.display = 'none';
+
+            // Show the form
+            const form = document.getElementById('header');
+            form.style.display = 'block';
+
+            // Show the copyright section
+            const copyright = document.querySelector('.copyright');
+            copyright.style.display = 'block';
+
+            // Show the navigation bar
+            const navbar = document.querySelector('.navbar');
+            navbar.style.display = 'block';
+
+            // Show draggable1 and draggable2
+            const draggable1 = document.querySelector('.container #draggable1');
+            const draggable2 = document.querySelector('.container #draggable2');
+            draggable1.style.opacity = '1';
+            draggable2.style.opacity = '1';
+
+            // Start creating and animating figures
+            const newBody = document.querySelector('#figures');
+
+            // Function to create a new SVG element
+            function createSvgElement(name) {
+                return document.createElementNS('http://www.w3.org/2000/svg', name);
+            }
+
+            // Function to create and animate a new figure
+            function createFigure() {
+                var figure = createSvgElement('circle');
+                figure.setAttribute('cx', Math.random() * newBody.offsetWidth);
+                figure.setAttribute('cy', Math.random() * newBody.offsetHeight);
+                figure.setAttribute('r', Math.random() * 100);
+                figure.setAttribute('fill', 'hsl(' + Math.random() * 360 + ', 50%, 50%)');
+                newBody.appendChild(figure);
+
+                // Animate the figure
+                setInterval(function() {
+                    figure.setAttribute('cx', Math.random() * newBody.offsetWidth);
+                    figure.setAttribute('cy', Math.random() * newBody.offsetHeight);
+                    figure.setAttribute('r', Math.random() * 100);
+                    figure.setAttribute('fill', 'hsl(' + Math.random() * 360 + ', 50%, 50%)');
+                }, 1000);
+            }
+
+            // Create a new figure every second
+            setInterval(createFigure, 1000);
+        }, 4000);
+
+        // Start the progress bar
+        document.querySelector('.progress-bar-fill').style.width = '100%';
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var salaryTypeNew = document.getElementById('salary_type1');
+
+        if(salaryTypeNew) {
+            salaryTypeNew.addEventListener('change', function() {
+                if (this.value) {
+                    this.classList.add('notEmpty');
+                } else {
+                    this.classList.remove('notEmpty');
+                }
+            });
+
+            // Trigger 'change' event when the select field loses focus
+            salaryTypeNew.addEventListener('blur', function() {
+                this.dispatchEvent(new Event('change'));
+            });
+        } else {
+            console.log("Element with id 'salary_type1' not found");
+        }
+    });
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var industry1 = document.getElementById('industry1');
+
+        if(industry1) {
+            industry1.addEventListener('change', function() {
+                if (this.value) {
+                    this.classList.add('notEmpty');
+                } else {
+                    this.classList.remove('notEmpty');
+                }
+            });
+
+            // Trigger 'change' event when the select field loses focus
+            industry1.addEventListener('blur', function() {
+                this.dispatchEvent(new Event('change'));
+            });
+        } else {
+            console.log("Element with id 'industry1' not found");
+        }
+    });
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var careerPath1 = document.getElementById('careerPath1');
+
+        if(careerPath1) {
+            careerPath1.addEventListener('change', function() {
+                if (this.value) {
+                    this.classList.add('notEmpty');
+                } else {
+                    this.classList.remove('notEmpty');
+                }
+            });
+
+            // Trigger 'change' event when the select field loses focus
+            careerPath1.addEventListener('blur', function() {
+                this.dispatchEvent(new Event('change'));
+            });
+        } else {
+            console.log("Element with id 'careerPath1' not found");
+        }
+    });
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var salaryTypeNew = document.getElementById('salary_type2');
+
+        if(salaryTypeNew) {
+            salaryTypeNew.addEventListener('change', function() {
+                if (this.value) {
+                    this.classList.add('notEmpty');
+                } else {
+                    this.classList.remove('notEmpty');
+                }
+            });
+
+            // Trigger 'change' event when the select field loses focus
+            salaryTypeNew.addEventListener('blur', function() {
+                this.dispatchEvent(new Event('change'));
+            });
+        } else {
+            console.log("Element with id 'salary_type2' not found");
+        }
+    });
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var industry2 = document.getElementById('industry2');
+
+        if(industry2) {
+            industry2.addEventListener('change', function() {
+                if (this.value) {
+                    this.classList.add('notEmpty');
+                } else {
+                    this.classList.remove('notEmpty');
+                }
+            });
+
+            // Trigger 'change' event when the select field loses focus
+            industry2.addEventListener('blur', function() {
+                this.dispatchEvent(new Event('change'));
+            });
+        } else {
+            console.log("Element with id 'industry2' not found");
+        }
+    });
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var careerPath2 = document.getElementById('careerPath2');
+
+        if(careerPath2) {
+            careerPath2.addEventListener('change', function() {
+                if (this.value) {
+                    this.classList.add('notEmpty');
+                } else {
+                    this.classList.remove('notEmpty');
+                }
+            });
+
+            // Trigger 'change' event when the select field loses focus
+            careerPath2.addEventListener('blur', function() {
+                this.dispatchEvent(new Event('change'));
+            });
+        } else {
+            console.log("Element with id 'careerPath2' not found");
+        }
+    });
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var description1 = document.getElementById('description1');
+
+        if(description1) {
+            description1.addEventListener('input', function () {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        } else {
+            console.log("Element with id 'description1' not found");
+        }
+    });
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var description2 = document.getElementById('description2');
+
+        if(description2) {
+            description2.addEventListener('input', function () {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        } else {
+            console.log("Element with id 'description2' not found");
+        }
+    });
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var companyCulture = document.getElementById('companyCulture');
+
+        if(companyCulture) {
+            companyCulture.addEventListener('input', function () {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        } else {
+            console.log("Element with id 'companyCulture' not found");
+        }
+    });
+</script>
+<script>
+    // Get the "Add a new stage" button
+    var addButton = document.querySelector('#addNewStage');
+
+    // Counter for the new fields
+    var counter = 3;
+
+    // Add an event listener to the button
+    addButton.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Create the new fields
+        var newFields = `
+            <div id="stage${counter}" class="stage">
+                <h3 style="color: #555; margin-bottom: 1em;">Stage ${counter}</h3>
+                <div class="form-group">
+                    <button id="toggle-button${counter}" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#form${counter}" aria-expanded="false" aria-controls="form${counter}" style="display: inline-block; width: 50%; height: 2.125rem; border: 1px solid rgb(232, 187, 3); border-radius: 1.5rem; background-color: rgb(232, 187, 3); color: #fff; font: 700 0.875rem/0 'Open Sans', sans-serif; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
+                        Toggle Stage ${counter} <span class="bi bi-arrow-down"></span>
+                    </button>
+                </div>
+                <div class="collapse show" id="form${counter}">
+                    <div class="form-group">
+                        <input type="text" id="title${counter}" class="form-control-input" required>
+                        <label for="title${counter}" class="label-control">Job Title</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <select id="salary_type${counter}" class="form-control-input" required>
+                            <option value="" class="form-control-input"></option>
+                            <option value="salary">Salary</option>
+                            <option value="hourly">Hourly</option>
+                            <option value="commission">Commission</option>
+                        </select>
+                        <label for="salary_type${counter}" class="label-control">Salary Type:</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="salary${counter}" min="0" class="form-control-input" required>
+                        <label for="salary${counter}" class="label-control">Salary (in USD):</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="workHours${counter}" name="workHours" class="form-control-input" min="0" required>
+                        <label for="workHours${counter}" class="label-control">Working Hours (per week):</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <select id="industry${counter}" class="form-control-input" required>
+                            <option value="" class="form-control-input"></option>
+                            <option value="accounting">Accounting</option>
+                            <option value="advertising">Advertising</option>
+                            <option value="agriculture">Agriculture</option>
+                            <option value="automotive">Automotive</option>
+                            <option value="banking">Banking</option>
+                            <option value="construction">Construction</option>
+                            <option value="consulting">Consulting</option>
+                            <option value="education">Education</option>
+                            <option value="energy">Energy</option>
+                            <option value="engineering">Engineering</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="environmental">Environmental</option>
+                            <option value="finance">Finance</option>
+                            <option value="food-service">Food Service</option>
+                            <option value="government">Government</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="hospitality">Hospitality</option>
+                            <option value="insurance">Insurance</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="media">Media</option>
+                            <option value="pharmaceutical">Pharmaceutical</option>
+                            <option value="real-estate">Real Estate</option>
+                            <option value="retail">Retail</option>
+                            <option value="sport">Sport</option>
+                            <option value="technology">Technology</option>
+                            <option value="telecommunications">Telecommunications</option>
+                            <option value="tourism">Tourism</option>
+                            <option value="transportation">Transportation</option>
+                        </select>
+                        <label for="industry${counter}" class="label-control">Sphere of activity:</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <input type="text" id="otherindustry${counter}" placeholder="Other Industry" style="display: none;">
+                    <div class="form-group">
+                        <textarea type="text" id="description${counter}" class="form-control-input" rows="4" required></textarea>
+                        <label for="description${counter}" class="label-control">Job Description</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button id="delete-button${counter}" class="delete-stage">Delete stage ${counter}</button>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <hr>
+            </div>
+        `;
+
+        // Add the new fields to the form
+        var form = document.querySelector('form');
+        addButton.insertAdjacentHTML('beforebegin', newFields);
+
+
+
+        // Add event listener to the new delete button
+        document.querySelector('#stage' + counter + ' .delete-stage').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Add confirmation message
+            if (confirm('Are you sure you want to delete this stage?')) {
+                var stage = e.target.parentNode.parentNode;
+                stage.classList.add('fade-out');
+                setTimeout(function() {
+                    stage.parentNode.removeChild(stage);
+                    updateStageNumbers(); // Call the function to update the stage numbers
+                }, 1000); // Wait for the animation to finish before removing the stage
+            }
+        });
+    
+        // Assuming counter is defined and incremented somewhere in your code
+        // Get the select and label elements
+        function updateLabelForAttribute(counter) {
+            // Define the ids
+            const ids = [ 
+                `industry${counter}`, 
+                `salary_type${counter}`, 
+                `title${counter}`, 
+                `salary${counter}`, 
+                `workHours${counter}`
+            ];
+
+            // Loop over each id
+            ids.forEach(id => {
+                // Get the select and label elements
+                let selectElement = document.getElementById(id);
+                let labelElement = selectElement.nextElementSibling;
+
+                // Set the 'for' attribute of the label to match the 'id' of the select
+                labelElement.setAttribute('for', id);
+
+                // Add event listener to selectElement
+                if (selectElement) {
+                    selectElement.addEventListener('change', function() {
+                        if (this.value) {
+                            this.classList.add('notEmpty');
+                        } else {
+                            this.classList.remove('notEmpty');
+                        }
+                    });
+                }
+            });
+        }
+
+        // Call this function whenever a new field is added or the field changes
+        updateLabelForAttribute(counter);
+
+        for (let i = 3; i <= counter; i++) {
+            document.getElementById(`toggle-button${i}`).addEventListener('click', function() {
+                var toggleButton = document.getElementById(`toggle-button${i}`);
+
+                // Wait for the collapse animation to finish
+                setTimeout(function() {
+                    // If not collapsed, return
+                    if (!toggleButton.classList.contains('collapsed')) {
+                        var jobTitleElement = toggleButton.nextSibling;
+                        if (jobTitleElement && jobTitleElement.nodeName === 'SPAN') {
+                            // Add transition
+                            jobTitleElement.style.transition = "opacity 0.5s ease-in-out";
+                            jobTitleElement.style.opacity = "0";
+                            setTimeout(function() {
+                                jobTitleElement.parentNode.removeChild(jobTitleElement);
+                            }, 500); // Adjust this delay to match the duration of your transition
+                        }
+                        return;
+                    }
+
+                    var jobTitle = document.getElementById(`title${i}`).value.trim();
+                    var salaryType = document.getElementById(`salary_type${i}`).value.trim();
+                    var salary = document.getElementById(`salary${i}`).value.trim();
+                    var workHours = document.getElementById(`workHours${i}`).value.trim();
+                    var jobTitleElement = toggleButton.nextSibling;
+                    if (jobTitle === '') {
+                        return;
+                    }
+                    if (!jobTitleElement || jobTitleElement.nodeName !== 'SPAN') {
+                        jobTitleElement = document.createElement('span');
+                        jobTitleElement.style = "color: #555; overflow-wrap: break-word; display: block; width: 100%; opacity: 0;";
+                        toggleButton.parentNode.insertBefore(jobTitleElement, toggleButton.nextSibling);
+                        // Add transition
+                        jobTitleElement.style.transition = "opacity 0.5s ease-in-out";
+                        setTimeout(function() {
+                            jobTitleElement.style.opacity = "1";
+                        }, 50); // Adjust this delay to match the duration of your transition
+                    }
+                    jobTitleElement.innerHTML = `<strong>Job title: </strong>${jobTitle}<br><strong>Salary Type: </strong>${salaryType}<br><strong>Salary: </strong>$${salary}<br><strong>Working Hours: </strong>${workHours} hours/per week`;
+                }, 350); // Adjust this delay to match the duration of your collapse animation
+            });
+        }
+
+
+        // Increment the counter
+        counter++;
+    });
+
+    // Function to update the stage numbers
+    function updateStageNumbers() {
+        var stages = document.querySelectorAll('.stage');
+        for (var i = 0; i < stages.length; i++) {
+            stages[i].id = 'stage' + (i + 3); // Update the id of the stage
+            stages[i].querySelector('h3').textContent = 'Stage ' + (i + 3); // Update the visible stage number
+            var button = stages[i].querySelector('button'); // Get the button
+            button.dataset.target = '#form' + (i + 3); // Update the data-target attribute
+            button.ariaControls = 'form' + (i + 3); // Update the aria-controls attribute
+            button.innerHTML = 'Toggle Stage ' + (i + 3) + ' <span class="bi bi-arrow-down"></span>'; // Update the button text
+            stages[i].querySelector('.delete-stage').textContent = 'Delete stage ' + (i + 3); // Update the delete button text
+
+            // Update label for attribute
+            stages[i].querySelectorAll('.label-control').forEach(function(label) {
+                var inputId = label.getAttribute('for');
+                inputId = inputId.substring(0, inputId.length - 1) + (i + 3);
+                label.setAttribute('for', inputId);
+            });
+        }
+    }
+</script>
+<script>
+$(document).ready(function() {
+    $('#stage1').on('show.bs.collapse', function () {
+        $('[data-target="#stage1"] .bi').removeClass('bi-arrow-down').addClass('bi-arrow-up');
+        $('[data-target="#stage1"]').nextAll('span').remove();
+        $('[data-target="#stage1"]').nextAll('br').remove();
+    });
+
+    $('#stage1').on('hide.bs.collapse', function () {
+        $('[data-target="#stage1"] .bi').removeClass('bi-arrow-up').addClass('bi-arrow-down');
+        var jobTitleStage1 = $('#title1').val();
+        var salaryStage1 = $('#salary1').val();
+        var workHourStage1 = $('#workHours1').val();
+        var salaryTypeStage1 = $('#salary_type1').val();
+        if(jobTitleStage1.trim() !== '') {
+            $('[data-target="#stage1"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Working hours:</b> ' + workHourStage1 + ' hours/per week</span><br>');
+            $('[data-target="#stage1"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Salary:</b> $' + salaryStage1 + '</span><br>');
+            $('[data-target="#stage1"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Salary Type:</b> ' + salaryTypeStage1 + '</span><br>');
+            $('[data-target="#stage1"]').after('<span style="color: #555; overflow-wrap: break-word; display: block; width: 100%;" class="toggleData"><b>Job title:</b> ' + jobTitleStage1 + '</span>');
+        }
+    });
+
+    $('#stage2').on('show.bs.collapse', function () {
+        $('[data-target="#stage2"] .bi').removeClass('bi-arrow-down').addClass('bi-arrow-up');
+        $('[data-target="#stage2"]').nextAll('span').remove();
+        $('[data-target="#stage2"]').nextAll('br').remove();
+    });
+
+    $('#stage2').on('hide.bs.collapse', function () {
+        $('[data-target="#stage2"] .bi').removeClass('bi-arrow-up').addClass('bi-arrow-down');
+        var jobTitleStage2 = $('#title2').val();
+        var salaryStage2 = $('#salary2').val();
+        var workHourStage2 = $('#workHours2').val();
+        var salaryTypeStage2 = $('#salary_type2').val();
+        if(jobTitleStage2.trim() !== '') {
+            $('[data-target="#stage2"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Working hours:</b> ' + workHourStage2 + ' hours/per week</span><br>');
+            $('[data-target="#stage2"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Salary:</b> $' + salaryStage2 + '</span><br>');
+            $('[data-target="#stage2"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Salary Type:</b> ' + salaryTypeStage2 + '</span><br>');
+            $('[data-target="#stage2"]').after('<span style="color: #555; overflow-wrap: break-word; display: block; width: 100%;" class="toggleData"><b>Job title:</b> ' + jobTitleStage2 + '</span>');
+        }
+    });
+});
+</script>
+<script>
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
+      authDomain: "levelup-65b5b.firebaseapp.com",
+      projectId: "levelup-65b5b",
+      storageBucket: "levelup-65b5b.appspot.com",
+      messagingSenderId: "13469845736",
+      appId: "1:13469845736:web:aa4b300ead478eac30215d",
+      measurementId: "G-B7HVG7T7VZ"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    // Show or hide the "otherindustry" input based on the selected industry
+    document.getElementById('industry').addEventListener('change', function() {
+        if (this.value === 'other') {
+            document.getElementById('otherindustry').style.display = 'inline-block';
+        } else {
+            document.getElementById('otherindustry').style.display = 'none';
+        }
+    });
+
+    // Add event listener for the button
+    document.getElementById('backToProfile').addEventListener('click', function() {
+        // Redirect to the profile page
+        window.location.href = 'profile.html';
+    });
+
+// Function to handle form submission
+document.getElementById('jobForm').addEventListener('submit', function(event) {
+event.preventDefault(); // Prevent default form submission behavior
+
+// Get form values
+const title = document.getElementById('title').value.toLowerCase().split(' ').join('_');
+const description = document.getElementById('description').value;
+const salary_type = document.getElementById('salary_type').value;
+const salary = document.getElementById('salary').value;
+const workHours = document.getElementById('workHours').value;
+const industry = document.getElementById('industry').value.toLowerCase();
+const otherIndustry = document.getElementById('otherindustry').value.toLowerCase();
+const careerPath = document.getElementById('careerPath').value; // Get the selected career path
+const timestamp = new Date().toISOString();
+
+// Check for empty fields
+if (!title || !description || !salary || !workHours || !industry || !careerPath) {
+    alert("Please fill in all required fields.");
+    return;
+}
+
+// Get userId from the currently logged in user
+let user = firebase.auth().currentUser;
+let userId;
+if (user) {
+    userId = user.uid;
+} else {
+    // No user is signed in.
+    console.log("No user is signed in.");
+    return;
+}
+
+console.log("userId: ", userId);
+// Check if userId exists
+if (userId) {
+    let jobRef;
+
+    if (industry === 'other') {
+        jobRef = db.collection('job_postings').doc(otherIndustry);
+    } else {
+        jobRef = db.collection('job_postings').doc(industry);
+    }
+
+    // Set the document data
+    jobRef.update({
+        // userId: userId,
+        // job_title: title,
+        // description: description,
+        // salary_type: salary_type,
+        // salary: salary,
+        // workHours: workHours,
+        // industry: industry === 'other' ? otherIndustry : industry,
+        // timestamp: timestamp,
+    })
+    .then(() => {
+        console.log("Document successfully written!");
+        // Clear the form
+        
+    })
+    .catch((error) => {
+        console.error("Error writing document: ", error);
+    });
+
+    // Record the industry selected in the collection "job_postings"
+    let industryRef = db.collection('job_postings').doc(industry);
+
+    industryRef.get().then((docSnapshot) => {
+        if (docSnapshot.exists) {
+            industryRef.update({
+                users: firebase.firestore.FieldValue.arrayUnion(userId)
+            })
+            .then(() => {
+                console.log("Industry document successfully updated!");
+            })
+            .catch((error) => {
+                console.error("Error updating industry document: ", error);
+            });
+        } else {
+            industryRef.set({
+                users: [userId]
+            })
+            .then(() => {
+                console.log("Industry document successfully created!");
+            })
+            .catch((error) => {
+                console.error("Error creating industry document: ", error);
+            });
+        }
+    });
+
+    // Set the document data for job posted by employer
+    let employerRef = db.collection('employers').doc(userId);
+    let jobPostedRef = employerRef.collection('job_posted').doc(title);
+    console.log("jobPostedRef: ", jobPostedRef);
+    jobPostedRef.set({
+        title: title,
+        description: description,
+        salary: salary,
+        salary_type: salary_type,
+        workHours: workHours,
+        industry: industry === 'other' ? otherIndustry : industry,
+        career_path: careerPath,
+        timestamp: timestamp, // Add timestamp here
+    })
+    .then(() => {
+        console.log("Job posted document successfully written!");
+        document.getElementById('jobForm').reset();
+        alert("Job posted successfully!"); // Add this line
+        setTimeout(function() {
+    window.location.href = 'profile.html'; // replace with your profile page URL
+}, 2000);
+    })
+    .catch((error) => {
+        console.error("Error writing job posted document: ", error);
+    });
+}
+});
+window.onload = function() {
+    firebase.auth().onAuthStateChanged((user) => {
+        var loginLink = document.getElementById("navbarDropdown-profile"); // select the <a> element by id
+
+        if (user) {
+            // User is signed in, you can use the user object to get information about the user
+            // Change navigation bar text and link
+            loginLink.textContent = "MY PROFILE";
+            loginLink.href = "profile.html"; // replace with the path to your profile page
+        } else {
+            // User is signed out
+            // Change navigation bar text and link
+            loginLink.textContent = "LOG IN FOR AN EMPLOYER";
+            loginLink.href = "log-in.html"; // replace with the path to your log in page
+        }
+    });
+};
+// var description = document.querySelector('#description .ql-editor').innerHTML;
+
+// Initialize Quill editor
+// Include Quill library
+// <script src="https://cdn.quilljs.com/1.3.6/quill.js">
+//     var textarea = document.getElementById('description');
+//     var labelLine = document.getElementById('labelLine');
+
+// textarea.addEventListener('input', function() {
+//     var lineCount = this.value.split('\n').length;
+//     if (lineCount > 4) {
+//         labelLine.style.top = '80px'; // Adjust this value based on your specific styles
+//     } else {
+//         labelLine.style.top = '0';
+//     }
+// });
+
+function signOut() {
+    firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+        window.location.href = "index.html"; // replace with the path to your home page
+    }).catch((error) => {
+        // An error happened.
+        console.error("Sign out error", error);
+    });
+}
+</script>
+<script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+    <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+    <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+    <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="js/scripts.js"></script> <!-- Custom scripts -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+</body>
+</html>
