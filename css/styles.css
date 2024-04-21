@@ -2841,3 +2841,164 @@ a:hover.back-to-top {
 	background-color: #6c5ce7;
 	width: 0;
   }
+  .containerForCareer {
+	width: 400px;
+	margin: 0 auto;
+	padding: 20px;
+}
+.draggable {
+	width: 100px;
+	height: 100px;
+	background-color: #3498db;
+	color: white;
+	text-align: center;
+	line-height: 100px;
+	cursor: pointer;
+	position: absolute;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+	font-family: Arial, sans-serif;
+}
+/* Add styles for the splash screen */
+@keyframes gradient {
+0% {
+	background-position: 0% 50%;
+}
+50% {
+	background-position: 100% 50%;
+}
+100% {
+	background-position: 0% 50%;
+}
+}
+
+@keyframes fadeIn {
+0% {
+	opacity: 0;
+}
+100% {
+	opacity: 1;
+}
+}
+
+.splash-screen {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: repeating-linear-gradient(
+	60deg,
+	rgb(135, 25, 206),
+	rgb(155, 45, 226) 10%,
+	rgb(115, 5, 186) 10%,
+	rgb(115, 5, 186) 20%,
+	rgb(165, 55, 246) 20%,
+	rgb(165, 55, 246) 30%,
+	rgb(135, 25, 206) 30%
+);
+background-size: 400% 400%;
+animation: gradient 15s ease infinite, fadeIn 2s ease-out;
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+flex-direction: column;
+font-family: Arial, sans-serif;
+}
+
+.splash-screen .title {
+color: white;
+font-family: Arial, sans-serif;
+font-size: 2.125rem;
+}
+.progress-bar {
+	width: 50%; /* Make the bar narrower */
+	height: 20px;
+	background-color: transparent;
+	margin: 20px auto; /* Center the progress bar */
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar-fill {
+	height: 100%; /* Adjust the height of the fill */
+	/* background: linear-gradient(to right, #3498db, #da7cff); */
+	background: white;
+	transition: width 3.5s ease-in-out;
+	/* margin: 20px auto; */
+	border-radius: 10px; /* Adjust the border radius to match the new height */
+	width: 0%;
+}
+
+.fade-out {
+	transition: opacity 1s ease-out;
+	opacity: 0;
+}
+
+.delete-stage {
+	display: inline-block;
+	width: 100%;
+	height: 3.125rem;
+	border: 1px solid rgb(206, 25, 25);
+	border-radius: 1.5rem;
+	background-color: rgb(206, 25, 25);
+	color: #fff;
+	font: 700 0.875rem/0 "Open Sans", sans-serif;
+	cursor: pointer;
+	transition: all 0.2s;
+	margin-bottom: 3rem;
+}
+
+.delete-stage:hover {
+	background-color: transparent;
+	color: rgb(206, 25, 25);
+}
+
+.form-control-submit-button1 {
+	display: inline-block;
+	width: 100%;
+	height: 3.125rem;
+	border: 1px solid rgb(25, 206, 112);
+	border-radius: 1.5rem;
+	background-color: rgb(25, 206, 112);
+	color: #fff;
+	font: 700 0.875rem/0 "Open Sans", sans-serif;
+	cursor: pointer;
+	transition: all 0.2s;
+	/* margin-bottom: 3rem; */
+}
+
+.form-control-submit-button1:hover {
+	background-color: transparent;
+	color: rgb(25, 206, 112);
+	border: 1px solid rgb(25, 206, 112);
+}
+
+.form-control-submit-button2 {
+	display: inline-block;
+	width: 50%;
+	height: 2.125rem;
+	border: 1px solid rgb(25, 94, 206);
+	border-radius: 1.5rem;
+	background-color: rgb(25, 94, 206);
+	color: #fff;
+	font: 700 0.875rem/0 "Open Sans", sans-serif;
+	cursor: pointer;
+	transition: all 0.2s;
+	/* margin-bottom: 3rem; */
+	margin-top: 2rem;
+}
+
+.form-control-submit-button2:hover {
+	background-color: transparent;
+	color: rgb(25, 94, 206);
+}
+
+/* .toggleData{
+	line-height: 0.1;
+} */
+
+/* #main-content {
+    display: none;
+} */
