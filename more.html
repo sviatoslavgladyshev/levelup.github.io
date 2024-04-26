@@ -10,6 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/fontawesome-all.css" rel="stylesheet">
     <link href="css/swiper.css" rel="stylesheet">
@@ -532,17 +533,6 @@ function spearmanCorrelation(x, y) {
     // Add these lines before the calculation of tenureMonths
     console.log('Start Date:', applicationData.start_date);
     console.log('End Date:', applicationData.end_date);
-
-    // Add these lines before the calculation of personalityTraitsScore
-    console.log('Agreeableness:', applicationData.color_agreeableness);
-    console.log('Conscientiousness:', applicationData.color_conscientiousness);
-    console.log('Creativity:', applicationData.color_creativity);
-    console.log('Extraversion:', applicationData.color_extraversion);
-    console.log('Neuroticism:', applicationData.color_neuroticism);
-    console.log('Openness to Experience:', applicationData.color_openness_to_experience);
-    console.log('Satisfaction with Life Perceptions:', applicationData.color_satisfaction_with_life_perceptions);
-</script>
-<script>
     $(document).ready(function() {
         // Event binding for displaying modals
         applications.forEach((applicationData, index) => {
@@ -551,6 +541,14 @@ function spearmanCorrelation(x, y) {
             });
         });
     });
+    // Add these lines before the calculation of personalityTraitsScore
+    console.log('Agreeableness:', applicationData.color_agreeableness);
+    console.log('Conscientiousness:', applicationData.color_conscientiousness);
+    console.log('Creativity:', applicationData.color_creativity);
+    console.log('Extraversion:', applicationData.color_extraversion);
+    console.log('Neuroticism:', applicationData.color_neuroticism);
+    console.log('Openness to Experience:', applicationData.color_openness_to_experience);
+    console.log('Satisfaction with Life Perceptions:', applicationData.color_satisfaction_with_life_perceptions);
 </script>
 <script>
     function confirmAndDelete(docId) {
@@ -613,15 +611,25 @@ function spearmanCorrelation(x, y) {
 
 // Call refreshPositions when the page loads
 window.onload = refreshPositions;
-    window.onload = function() {
-        try {
-            const profileCardTitle = localStorage.getItem("cardName"); // Retrieve the profile card title
-            document.getElementById('industry-button').textContent = `Applications received for the ${profileCardTitle} sphere`;
-            document.title = profileCardTitle; // Set the page title
-        } catch (error) {
-            console.error('Error getting item from localStorage:', error); // Log any error that occurs when getting the item from localStorage
+window.onload = function() {
+    try {
+        const profileCardTitle = localStorage.getItem("cardName"); // Retrieve the profile card title
+        const containerWidth = document.getElementById('industry-button').offsetWidth; // Get the container width
+        const maxLengthPerLine = Math.floor(containerWidth * 0.7); // Maximum length per line (70% of the container width)
+        let displayedTitle = '';
+
+        // Break the title into multiple lines if it exceeds the maximum length per line
+        for (let i = 0; i < profileCardTitle.length; i += maxLengthPerLine) {
+            displayedTitle += profileCardTitle.substring(i, i + maxLengthPerLine) + '\n';
         }
-    };
+
+        document.getElementById('industry-button').textContent = `Applications received for the ${displayedTitle} sphere`;
+        document.title = profileCardTitle; // Set the page title to the full cardName
+    } catch (error) {
+        console.error('Error getting item from localStorage:', error); // Log any error that occurs when getting the item from localStorage
+    }
+};
+
 </script>
 <script>
             firebase.auth().onAuthStateChanged((user) => {
