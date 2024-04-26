@@ -298,35 +298,39 @@
             if (user) {
                 const userId = user.uid;
 
-                db.collection("job_postings").where("users", "array-contains", userId).get().then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        const card = document.createElement("div");
-                        card.className = "profile-card";
+                db.collection("job_postings").where("userId", "==", userId).get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        const card = document.createElement("div");
+        card.className = "profile-card";
 
-                        const cardBody = document.createElement("div");
-                        cardBody.className = "profile-card-body";
+        const cardBody = document.createElement("div");
+        cardBody.className = "profile-card-body";
 
-                        const cardTitle = document.createElement("h5");
-                        cardTitle.className = "profile-card-title";
-                        cardTitle.textContent = snakeToNormal(doc.id);
+        const careerPathTitle = doc.data().careerPathTitle;
 
-                        const cardButton = document.createElement("button");
-                        cardButton.className = "profile-card-button more-button";
-                        cardButton.innerHTML = "More <span class='arrow'>&#x276F;</span>";
-                        cardButton.onclick = function() {
-                            localStorage.setItem("cardName", cardTitle.textContent);
-                            window.location.href = 'more.html';
-                            console.log(localStorage.getItem("cardName"));
-                        };
+        const cardTitle = document.createElement("h5");
+        cardTitle.className = "profile-card-title";
+        cardTitle.textContent = snakeToNormal(careerPathTitle);
 
-                        cardBody.appendChild(cardTitle);
-                        cardBody.appendChild(cardButton);
-                        card.appendChild(cardBody);
-                        openPositionsElement.appendChild(card);
-                    });
-                }).catch((error) => {
-                    console.log("Error getting documents: ", error);
-                });
+        const cardButton = document.createElement("button");
+        cardButton.className = "profile-card-button more-button";
+        cardButton.innerHTML = "More <span class='arrow'>&#x276F;</span>";
+        cardButton.onclick = function() {
+            localStorage.setItem("cardName", careerPathTitle);
+            window.location.href = 'more.html';
+            console.log(localStorage.getItem("cardName"));
+        };
+
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardButton);
+        card.appendChild(cardBody);
+        openPositionsElement.appendChild(card);
+    });
+}).catch((error) => {
+    console.log("Error getting documents: ", error);
+});
+
+
             } else {
                 console.log("No user is signed in.");
             }
