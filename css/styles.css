@@ -1302,7 +1302,8 @@ input[type='checkbox'] {
     padding: 12px 30px;
     border-radius: 50px;
     transition: background-color 0.3s;
-	border: 0.2rem rgb(135, 25, 206)
+	border: 0.2rem rgb(135, 25, 206);
+	text-decoration: none;
 }
 
 .profile-button-1:hover {
@@ -2531,8 +2532,18 @@ a:hover.back-to-top {
 		margin-right: 1.5rem;
 		margin-left: 1rem;
 	}
+	.tabs .image-container1 {
+		margin-right: 1.5rem;
+		margin-left: 1rem;
+		margin-bottom: 2.5rem;
+	}
 	
 	.tabs .text-container {
+		margin-top: 1.5rem;
+		margin-right: 1rem;
+		margin-left: 1.5rem;
+	}
+	.tabs .text-container1 {
 		margin-top: 1.5rem;
 		margin-right: 1rem;
 		margin-left: 1.5rem;
