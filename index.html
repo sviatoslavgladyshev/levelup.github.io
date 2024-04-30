@@ -17,6 +17,19 @@
 	
 	<!-- Favicon  -->
     <link rel="icon" href="images/white_logo.png">
+    <style>
+        .ol1 {
+            list-style-type: none;
+            counter-reset: item;
+        }
+        .li1 {
+            counter-increment: item;
+        }
+        .li1:before {
+            content: counter(item) ". ";
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body data-spy="scroll" data-target=".fixed-top">
     
@@ -123,7 +136,7 @@
                             <a class="nav-link active" id="nav-tab-1" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true"><i class="fas fa-building"></i>For Employers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="nav-tab-2" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false"><i class="fas fa-user"></i>For Employees</a>
+                            <a class="nav-link" id="nav-tab-2" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false"><i class="fas fa-user"></i>For Candidates</a>
                         </li>
                     </ul>
                     <!-- end of tabs links -->
@@ -141,9 +154,11 @@
                                 </div> <!-- end of col -->
                                 <div class="col-lg-6">
                                     <div class="text-container">
-                                        <h3>List Building Is Easier Than Ever</h3>
-                                        <p>It's very easy to start using LevelUp. You just need to fill out and submit the <a class="blue page-scroll" href="sign-up.html">Sign Up Form</a> and you will receive access to the app and all of its features in no more than 24h.</p>
-                                        <ul class="list-unstyled li-space-lg">
+                                        <h3 style="font-size: 1.5rem;">Finding Fit Has Never Been This Effective</h3>
+                                        <p>With LevelUp, employers find their ideal candidates in a matter of minutes. Instead of searching through a pile of applicants who do not align with the company’s values, LevelUp matches candidates to an employer's desired career trajectory based on the characteristics of who they are as a person.</p>
+
+                                        <p>Employers also have the opportunity to present a holistic view of what it means to work at their firm. This extends far beyond the current position, description, and salary, to providing candidates a vision of the workplace culture, total compensation, and what a future would look like at your company.</p>
+                                        <!-- <ul class="list-unstyled li-space-lg">
                                             <li class="media">
                                                 <i class="fas fa-square"></i>
                                                 <div class="media-body">Create and embed on websites newsletter sign up forms</div>
@@ -156,8 +171,9 @@
                                                 <i class="fas fa-square"></i>
                                                 <div class="media-body">Add and remove subscribers using the control panel</div>
                                             </li>
-                                        </ul>
-                                        <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox-1">LIGHTBOX</a>
+                                        </ul> -->
+                                        <!-- <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox-1">LIGHTBOX</a> -->
+                                        <a class="btn-solid-reg" href="sign-up.html">TRY IT</a>
                                     </div> <!-- end of text-container -->
                                 </div> <!-- end of col -->
                             </div> <!-- end of row -->
@@ -174,9 +190,11 @@
                                 </div> <!-- end of col -->
                                 <div class="col-lg-6">
                                     <div class="text-container">
-                                        <h3>Campaigns Monitoring Tools</h3>
-                                        <p>Campaigns monitoring is a feature we've developed since the beginning because it's at the core of LevelUp and basically to any Recruitment activity focused on results.</p>
-                                        <ul class="list-unstyled li-space-lg">
+                                        <h3 style="font-size: 1.5rem;">Finding A Career Has Never Been This Easy</h3>
+                                        <p>Candidates using our mobile app will receive an actionable career trajectory in just 60 seconds. Instead of being purely evaluated on their resume, candidates will play simple games and define their career interests so that LevelUp can derive their core characteristics and match them with an employer.</p>
+
+                                        <p>Once matched, candidates are shown the current position the employer needs to fill as well as the career trajectory the employer has created alongside a description of the responsibilities, compensation, and culture for all points in the career path. Candidates then have the option to accept an interview, at which point they are put in direct contact with the employer.</p>
+                                        <!-- <ul class="list-unstyled li-space-lg">
                                             <li class="media">
                                                 <i class="fas fa-square"></i>
                                                 <div class="media-body">Easily plan campaigns and schedule their starting date</div>
@@ -189,41 +207,9 @@
                                                 <i class="fas fa-square"></i>
                                                 <div class="media-body">Evaluate campaign results and optimize future actions</div>
                                             </li>
-                                        </ul>
-                                        <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox-2">LIGHTBOX</a>
-                                    </div> <!-- end of text-container -->
-                                </div> <!-- end of col -->
-                            </div> <!-- end of row -->
-                        </div> <!-- end of tab-pane -->
-                        <!-- end of tab -->
-
-                        <!-- Tab -->
-                        <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="tab-3">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="image-container">
-                                        <img class="img-fluid" src="images/features-3.png" alt="alternative">
-                                    </div> <!-- end of image-container -->
-                                </div> <!-- end of col -->
-                                <div class="col-lg-6">
-                                    <div class="text-container">
-                                        <h3>Analytics Control Panel</h3>
-                                        <p>Analytics control  panel is important for every Recruitment team so it's beed implemented from the begging and designed to produce reports based on very little input information.</p>
-                                        <ul class="list-unstyled li-space-lg">
-                                            <li class="media">
-                                                <i class="fas fa-square"></i>
-                                                <div class="media-body">If you set it up correctly you will get acces to great intel</div>
-                                            </li>
-                                            <li class="media">
-                                                <i class="fas fa-square"></i>
-                                                <div class="media-body">Easy to integrate in your websites and landing pages</div>
-                                            </li>
-                                            <li class="media">
-                                                <i class="fas fa-square"></i>
-                                                <div class="media-body">The generated reports are important for your strategy</div>
-                                            </li>
-                                        </ul>
-                                        <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox-3">LIGHTBOX</a>
+                                        </ul> -->
+                                        <!-- <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox-2">LIGHTBOX</a> -->
+                                        <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox-2">JOIN OUR BETA</a>
                                     </div> <!-- end of text-container -->
                                 </div> <!-- end of col -->
                             </div> <!-- end of row -->
@@ -238,135 +224,54 @@
         </div> <!-- end of container -->
     </div> <!-- end of tabs -->
     <!-- end of features -->
-
-
-    <!-- Details Lightboxes -->
-    <!-- Details Lightbox 1 -->
-	<div id="details-lightbox-1" class="lightbox-basic zoom-anim-dialog mfp-hide">
-        <div class="container">
-            <div class="row">
-                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-                <div class="col-lg-8">
-                    <div class="image-container">
-                        <img class="img-fluid" src="images/details-lightbox.png" alt="alternative">
-                    </div> <!-- end of image-container -->
-                </div> <!-- end of col -->
-                <div class="col-lg-4">
-                    <h3>List Building</h3>
-                    <hr>
-                    <h5>Core service</h5>
-                    <p>It's very easy to start using LevelUp. You just need to fill out and submit the Sign Up Form and you will receive access to the app.</p>
-                    <ul class="list-unstyled li-space-lg">
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">List building framework</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">Easy database browsing</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">User administration</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">Automate user signup</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">Quick formatting tools</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">Fast email checking</div>
-                        </li>
-                    </ul>
-                    <a class="btn-solid-reg mfp-close" href="sign-up.html">SIGN UP</a> <a class="btn-outline-reg mfp-close as-button" href="#screenshots">BACK</a>
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of lightbox-basic -->
-    <!-- end of details lightbox 1 -->
-
     <!-- Details Lightbox 2 -->
 	<div id="details-lightbox-2" class="lightbox-basic zoom-anim-dialog mfp-hide">
         <div class="container">
             <div class="row">
                 <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                 <div class="col-lg-8">
-                    <div class="image-container">
+                    <!-- <div class="image-container">
                         <img class="img-fluid" src="images/details-lightbox.png" alt="alternative">
-                    </div> <!-- end of image-container -->
+                    </div>  -->
+                    <h5>Instructions</h5>
+                    <hr>
+                    <ol class="ol1">
+                        <li class="li1">Submit Your Apple ID Email via this form (Go to Settings > [your name] > Name, Phone Numbers, Email)<br><span style="color:gray; font-size:1.5em; display: block; text-align: center; margin-right: 30rem; margin-top: 1rem; margin-bottom: 1rem;">⬇️</span></li>
+                        <li class="li1">Install <img src="images/TestFlight_Icon.png" alt="TestFlight Icon" style="height:20px; width:20px; vertical-align:middle; border-radius: 15%;"> <a href="https://apps.apple.com/us/app/testflight/id899247664">TestFlight</a><br><span style="color:gray; font-size:1.5em; display: block; text-align: center; margin-right: 30rem; margin-top: 1rem; margin-bottom: 1rem;">⬇️</span></li>
+                        <li class="li1">Wait for Confirmation Email<br><span style="color:gray; font-size:1.5em; display: block; text-align: center; margin-right: 30rem; margin-top: 1rem; margin-bottom: 1rem;">⬇️</span></li>
+                        <li class="li1">Accept the Invitation<br><span style="color:gray; font-size:1.5em; display: block; text-align: center; margin-right: 30rem; margin-top: 1rem; margin-bottom: 1rem;">⬇️</span></li>
+                        <li class="li1">Install <img src="images/white_logo.png" alt="TestFlight Icon" style="height:20px; width:20px; vertical-align:middle; border-radius: 15%;"> LevelUp App through TestFlight</li>
+                    </ol>
+                    <p>For more information, you can find it <a href="https://testflight.apple.com/#:~:text=Install%20TestFlight%20on%20the%20iOS,the%20app%20on%20your%20device.">here</a>.</p>
                 </div> <!-- end of col -->
                 <div class="col-lg-4">
-                    <h3>Campaign Monitoring</h3>
+                    <h3>Beta User Details</h3>
                     <hr>
-                    <h5>Core service</h5>
-                    <p>It's very easy to start using LevelUp. You just need to fill out and submit the Sign Up Form and you will receive access to the app.</p>
-                    <ul class="list-unstyled li-space-lg">
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">List building framework</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">Easy database browsing</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">User administration</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">Automate user signup</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">Quick formatting tools</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">Fast email checking</div>
-                        </li>
-                    </ul>
-                    <a class="btn-solid-reg mfp-close" href="sign-up.html">SIGN UP</a> <a class="btn-outline-reg mfp-close as-button" href="#screenshots">BACK</a>
+                    <!-- <h5>Core service</h5> -->
+                    <p>Provide the following information, so we could add you to our team of Beta testers. By submiting this form you agree on our terms and conditions and provacy policy.</p>
+                    <form id="betaTester">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"> Apple ID Email </label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your Apple ID Email" required>
+                        </div>
+                        <input type="hidden" id="timestamp" name="timestamp" required>
+                        <div id="message"></div>
+                        <button type="submit" class="btn-solid-reg" onclick="document.getElementById('timestamp').value = new Date().toISOString();">Submit</button>
+                        <a class="btn-outline-reg mfp-close as-button">BACK</a>
+                    </form>
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
         </div> <!-- end of container -->
     </div> <!-- end of lightbox-basic -->
     <!-- end of details lightbox 2 -->
-
-    <!-- Details Lightbox 3 -->
-	<div id="details-lightbox-3" class="lightbox-basic zoom-anim-dialog mfp-hide">
-        <div class="container">
-            <div class="row">
-                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-                <div class="col-lg-8">
-                    <div class="image-container">
-                        <img class="img-fluid" src="images/details-lightbox.png" alt="alternative">
-                    </div> <!-- end of image-container -->
-                </div> <!-- end of col -->
-                <div class="col-lg-4">
-                    <h3>Analytics Tools</h3>
-                    <hr>
-                    <h5>Core service</h5>
-                    <p>It's very easy to start using LevelUp. You just need to fill out and submit the Sign Up Form and you will receive access to the app.</p>
-                    <ul class="list-unstyled li-space-lg">
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">List building framework</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">Easy database browsing</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">User administration</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">Automate user signup</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">Quick formatting tools</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-square"></i><div class="media-body">Fast email checking</div>
-                        </li>
-                    </ul>
-                    <a class="btn-solid-reg mfp-close" href="sign-up.html">SIGN UP</a> <a class="btn-outline-reg mfp-close as-button" href="#screenshots">BACK</a>
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of lightbox-basic -->
-    <!-- end of details lightbox 3 -->
-    <!-- end of details lightboxes -->
     <!-- Footer -->
     <svg class="footer-frame" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 79"><defs><style>.cls-2{fill:rgb(135, 25, 206)
         ;}</style></defs><title>footer-frame</title><path class="cls-2" d="M0,72.427C143,12.138,255.5,4.577,328.644,7.943c147.721,6.8,183.881,60.242,320.83,53.737,143-6.793,167.826-68.128,293-60.9,109.095,6.3,115.68,54.364,225.251,57.319,113.58,3.064,138.8-47.711,251.189-41.8,104.012,5.474,109.713,50.4,197.369,46.572,89.549-3.91,124.375-52.563,227.622-50.155A338.646,338.646,0,0,1,1920,23.467V79.75H0V72.427Z" transform="translate(0 -0.188)"/></svg>
@@ -381,7 +286,7 @@
                 </div> <!-- end of col -->
                 <div class="col-md-4">
                     <div class="footer-col middle">
-                        <h4>Important Links</h4>
+                        <h4>Legal Documents</h4>
                         <ul class="list-unstyled li-space-lg p-small">
                             <li class="media">
                                 <i class="fas fa-square"></i>
@@ -425,8 +330,9 @@
     
     	
     <!-- Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
     <script>
         var firebaseConfig = {
           apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
@@ -439,6 +345,9 @@
         };
         firebase.initializeApp(firebaseConfig);
 
+        const db = firebase.firestore();
+
+        // In your form submit event
         window.onload = function() {
         firebase.auth().onAuthStateChanged((user) => {
             var loginLink = document.getElementById("navbarDropdown-profile"); // select the <a> element by id
@@ -456,6 +365,56 @@
             }
         });
     };
+        // Function to get form values
+function getFormValues() {
+    var firstName = document.getElementById('firstName').value;
+    var lastName = document.getElementById('lastName').value;
+    var email = document.getElementById('email').value;
+    var timestamp = document.getElementById('timestamp').value;
+
+    return {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        timestamp: timestamp
+    };
+}
+
+// Function to write data to Firebase
+function writeToFirebase(data) {
+    db.collection("beta_testers").doc().set(data)
+    .then(function() {
+        console.log("Document successfully written!");
+        // Display success message to the user
+        var successMessage = document.createElement('p');
+        successMessage.textContent = "Submission successful! 👌";
+        successMessage.style.color = "green";
+        document.getElementById('message').appendChild(successMessage);
+
+        // Remove the success message after 5 seconds
+        setTimeout(function() {
+            successMessage.remove();
+        }, 5000);
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+}
+
+function clearFormFields() {
+    document.getElementById('firstName').value = '';
+    document.getElementById('lastName').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('timestamp').value = '';
+}
+
+// Attach event listener to form
+document.getElementById('betaTester').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var data = getFormValues();
+    writeToFirebase(data);
+    clearFormFields(); // Clear the form fields after submission
+});
     </script>
     <script>
         function signOut() {
