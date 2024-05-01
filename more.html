@@ -623,7 +623,7 @@ window.onload = function() {
             displayedTitle += profileCardTitle.substring(i, i + maxLengthPerLine) + '\n';
         }
 
-        document.getElementById('industry-button').textContent = `Applications received for the ${displayedTitle} sphere`;
+        document.getElementById('industry-button').textContent = `Applications received for the ${displayedTitle}`;
         document.title = profileCardTitle; // Set the page title to the full cardName
     } catch (error) {
         console.error('Error getting item from localStorage:', error); // Log any error that occurs when getting the item from localStorage
