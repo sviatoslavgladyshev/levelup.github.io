@@ -1309,7 +1309,8 @@ input[type='checkbox'] {
 .profile-button-1:hover {
     background-color: #a1a1a1;
 	border: 0.2rem rgb(135, 25, 206);
-	color: #ffffff
+	color: #ffffff;
+	text-decoration: none;
 }
 
 .profile-button-2 {
