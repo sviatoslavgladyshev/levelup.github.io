@@ -111,11 +111,6 @@
                             <p style="color: #555; font-size: 16px; line-height: 1.5; margin-top: 10px; max-width: 600px;">
                                 Stage 1 is the initial position you need to fill and the first step in your employee’s career trajectory.
                             </p>
-                            <div class="form-group">
-                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#stage1" aria-expanded="true" aria-controls="stage1" style="display: inline-block; width: 50%; height: 2.125rem; border: 1px solid rgb(232, 187, 3); border-radius: 1.5rem; background-color: rgb(232, 187, 3); color: #fff; font: 700 0.875rem/0 'Open Sans', sans-serif; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
-                                    Toggle Stage 1 <span class="bi bi-arrow-down"></span>
-                                </button>
-                            </div>
                             <div class="collapse show" id="stage1">
                                 <div class="form-group">
                                 <input type="text" id="title1" class="form-control-input" required>
@@ -199,6 +194,11 @@
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#stage1" aria-expanded="true" aria-controls="stage1" style="display: inline-block; width: 50%; height: 2.125rem; border: 1px solid rgb(232, 187, 3); border-radius: 1.5rem; background-color: rgb(232, 187, 3); color: #fff; font: 700 0.875rem/0 'Open Sans', sans-serif; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
+                                    Toggle Stage 1 <span class="bi bi-arrow-down"></span>
+                                </button>
+                            </div>
                             <hr>
         <h3 style="color: #555; margin-bottom: 1em;">Stage 2</h3>
         <p style="color: #555; font-size: 16px; line-height: 1.5; margin-top: 10px; max-width: 600px;">
@@ -207,11 +207,6 @@
         <p style="color: #555; font-size: 16px; line-height: 1.5; margin-top: 10px; max-width: 600px;">
             The information entered in this stage will also be displayed to the candidate if they are matched to your career trajectory.
         </p>
-        <div class="form-group">
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#stage2" aria-expanded="true" aria-controls="stage2" style="display: inline-block; width: 50%; height: 2.125rem; border: 1px solid rgb(232, 187, 3); border-radius: 1.5rem; background-color: rgb(232, 187, 3); color: #fff; font: 700 0.875rem/0 'Open Sans', sans-serif; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
-                Toggle Stage 2 <span class="bi bi-arrow-down"></span>
-            </button>
-        </div>
         <div class="collapse show" id="stage2">
         <div class="form-group">
             <input type="text" id="title2" class="form-control-input" required>
@@ -295,6 +290,11 @@
             <div class="help-block with-errors"></div>
         </div>
         </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#stage2" aria-expanded="true" aria-controls="stage2" style="display: inline-block; width: 50%; height: 2.125rem; border: 1px solid rgb(232, 187, 3); border-radius: 1.5rem; background-color: rgb(232, 187, 3); color: #fff; font: 700 0.875rem/0 'Open Sans', sans-serif; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
+                Toggle Stage 2 <span class="bi bi-arrow-down"></span>
+            </button>
+        </div>
         <hr>
                 <h3 style="color: #555; margin-bottom: 1em;">Stage 3</h3>
                 <p style="color: #555; font-size: 16px; line-height: 1.5; margin-top: 10px; max-width: 600px;">
@@ -303,11 +303,6 @@
                 <p style="color: #555; font-size: 16px; line-height: 1.5; margin-top: 10px; max-width: 600px;">
                     The information entered in this stage will also be displayed to the candidate if they are matched to your career trajectory.
                 </p>
-                <div class="form-group">
-                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#stage3" aria-expanded="true" aria-controls="stage3" style="display: inline-block; width: 50%; height: 2.125rem; border: 1px solid rgb(232, 187, 3); border-radius: 1.5rem; background-color: rgb(232, 187, 3); color: #fff; font: 700 0.875rem/0 'Open Sans', sans-serif; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
-                        Toggle Stage 3 <span class="bi bi-arrow-down"></span>
-                    </button>
-                </div>
                 <div class="collapse show" id="stage3">
                 <div class="form-group">
                     <input type="text" id="title3" class="form-control-input" required>
@@ -390,6 +385,11 @@
                     <label for="description3" class="label-control">Job Description</label>
                     <div class="help-block with-errors"></div>
                 </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#stage3" aria-expanded="true" aria-controls="stage3" style="display: inline-block; width: 50%; height: 2.125rem; border: 1px solid rgb(232, 187, 3); border-radius: 1.5rem; background-color: rgb(232, 187, 3); color: #fff; font: 700 0.875rem/0 'Open Sans', sans-serif; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
+                        Toggle Stage 3 <span class="bi bi-arrow-down"></span>
+                    </button>
                 </div>
                 <hr>
         <!-- <div class="form-group">
@@ -807,6 +807,11 @@ $('form').on('reset', function() {
         } else if (value === '') {
             e.target.value = '';
         }
+    });
+</script>
+<script>
+    document.getElementById('backToProfile').addEventListener('click', function() {
+        window.location.href = 'profile.html'; // replace 'profile.html' with the actual path to your profile page
     });
 </script>
 <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
