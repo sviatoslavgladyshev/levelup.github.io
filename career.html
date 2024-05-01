@@ -91,15 +91,26 @@
                         <form id="jobForm">
                             <div class="form-group">
                                 <input type="text" id="careerPathTitle" class="form-control-input" required>
-                                <label for="career_path" class="label-control">Career Path Title:</label>
+                                <label for="careerPathTitle" class="label-control">Career Path Title
+                                    <span class="info-container">
+                                        <span id="infoButton" style="cursor: pointer;">&#x24D8;</span>
+                                        <div id="tooltip">
+                                            The career path title is for you to keep track of your postings, it will not be displayed to candidates
+                                            <span class="tooltip-arrow"></span>
+                                        </div>
+                                    </span>
+                                </label>
                                 <div class="help-block with-errors"></div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <textarea type="text" id="companyCulture" class="form-control-input" rows="4" required></textarea>
                                 <label for="companyCulture" class="label-control">Company Culture:</label>
                                 <div class="help-block with-errors"></div>
-                            </div>
+                            </div> -->
                             <h3 style="color: #555;">Stage 1</h3>
+                            <p style="color: #555; font-size: 16px; line-height: 1.5; margin-top: 10px; max-width: 600px;">
+                                Stage 1 is the initial position you need to fill and the first step in your employee’s career trajectory.
+                            </p>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#stage1" aria-expanded="true" aria-controls="stage1" style="display: inline-block; width: 50%; height: 2.125rem; border: 1px solid rgb(232, 187, 3); border-radius: 1.5rem; background-color: rgb(232, 187, 3); color: #fff; font: 700 0.875rem/0 'Open Sans', sans-serif; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
                                     Toggle Stage 1 <span class="bi bi-arrow-down"></span>
@@ -118,19 +129,25 @@
                                     <option value="hourly">Hourly</option>
                                     <option value="comission">Comission</option>
                                 </select>
-                                <label for="salary_type1" class="label-control">Salary Type:</label>
+                                <label for="salary_type1" class="label-control">Salary Type</label>
                                 <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group">
-                                <input type="number" id="salary1" min="0" class="form-control-input" required>
-                                <label for="salary1" class="label-control">Salary (in USD):</label>
-                                <div class="help-block with-errors"></div>
+                                    <input type="text" id="salary1" min="0" class="form-control-input" style="padding-left: 20px;" required>
+                                    <label for="salary1" class="label-control">Salary</label>
+                                    <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group">
-                                <input type="number" id="workHours1" name="workHours" class="form-control-input" min="0" required>
-                                <label for="workHours1" class="label-control">Working Hours (per week):</label>
-                                <div class="help-block with-errors"></div>
-                                </div>
+                                    <select id="job_type1" class="form-control-input" required>
+                                        <option value="" class="form-control-input"></option>
+                                        <option value="full_time">Full-Time</option>
+                                        <option value="part_time">Part-Time</option>
+                                        <option value="temporary">Temporary</option>
+                                        <option value="internship">Internship</option>
+                                    </select>
+                                    <label for="job_type1" class="label-control">Job Type</label>
+                                    <div class="help-block with-errors"></div>
+                                    </div>
                                 <div class="form-group">
                                 <select id="industry1" class="form-control-input" required>
                                     <option value="" class="form-control-input"></option>
@@ -164,7 +181,15 @@
                                     <option value="tourism">Tourism</option>
                                     <option value="transportation">Transportation</option>
                                 </select>
-                                <label for="industry1" class="label-control">Sphere of activity:</label>
+                                <label for="industry1" class="label-control">Sphere of activity
+                                    <span class="info-container">
+                                        <span id="infoButton" style="cursor: pointer;">&#x24D8;</span>
+                                        <div id="tooltip">
+                                            The sphere of activity refers to the department where the majority of the positions work is located
+                                            <span class="tooltip-arrow"></span>
+                                        </div>
+                                    </span>
+                                </label>
                                 <div class="help-block with-errors"></div>
                                 </div>
                                 <input type="text" id="otherindustry1" placeholder="Other Industry" style="display: none;">
@@ -176,6 +201,12 @@
                             </div>
                             <hr>
         <h3 style="color: #555; margin-bottom: 1em;">Stage 2</h3>
+        <p style="color: #555; font-size: 16px; line-height: 1.5; margin-top: 10px; max-width: 600px;">
+            Stage 2 is the position the employee would be promoted to from their initial position (Stage 1).
+        </p>
+        <p style="color: #555; font-size: 16px; line-height: 1.5; margin-top: 10px; max-width: 600px;">
+            The information entered in this stage will also be displayed to the candidate if they are matched to your career trajectory.
+        </p>
         <div class="form-group">
             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#stage2" aria-expanded="true" aria-controls="stage2" style="display: inline-block; width: 50%; height: 2.125rem; border: 1px solid rgb(232, 187, 3); border-radius: 1.5rem; background-color: rgb(232, 187, 3); color: #fff; font: 700 0.875rem/0 'Open Sans', sans-serif; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
                 Toggle Stage 2 <span class="bi bi-arrow-down"></span>
@@ -194,19 +225,25 @@
                 <option value="hourly">Hourly</option>
                 <option value="comission">Comission</option>
             </select>
-            <label for="salary_type2" class="label-control">Salary Type:</label>
+            <label for="salary_type2" class="label-control">Salary Type</label>
             <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
-            <input type="number" id="salary2" min="0" class="form-control-input" required>
-            <label for="salary2" class="label-control">Salary (in USD):</label>
+            <input type="text" id="salary2" min="0" class="form-control-input" style="padding-left: 20px;" required>
+            <label for="salary2" class="label-control">Salary</label>
             <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
-            <input type="number" id="workHours2" name="workHours" class="form-control-input" min="0" required>
-            <label for="workHours2" class="label-control">Working Hours (per week):</label>
+            <select id="job_type2" class="form-control-input" required>
+                <option value="" class="form-control-input"></option>
+                <option value="full_time">Full-Time</option>
+                <option value="part_time">Part-Time</option>
+                <option value="temporary">Temporary</option>
+                <option value="internship">Internship</option>
+            </select>
+            <label for="job_type2" class="label-control">Job Type</label>
             <div class="help-block with-errors"></div>
-        </div>
+            </div>
         <div class="form-group">
             <select id="industry2" class="form-control-input" required>
                 <option value="" class="form-control-input"></option>
@@ -240,7 +277,15 @@
                 <option value="tourism">Tourism</option>
                 <option value="transportation">Transportation</option>
             </select>
-            <label for="industry2" class="label-control">Sphere of activity:</label>
+            <label for="industry2" class="label-control">Sphere of activity
+                <span class="info-container">
+                    <span id="infoButton" style="cursor: pointer;">&#x24D8;</span>
+                    <div id="tooltip">
+                        The sphere of activity refers to the department where the majority of the positions work is located
+                        <span class="tooltip-arrow"></span>
+                    </div>
+                </span>
+            </label>
             <div class="help-block with-errors"></div>
         </div>
         <input type="text" id="otherindustry2" placeholder="Other Industry" style="display: none;">
@@ -252,6 +297,12 @@
         </div>
         <hr>
                 <h3 style="color: #555; margin-bottom: 1em;">Stage 3</h3>
+                <p style="color: #555; font-size: 16px; line-height: 1.5; margin-top: 10px; max-width: 600px;">
+                    Stage 3 is the position the employee would be promoted to from their position (Stage 2).
+                </p>
+                <p style="color: #555; font-size: 16px; line-height: 1.5; margin-top: 10px; max-width: 600px;">
+                    The information entered in this stage will also be displayed to the candidate if they are matched to your career trajectory.
+                </p>
                 <div class="form-group">
                     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#stage3" aria-expanded="true" aria-controls="stage3" style="display: inline-block; width: 50%; height: 2.125rem; border: 1px solid rgb(232, 187, 3); border-radius: 1.5rem; background-color: rgb(232, 187, 3); color: #fff; font: 700 0.875rem/0 'Open Sans', sans-serif; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;">
                         Toggle Stage 3 <span class="bi bi-arrow-down"></span>
@@ -270,19 +321,25 @@
                         <option value="hourly">Hourly</option>
                         <option value="comission">Comission</option>
                     </select>
-                    <label for="salary_type3" class="label-control">Salary Type:</label>
+                    <label for="salary_type3" class="label-control">Salary Type</label>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
-                    <input type="number" id="salary3" min="0" class="form-control-input" required>
-                    <label for="salary3" class="label-control">Salary (in USD):</label>
+                    <input type="text" id="salary3" min="0" class="form-control-input" style="padding-left: 20px;" required>
+                    <label for="salary3" class="label-control">Salary</label>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
-                    <input type="number" id="workHours3" name="workHours" class="form-control-input" min="0" required>
-                    <label for="workHours3" class="label-control">Working Hours (per week):</label>
+                    <select id="job_type3" class="form-control-input" required>
+                        <option value="" class="form-control-input"></option>
+                        <option value="full_time">Full-Time</option>
+                        <option value="part_time">Part-Time</option>
+                        <option value="temporary">Temporary</option>
+                        <option value="internship">Internship</option>
+                    </select>
+                    <label for="job_type3" class="label-control">Job Type</label>
                     <div class="help-block with-errors"></div>
-                </div>
+                    </div>
                 <div class="form-group">
                     <select id="industry3" class="form-control-input" required>
                         <option value="" class="form-control-input"></option>
@@ -316,7 +373,15 @@
                         <option value="tourism">Tourism</option>
                         <option value="transportation">Transportation</option>
                     </select>
-                    <label for="industry3" class="label-control">Sphere of activity:</label>
+                    <label for="industry3" class="label-control">Sphere of activity
+                        <span class="info-container">
+                            <span id="infoButton" style="cursor: pointer;">&#x24D8;</span>
+                            <div id="tooltip">
+                                The sphere of activity refers to the department where the majority of the positions work is located
+                                <span class="tooltip-arrow"></span>
+                            </div>
+                        </span>
+                    </label>
                     <div class="help-block with-errors"></div>
                 </div>
                 <input type="text" id="otherindustry3" placeholder="Other Industry" style="display: none;">
@@ -332,7 +397,7 @@
         <div class="help-block with-errors"></div>
         </div> -->
         <div class="form-group">
-        <input type="submit" class="form-control-submit-button" value="Post Job">
+        <input type="submit" class="form-control-submit-button" value="Post Career">
         <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
@@ -393,14 +458,14 @@ document.getElementById('jobForm').addEventListener('submit', function(event) {
   // Extract form data
   const formData = {
       careerPathTitle: document.getElementById('careerPathTitle').value,
-      companyCulture: document.getElementById('companyCulture').value,
+    //   companyCulture: document.getElementById('companyCulture').value,
       stages: [
         {
           stage_1: {
             title: document.getElementById('title1').value,
             salaryType: document.getElementById('salary_type1').value,
             salary: document.getElementById('salary1').value,
-            workHours: document.getElementById('workHours1').value,
+            jobType: document.getElementById('job_type1').value,
             industry: document.getElementById('industry1').value,
             // otherIndustry: document.getElementById('otherindustry1').value,
             description: document.getElementById('description1').value
@@ -411,7 +476,7 @@ document.getElementById('jobForm').addEventListener('submit', function(event) {
             title: document.getElementById('title2').value,
             salaryType: document.getElementById('salary_type2').value,
             salary: document.getElementById('salary2').value,
-            workHours: document.getElementById('workHours2').value,
+            jobType: document.getElementById('job_type2').value,
             industry: document.getElementById('industry2').value,
             // otherIndustry: document.getElementById('otherindustry2').value,
             description: document.getElementById('description2').value
@@ -422,7 +487,7 @@ document.getElementById('jobForm').addEventListener('submit', function(event) {
             title: document.getElementById('title3').value,
             salaryType: document.getElementById('salary_type3').value,
             salary: document.getElementById('salary3').value,
-            workHours: document.getElementById('workHours3').value,
+            jobType: document.getElementById('job_type3').value,
             industry: document.getElementById('industry3').value,
             // otherIndustry: document.getElementById('otherindustry3').value,
             description: document.getElementById('description3').value
@@ -454,7 +519,7 @@ document.getElementById('jobForm').addEventListener('submit', function(event) {
         return employersRef.doc(docRef.id).set(formData);
       })
       .then(() => {
-        alert('Job posted successfully!');
+        alert('Career posted successfully!');
         // Redirect back to the profile page after 2 seconds
         setTimeout(() => {
           window.location.href = 'profile.html';
@@ -522,6 +587,15 @@ document.getElementById('jobForm').addEventListener('submit', function(event) {
     });
 </script>
 <script>
+    document.getElementById('infoButton').addEventListener('mouseover', function() {
+        document.getElementById('tooltip').style.display = 'block';
+    });
+
+    document.getElementById('infoButton').addEventListener('mouseout', function() {
+        document.getElementById('tooltip').style.display = 'none';
+    });
+</script>
+<script>
         document.getElementById('salary_type1').addEventListener('change', function() {
         if (this.value) {
             this.classList.add('notEmpty');
@@ -530,6 +604,27 @@ document.getElementById('jobForm').addEventListener('submit', function(event) {
         }
     });
     document.getElementById('industry1').addEventListener('change', function() {
+        if (this.value) {
+            this.classList.add('notEmpty');
+        } else {
+            this.classList.remove('notEmpty');
+        }
+    });
+    document.getElementById('job_type1').addEventListener('change', function() {
+        if (this.value) {
+            this.classList.add('notEmpty');
+        } else {
+            this.classList.remove('notEmpty');
+        }
+    });
+    document.getElementById('job_type2').addEventListener('change', function() {
+        if (this.value) {
+            this.classList.add('notEmpty');
+        } else {
+            this.classList.remove('notEmpty');
+        }
+    });
+    document.getElementById('job_type3').addEventListener('change', function() {
         if (this.value) {
             this.classList.add('notEmpty');
         } else {
@@ -576,10 +671,10 @@ document.getElementById('jobForm').addEventListener('submit', function(event) {
     this.style.height = 'auto';
     this.style.height = (this.scrollHeight) + 'px';
 });
-document.getElementById('companyCulture').addEventListener('input', function () {
-    this.style.height = 'auto';
-    this.style.height = (this.scrollHeight) + 'px';
-});
+// document.getElementById('companyCulture').addEventListener('input', function () {
+//     this.style.height = 'auto';
+//     this.style.height = (this.scrollHeight) + 'px';
+// });
 </script>
 <script>
 $(document).ready(function() {
@@ -593,11 +688,14 @@ $(document).ready(function() {
         $('[data-target="#stage1"] .bi').removeClass('bi-arrow-up').addClass('bi-arrow-down');
         var jobTitleStage1 = $('#title1').val();
         var salaryStage1 = $('#salary1').val();
-        var workHourStage1 = $('#workHours1').val();
+        var jobTypeStage1 = $('#job_type1').val().replace('_', '-');
+        jobTypeStage1 = jobTypeStage1.split('-').map(function(word) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        }).join('-');
         var salaryTypeStage1 = $('#salary_type1').val();
         if(jobTitleStage1.trim() !== '') {
-            $('[data-target="#stage1"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Working hours:</b> ' + workHourStage1 + ' hours/per week</span><br>');
-            $('[data-target="#stage1"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Salary:</b> $' + salaryStage1 + '</span><br>');
+            $('[data-target="#stage1"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Job Type:</b> ' + jobTypeStage1 + '</span><br>');
+            $('[data-target="#stage1"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Salary:</b> ' + salaryStage1 + '</span><br>');
             $('[data-target="#stage1"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Salary Type:</b> ' + salaryTypeStage1 + '</span><br>');
             $('[data-target="#stage1"]').after('<span style="color: #555; overflow-wrap: break-word; display: block; width: 100%;" class="toggleData"><b>Job title:</b> ' + jobTitleStage1 + '</span>');
         }
@@ -613,10 +711,13 @@ $(document).ready(function() {
         $('[data-target="#stage2"] .bi').removeClass('bi-arrow-up').addClass('bi-arrow-down');
         var jobTitleStage2 = $('#title2').val();
         var salaryStage2 = $('#salary2').val();
-        var workHourStage2 = $('#workHours2').val();
+        var jobTypeStage2 = $('#job_type2').val().replace('_', '-');
+        jobTypeStage2 = jobTypeStage2.split('-').map(function(word) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        }).join('-');
         var salaryTypeStage2 = $('#salary_type2').val();
         if(jobTitleStage2.trim() !== '') {
-            $('[data-target="#stage2"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Working hours:</b> ' + workHourStage2 + ' hours/per week</span><br>');
+            $('[data-target="#stage2"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Job Type:</b> ' + jobTypeStage2 + '</span><br>');
             $('[data-target="#stage2"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Salary:</b> $' + salaryStage2 + '</span><br>');
             $('[data-target="#stage2"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Salary Type:</b> ' + salaryTypeStage2 + '</span><br>');
             $('[data-target="#stage2"]').after('<span style="color: #555; overflow-wrap: break-word; display: block; width: 100%;" class="toggleData"><b>Job title:</b> ' + jobTitleStage2 + '</span>');
@@ -632,10 +733,13 @@ $(document).ready(function() {
         $('[data-target="#stage3"] .bi').removeClass('bi-arrow-up').addClass('bi-arrow-down');
         var jobTitleStage3 = $('#title3').val();
         var salaryStage3 = $('#salary3').val();
-        var workHourStage3 = $('#workHours3').val();
+        var jobTypeStage3 = $('#job_type3').val().replace('_', '-');
+        jobTypeStage3 = jobTypeStage3.split('-').map(function(word) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        }).join('-');
         var salaryTypeStage3 = $('#salary_type3').val();
         if(jobTitleStage3.trim() !== '') {
-            $('[data-target="#stage3"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Working hours:</b> ' + workHourStage3 + ' hours/per week</span><br>');
+            $('[data-target="#stage3"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Job Type:</b> ' + jobTypeStage3 + ' hours/per week</span><br>');
             $('[data-target="#stage3"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Salary:</b> $' + salaryStage3 + '</span><br>');
             $('[data-target="#stage3"]').after('<span style="color: #555; white-space: nowrap;" class="toggleData"><b>Salary Type:</b> ' + salaryTypeStage3 + '</span><br>');
             $('[data-target="#stage3"]').after('<span style="color: #555; overflow-wrap: break-word; display: block; width: 100%;" class="toggleData"><b>Job title:</b> ' + jobTitleStage3 + '</span>');
@@ -645,6 +749,65 @@ $(document).ready(function() {
 $('form').on('reset', function() {
     $('.toggleData').remove();
 });
+</script>
+<!-- <script>
+    var input = document.getElementById('salary1');
+    var dollarSign = document.getElementById('dollarSign');
+
+    input.addEventListener('focus', function() {
+        dollarSign.classList.add('show');
+    });
+
+    input.addEventListener('blur', function() {
+        dollarSign.classList.remove('show');
+    });
+</script> -->
+<script>
+    document.getElementById('salary1').addEventListener('input', function (e) {
+        var value = e.target.value;
+        if (value && !value.startsWith('$')) {
+            e.target.value = '$' + value.replace(/[^\d]/g, '');
+        } else if (value && value.startsWith('$')) {
+            var numberValue = value.substring(1); // remove the dollar sign
+            if (numberValue.replace(/[^\d]/g, '') === '') {
+                e.target.value = ''; // if all numbers are removed, remove the dollar sign
+            } else {
+                e.target.value = '$' + numberValue.replace(/[^\d]/g, '');
+            }
+        } else if (value === '') {
+            e.target.value = '';
+        }
+    });
+    document.getElementById('salary2').addEventListener('input', function (e) {
+        var value = e.target.value;
+        if (value && !value.startsWith('$')) {
+            e.target.value = '$' + value.replace(/[^\d]/g, '');
+        } else if (value && value.startsWith('$')) {
+            var numberValue = value.substring(1); // remove the dollar sign
+            if (numberValue.replace(/[^\d]/g, '') === '') {
+                e.target.value = ''; // if all numbers are removed, remove the dollar sign
+            } else {
+                e.target.value = '$' + numberValue.replace(/[^\d]/g, '');
+            }
+        } else if (value === '') {
+            e.target.value = '';
+        }
+    });
+    document.getElementById('salary3').addEventListener('input', function (e) {
+        var value = e.target.value;
+        if (value && !value.startsWith('$')) {
+            e.target.value = '$' + value.replace(/[^\d]/g, '');
+        } else if (value && value.startsWith('$')) {
+            var numberValue = value.substring(1); // remove the dollar sign
+            if (numberValue.replace(/[^\d]/g, '') === '') {
+                e.target.value = ''; // if all numbers are removed, remove the dollar sign
+            } else {
+                e.target.value = '$' + numberValue.replace(/[^\d]/g, '');
+            }
+        } else if (value === '') {
+            e.target.value = '';
+        }
+    });
 </script>
 <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
     <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
