@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+    <link href="css/swiper.css" rel="stylesheet">
+    <link href="css/magnific-popup.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    
+    
+    <link rel="icon" href="images/white_logo.png">
+</head>
+<body data-spy="scroll" data-target=".fixed-top">
+    <div class="spinner-wrapper">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+
+            <!-- Text Logo - Use this if you don't have a graphic logo -->
+            <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">LevelUp</a> -->
+
+            <!-- Image Logo -->
+            <a class="navbar-brand logo-image" href="index.html"><img src="images/logo_transparent.png" alt="alternative"></a> 
+            
+            <!-- Mobile Menu Toggle Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-awesome fas fa-bars"></span>
+                <span class="navbar-toggler-awesome fas fa-times"></span>
+            </button>
+            <!-- end of mobile menu toggle button -->
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="index.html#header">HOME <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle page-scroll" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="article-details.html"><span class="item-text">ABOUT US</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">TERMS AND CONDITIONS</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">PRIVACY POLICY</span></a>
+                        </div>
+                    </li>
+                </ul>
+                <span class="nav-item">
+                    <li class="nav-item dropdown" style="position: relative;">
+                        <a class="btn-outline-sm" id="navbarDropdown-profile" role="button" aria-haspopup="true" aria-expanded="false">MY PROFILE</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="position: absolute; top: 100%; left: 2.8rem;">
+                            <a class="dropdown-item" href="#" onclick="signOut()"><span class="item-text">SIGN OUT</span></a>
+                        </div>
+                    </li>
+                </span>
+            </div>
+        </div> <!-- end of container -->
+    </nav> <!-- end of navbar -->
+    <!-- end of navigation -->
+    <header id="header" class="ex-header" style="padding-bottom: 2rem;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 style="margin-top: -2rem;">Tell us about yourself</h1>
+                    <!-- <a class="profile-button-1" onclick="goToForm()" href="#">NEW CAREER</a> -->
+                    <!-- <a class="profile-button-1" onclick="goToDelete()" href="#">DELETE A JOB</a> -->
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </header> <!-- end of ex-header -->
+    <div class="questionsContainter">
+    <form id="questionsForm" class="questionnaire">
+    <h1 style="text-align: center; color: #007BFF; font-family: Arial, sans-serif; font-size: 2em; margin: 20px 0;"></h1>
+    
+    <!-- Intensity of Work -->
+    <div class="question">
+        <p>How long should employees spend on a non-working lunch break?</p>
+        <input type="radio" id="option1" name="question1" value="0 min" required>
+        <label for="option1"><span>0 min</span></label><br>
+        <input type="radio" id="option2" name="question1" value="10 min">
+        <label for="option2"><span>10 min</span></label><br>
+        <input type="radio" id="option3" name="question1" value="20 min">
+        <label for="option3"><span>20 min</span></label><br>
+        <input type="radio" id="option4" name="question1" value="30 min">
+        <label for="option4"><span>30 min</span></label><br>
+        <input type="radio" id="option5" name="question1" value="30+ min">
+        <label for="option5"><span>30+ min</span></label><br>
+        <button onclick="showPreviousQuestion()" disabled>Back</button>
+        <button type="button" onclick="showNextQuestion()">Next</button>
+    </div>
+
+    <!-- Repeat the same pattern for the rest of the questions -->
+
+    <div class="question" style="display: none;">
+        <p>Do you know what your employees do after work?</p>
+        <input type="radio" id="yes2" name="question2" value="yes">
+        <label for="yes2"><span>Yes</span></label><br>
+        <input type="radio" id="no2" name="question2" value="no">
+        <label for="no2"><span>No</span></label><br>
+        <button type="button" onclick="showPreviousQuestion()">Back</button>
+        <button type="button" onclick="showNextQuestion()">Next</button>
+    </div>
+
+    <div class="question" style="display: none;">
+        <p>Have you ever been invited to your employees' home?</p>
+        <input type="radio" id="yes3" name="question3" value="yes">
+        <label for="yes3"><span>Yes</span></label><br>
+        <input type="radio" id="no3" name="question3" value="no">
+        <label for="no3"><span>No</span></label><br>
+        <button type="button" onclick="showPreviousQuestion()">Back</button>
+        <button type="button" onclick="showNextQuestion()">Next</button>
+    </div>
+
+
+    <div class="question" style="display: none;">
+        <p>Have you ever hosted employees at your house?</p>
+        <input type="radio" id="yes4" name="question4" value="yes">
+        <label for="yes4"><span>Yes</span></label><br>
+        <input type="radio" id="no4" name="question4" value="no">
+        <label for="no4"><span>No</span></label><br>
+        <button type="button" onclick="showPreviousQuestion()">Back</button>
+        <button type="button" onclick="showNextQuestion()">Next</button>
+    </div>
+
+    <div class="question" style="display: none;">
+        <p>When was the last time you socialized with your employees outside of work?</p>
+        <input type="radio" id="yes5" name="question5" value="yes">
+        <label for="yes5"><span>Yes</span></label><br>
+        <input type="radio" id="no5" name="question5" value="no">
+        <label for="no5"><span>No</span></label><br>
+        <button type="button" onclick="showPreviousQuestion()">Back</button>
+        <button type="button" onclick="showNextQuestion()">Next</button>
+    </div>
+
+    <div class="question" style="display: none;">
+        <p>What portion of supervisors and your time is spent training or upskilling employees?</p>
+        <input type="radio" id="yes6" name="question6" value="yes">
+        <label for="yes6"><span>Yes</span></label><br>
+        <input type="radio" id="no6" name="question6" value="no">
+        <label for="no6"><span>No</span></label><br>
+        <button type="button" onclick="showPreviousQuestion()">Back</button>
+        <button type="button" onclick="showNextQuestion()">Next</button>
+    </div>
+
+    <div class="question" style="display: none;">
+        <p>Do you talk to your employees about setting goals for the workplace during work?</p>
+        <input type="radio" id="yes7" name="question7" value="yes">
+        <label for="yes7"><span>Yes</span></label><br>
+        <input type="radio" id="no7" name="question7" value="no">
+        <label for="no7"><span>No</span></label><br>
+        <button type="button" onclick="showPreviousQuestion()">Back</button>
+        <button type="button" onclick="showNextQuestion()">Next</button>
+    </div>
+
+    <div class="question" style="display: none;">
+        <p>Do you talk to your employees about setting goals for the workplace outside of work?</p>
+        <input type="radio" id="yes8" name="question8" value="yes">
+        <label for="yes8"><span>Yes</span></label><br>
+        <input type="radio" id="no8" name="question8" value="no">
+        <label for="no8"><span>No</span></label><br>
+        <button type="button" onclick="showPreviousQuestion()">Back</button>
+        <input type="submit" value="Submit">
+    </div>
+</form>
+</div>
+<!-- Footer -->
+<!-- <svg class="ex-footer-frame" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 79"><defs><style>.cls-2{fill:rgb(135, 25, 206);}</style></defs><title>footer-frame</title><path class="cls-2" d="M0,72.427C143,12.138,255.5,4.577,328.644,7.943c147.721,6.8,183.881,60.242,320.83,53.737,143-6.793,167.826-68.128,293-60.9,109.095,6.3,115.68,54.364,225.251,57.319,113.58,3.064,138.8-47.711,251.189-41.8,104.012,5.474,109.713,50.4,197.369,46.572,89.549-3.91,124.375-52.563,227.622-50.155A338.646,338.646,0,0,1,1920,23.467V79.75H0V72.427Z" transform="translate(0 -0.188)"/></svg> -->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="footer-col first">
+                    <h4>About LevelUp</h4>
+                    <p class="p-small">We believe that finding fit between employers and employees should be effortless, and that’s why we’re dedicated to the idea of building careers in 60 seconds.</p>
+                </div>
+            </div> <!-- end of col -->
+            <div class="col-md-4">
+                <div class="footer-col middle">
+                    <h4>Legal Documents</h4>
+                    <ul class="list-unstyled li-space-lg p-small">
+                        <li class="media">
+                            <i class="fas fa-square"></i>
+                            <div class="media-body">Read our <a class="white" href="terms-conditions.html">Terms & Conditions</a>, <a class="white" href="privacy-policy.html">Privacy Policy</a></div>
+                        </li>
+                    </ul>
+                </div>
+            </div> <!-- end of col -->
+            <div class="col-md-4">
+                <div class="footer-col last">
+                    <h4>Contact</h4>
+                    <ul class="list-unstyled li-space-lg p-small">
+                        <li class="media">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="media-body">Florence, AL, USA</div>
+                        </li>
+                        <li class="media">
+                            <i class="fas fa-envelope"></i>
+                            <div class="media-body"><a class="white" href="mailto:info@levelupcareers.co">info@levelupcareers.co</a>
+                        </li>
+                    </ul>
+                </div> 
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div> <!-- end of footer -->  
+<!-- end of footer -->
+
+
+
+    <!-- Copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="p-small">Copyright © 2024 <a href="https://www.levelupcareers.co">LevelUp</a></p>
+                </div> <!-- end of col -->
+            </div> <!-- enf of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of copyright --> 
+    <!-- end of copyright -->
+    <script>
+        var firebaseConfig = {
+        apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
+          authDomain: "levelup-65b5b.firebaseapp.com",
+          projectId: "levelup-65b5b",
+          storageBucket: "levelup-65b5b.appspot.com",
+          messagingSenderId: "13469845736",
+          appId: "1:13469845736:web:aa4b300ead478eac30215d",
+          measurementId: "G-B7HVG7T7VZ"
+    };
+// Initialize Firebase with your configuration
+firebase.initializeApp(firebaseConfig);
+
+// Get a reference to the Firestore database
+const db = firebase.firestore();
+firebase.auth().onAuthStateChanged((user) => {
+            var loginLink = document.getElementById("navbarDropdown-profile");
+
+            if (user) {
+                loginLink.textContent = "MY PROFILE";
+                loginLink.href = "profile.html";
+            } else {
+                loginLink.textContent = "EMPLOYER LOG IN";
+                loginLink.href = "log-in.html";
+            }
+        });
+
+        let currentQuestion = 0;
+        const questions = document.querySelectorAll('.question');
+
+        function showQuestion(index) {
+            questions.forEach((question, i) => {
+                question.style.display = i === index ? 'block' : 'none';
+            });
+        }
+
+        function showNextQuestion() {
+            var radios = document.getElementsByName('question' + (currentQuestion + 1));
+            var selected = false;
+
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    selected = true;
+                    break;
+                }
+            }
+
+            if (!selected) {
+                alert('Please select an option before proceeding.');
+                return;
+            }
+
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+        }
+
+        function showPreviousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        }
+
+        // Initialize the form to show the first question
+        showQuestion(currentQuestion);
+
+        document.getElementById('questionsForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const answers = {};
+    for (let i = 1; i <= 8; i++) {
+        const radios = document.getElementsByName('question' + i);
+        for (let j = 0; j < radios.length; j++) {
+            if (radios[j].checked) {
+                answers['question' + i] = radios[j].value;
+                break;
+            }
+        }
+    }
+
+    // Add timestamp to answers
+    answers['timestamp'] = firebase.firestore.FieldValue.serverTimestamp();
+
+    const user = firebase.auth().currentUser;
+    if (user) {
+        db.collection('employers').doc(user.uid).collection('questions_employer').add(answers)
+            .then(() => {
+                console.log('Document successfully written!');
+                alert('Your answers have been saved!');
+                setTimeout(() => {
+                    window.location.href = 'profile.html'; // Redirect to profile page
+                }, 1000); // Redirect after 2 seconds
+            })
+            .catch((error) => {
+                console.error('Error writing document: ', error);
+            });
+    }
+});
+
+    </script>
+    <script>
+        function signOut() {
+        firebase.auth().signOut().then(() => {
+            // Sign-out successful.
+            window.location.href = "/index.html"; // replace with the path to your home page
+        }).catch((error) => {
+            // An error happened.
+            console.error("Sign out error", error);
+        });
+    }
+    </script>
+    <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+    <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+    <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+    <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="js/scripts.js"></script> <!-- Custom scripts -->
+</body>
+</html>
