@@ -481,6 +481,11 @@ mark,
   height: auto;
 }
 
+.img-fluid-1 {
+  max-width: 90%;
+  height: auto;
+}
+
 .img-fluid-profile-picture {
   max-width: 100%;
   height: auto;

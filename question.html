@@ -139,7 +139,7 @@
     </div>
 
     <div class="question" style="display: none;">
-        <p>When was the last time you socialized with your employees outside of work?</p>
+        <p>Do you socialize with your employees outside of work?</p>
         <input type="radio" id="yes5" name="question5" value="yes">
         <label for="yes5"><span>Yes</span></label><br>
         <input type="radio" id="no5" name="question5" value="no">
@@ -147,19 +147,17 @@
         <button type="button" onclick="showPreviousQuestion()">Back</button>
         <button type="button" onclick="showNextQuestion()">Next</button>
     </div>
-
-    <div class="question" style="display: none;">
-        <p>What portion of supervisors and your time is spent training or upskilling employees?</p>
-        <input type="radio" id="yes6" name="question6" value="yes">
-        <label for="yes6"><span>Yes</span></label><br>
-        <input type="radio" id="no6" name="question6" value="no">
-        <label for="no6"><span>No</span></label><br>
+    <div class="question" id="question6" style="display: none;">
+        <p>How often do you socialize?</p>
+        <input type="radio" id="often" name="question6" value="often">
+        <label for="often"><span>Often</span></label><br>
+        <input type="radio" id="rarely" name="question6" value="rarely">
+        <label for="rarely"><span>Rarely</span></label><br>
         <button type="button" onclick="showPreviousQuestion()">Back</button>
         <button type="button" onclick="showNextQuestion()">Next</button>
     </div>
-
     <div class="question" style="display: none;">
-        <p>Do you talk to your employees about setting goals for the workplace during work?</p>
+        <p>What portion of supervisors and your time is spent training or upskilling employees?</p>
         <input type="radio" id="yes7" name="question7" value="yes">
         <label for="yes7"><span>Yes</span></label><br>
         <input type="radio" id="no7" name="question7" value="no">
@@ -169,11 +167,21 @@
     </div>
 
     <div class="question" style="display: none;">
-        <p>Do you talk to your employees about setting goals for the workplace outside of work?</p>
+        <p>Do you talk to your employees about setting goals for the workplace during work?</p>
         <input type="radio" id="yes8" name="question8" value="yes">
         <label for="yes8"><span>Yes</span></label><br>
         <input type="radio" id="no8" name="question8" value="no">
         <label for="no8"><span>No</span></label><br>
+        <button type="button" onclick="showPreviousQuestion()">Back</button>
+        <button type="button" onclick="showNextQuestion()">Next</button>
+    </div>
+
+    <div class="question" style="display: none;">
+        <p>Do you talk to your employees about setting goals for the workplace outside of work?</p>
+        <input type="radio" id="yes9" name="question9" value="yes">
+        <label for="yes9"><span>Yes</span></label><br>
+        <input type="radio" id="no9" name="question9" value="no">
+        <label for="no9"><span>No</span></label><br>
         <button type="button" onclick="showPreviousQuestion()">Back</button>
         <input type="submit" value="Submit">
     </div>
@@ -270,31 +278,49 @@ firebase.auth().onAuthStateChanged((user) => {
             });
         }
 
+
         function showNextQuestion() {
-            var radios = document.getElementsByName('question' + (currentQuestion + 1));
-            var selected = false;
+            // Hide current question
+            questions[currentQuestion].style.display = 'none';
 
-            for (var i = 0, length = radios.length; i < length; i++) {
-                if (radios[i].checked) {
-                    selected = true;
-                    break;
+            // Check if the current question is about socializing outside of work
+            if (currentQuestion === 4) {
+                var answer = document.querySelector('input[name="question5"]:checked').value;
+                if (answer === 'no') {
+                    // If the answer is "no", increment the currentQuestion counter twice to skip the next question
+                    currentQuestion += 2;
+                } else {
+                    // If the answer is "yes", just go to the next question
+                    currentQuestion++;
                 }
-            }
-
-            if (!selected) {
-                alert('Please select an option before proceeding.');
-                return;
-            }
-
-            if (currentQuestion < questions.length - 1) {
+            } else {
+                // For other questions, just go to the next one
                 currentQuestion++;
-                showQuestion(currentQuestion);
+            }
+
+            // Show next question
+            if (currentQuestion < questions.length) {
+                questions[currentQuestion].style.display = 'block';
             }
         }
+        
 
         function showPreviousQuestion() {
             if (currentQuestion > 0) {
-                currentQuestion--;
+                // If the current question is the one after the skipped question
+                if (currentQuestion === 6) {
+                    var answer = document.querySelector('input[name="question5"]:checked').value;
+                    if (answer === 'no') {
+                        // If the answer to the socializing question was "no", decrement the currentQuestion counter twice to skip the next question
+                        currentQuestion -= 2;
+                    } else {
+                        // If the answer was "yes", just go to the previous question
+                        currentQuestion--;
+                    }
+                } else {
+                    // For other questions, just go to the previous one
+                    currentQuestion--;
+                }
                 showQuestion(currentQuestion);
             }
         }
@@ -303,38 +329,37 @@ firebase.auth().onAuthStateChanged((user) => {
         showQuestion(currentQuestion);
 
         document.getElementById('questionsForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+            event.preventDefault();
 
-    const answers = {};
-    for (let i = 1; i <= 8; i++) {
-        const radios = document.getElementsByName('question' + i);
-        for (let j = 0; j < radios.length; j++) {
-            if (radios[j].checked) {
-                answers['question' + i] = radios[j].value;
-                break;
+            const answers = {};
+            for (let i = 1; i <= 9; i++) {
+                const radios = document.getElementsByName('question' + i);
+                for (let j = 0; j < radios.length; j++) {
+                    if (radios[j].checked) {
+                        answers['question' + i] = radios[j].value;
+                        break;
+                    }
+                }
             }
-        }
-    }
 
-    // Add timestamp to answers
-    answers['timestamp'] = firebase.firestore.FieldValue.serverTimestamp();
+            // Add timestamp to answers
+            answers['timestamp'] = firebase.firestore.FieldValue.serverTimestamp();
 
-    const user = firebase.auth().currentUser;
-    if (user) {
-        db.collection('employers').doc(user.uid).collection('questions_employer').add(answers)
-            .then(() => {
-                console.log('Document successfully written!');
-                alert('Your answers have been saved!');
-                setTimeout(() => {
-                    window.location.href = 'profile.html'; // Redirect to profile page
-                }, 1000); // Redirect after 2 seconds
-            })
-            .catch((error) => {
-                console.error('Error writing document: ', error);
-            });
-    }
-});
-
+            const user = firebase.auth().currentUser;
+            if (user) {
+                db.collection('employers').doc(user.uid).collection('questions_employer').add(answers)
+                    .then(() => {
+                        console.log('Document successfully written!');
+                        alert('Your answers have been saved!');
+                        setTimeout(() => {
+                            window.location.href = 'profile.html'; // Redirect to profile page
+                        }, 1000); // Redirect after 2 seconds
+                    })
+                    .catch((error) => {
+                        console.error('Error writing document: ', error);
+                    });
+            }
+        });
     </script>
     <script>
         function signOut() {

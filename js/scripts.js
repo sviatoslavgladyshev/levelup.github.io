@@ -32,10 +32,13 @@
     });
 
     $(window).on('scroll load', function() {
-        if ($(".navbar-custom.fixed-top-profile").offset().top > 60) {
-            $(".navbar-custom.fixed-top-profile").addClass("top-nav-collapse");
-        } else {
-            $(".navbar-custom.fixed-top-profile").removeClass("top-nav-collapse");
+        var navbar = $(".navbar-custom.fixed-top-profile");
+        if (navbar.length) {
+            if (navbar.offset().top > 60) {
+                navbar.addClass("top-nav-collapse");
+            } else {
+                navbar.removeClass("top-nav-collapse");
+            }
         }
     });
     

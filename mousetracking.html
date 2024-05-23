@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Honesty Survey</title>
+<style>
+  /* CSS Styles */
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  #container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    overflow: hidden;
+  }
+  #question {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    text-align: center;
+  }
+  #submit {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div id="container">
+  <div id="question">
+    <h2>How likely are you to recommend our product?</h2>
+    <input type="range" min="0" max="10" id="rating" value="5">
+    <span id="ratingValue">5</span>
+    <button id="submit">Submit</button>
+  </div>
+</div>
+
+<script>
+  // JavaScript
+  document.addEventListener('DOMContentLoaded', function() {
+    var ratingInput = document.getElementById('rating');
+    var ratingValue = document.getElementById('ratingValue');
+
+    ratingInput.addEventListener('input', function() {
+      ratingValue.textContent = ratingInput.value;
+    });
+
+    // Log mouse movement trajectory
+    var trajectory = [];
+    document.addEventListener('mousemove', function(e) {
+      trajectory.push({ x: e.clientX, y: e.clientY });
+    });
+
+    // Submit the survey and analyze mouse trajectory
+    document.getElementById('submit').addEventListener('click', function() {
+      console.log('Survey Submitted');
+      console.log('Mouse Trajectory:', trajectory);
+
+      // Extract features from mouse tracking data
+      var features = extractFeatures(trajectory);
+
+      // Predict honesty using the machine learning model
+      predictHonesty(features);
+    });
+  });
+
+  // Function to extract features from mouse tracking data
+  function extractFeatures(trajectory) {
+    var totalDistance = 0;
+    var totalTime = 0;
+    var directionChanges = 0;
+    var stopCount = 0; // Count stops in mouse movement
+    
+    for (var i = 1; i < trajectory.length; i++) {
+      var dx = trajectory[i].x - trajectory[i - 1].x;
+      var dy = trajectory[i].y - trajectory[i - 1].y;
+      var distance = Math.sqrt(dx * dx + dy * dy);
+      var timeDiff = 1; // Assuming a constant time interval between points for simplicity
+      var speed = distance / timeDiff;
+
+      totalDistance += distance;
+      totalTime += timeDiff;
+
+      // Count direction changes
+      if (i > 1) {
+        var prevDx = trajectory[i - 1].x - trajectory[i - 2].x;
+        var prevDy = trajectory[i - 1].y - trajectory[i - 2].y;
+        var dotProduct = dx * prevDx + dy * prevDy;
+        if (dotProduct <= 0) {
+          directionChanges++;
+        }
+      }
+
+      // Count stops (where mouse speed is very low)
+      if (speed < 2) {
+        stopCount++;
+      }
+    }
+
+    var averageSpeed = totalDistance / totalTime;
+    return [totalDistance, totalTime, averageSpeed, directionChanges, stopCount];
+  }
+
+  // Function to predict honesty using a machine learning model
+  function predictHonesty(features) {
+    // Machine learning model parameters (hypothetical)
+    const distanceThreshold = 8000; // Threshold for total distance
+    const speedThreshold = 12; // Threshold for average speed
+    const directionThreshold = 5; // Threshold for direction changes
+    const stopThreshold = 5; // Threshold for stop count
+
+    // Perform prediction
+    if (features[0] <= distanceThreshold && features[2] >= speedThreshold && features[3] <= directionThreshold && features[4] <= stopThreshold) {
+      console.log('Predicted Honesty: Likely');
+    } else {
+      console.log('Predicted Honesty: Unlikely');
+    }
+  }
+</script>
+
+</body>
+</html>

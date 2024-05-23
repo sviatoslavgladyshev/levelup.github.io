@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multi-Step Form</title>
+    <style>
+        .form-stage {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="jobForm">
+        <div class="form-group">
+<input type="text" id="title" class="form-control-input" required>
+<label for="title" class="label-control">Job Title</label>
+<div class="help-block with-errors"></div>
+</div>
+<div class="form-group">
+<select id="salary_type" class="form-control-input" required>
+<option value="" class="form-control-input"></option>
+<option value="salary">Salary</option>
+<option value="hourly">Hourly</option>
+<option value="comission">Comission</option>
+</select>
+<label for="salary_type" class="label-control">Salary Type:</label>
+<div class="help-block with-errors"></div>
+</div>
+<div class="form-group">
+<input type="number" id="salary" min="0" class="form-control-input" required>
+<label for="salary" class="label-control">Salary (in USD):</label>
+<div class="help-block with-errors"></div>
+</div>
+<div class="form-group">
+<input type="number" id="workHours" name="workHours" class="form-control-input" min="0" required>
+<label for="workHours" class="label-control">Working Hours (per week):</label>
+<div class="help-block with-errors"></div>
+</div>
+<div class="form-group">
+<select id="industry" class="form-control-input" required>
+<option value="" class="form-control-input"></option>
+<option value="accounting">Accounting</option>
+<option value="advertising">Advertising</option>
+<option value="agriculture">Agriculture</option>
+<option value="automotive">Automotive</option>
+<option value="banking">Banking</option>
+<option value="construction">Construction</option>
+<option value="consulting">Consulting</option>
+<option value="education">Education</option>
+<option value="energy">Energy</option>
+<option value="engineering">Engineering</option>
+<option value="entertainment">Entertainment</option>
+<option value="environmental">Environmental</option>
+<option value="finance">Finance</option>
+<option value="food-service">Food Service</option>
+<option value="government">Government</option>
+<option value="healthcare">Healthcare</option>
+<option value="hospitality">Hospitality</option>
+<option value="insurance">Insurance</option>
+<option value="manufacturing">Manufacturing</option>
+<option value="media">Media</option>
+<!-- <option value="other">Other</option> -->
+<option value="pharmaceutical">Pharmaceutical</option>
+<option value="real-estate">Real Estate</option>
+<option value="retail">Retail</option>
+<option value="sport">Sport</option>
+<option value="technology">Technology</option>
+<option value="telecommunications">Telecommunications</option>
+<option value="tourism">Tourism</option>
+<option value="transportation">Transportation</option>
+</select>
+<label for="industry" class="label-control">Sphere of the activity:</label>
+<div class="help-block with-errors"></div>
+</div>
+<input type="text" id="otherindustry" placeholder="Other Industry" style="display: none;">
+<div class="form-group">
+<select id="careerPath" class="form-control-input" required>
+<option value="" class="form-control-input"></option>
+<option value="Mechanical_Engineering">Mechanical Engineering</option>
+<option value="Business_Development">Business Development</option>
+<option value="Healthcare_And_Medical_Services">Healthcare And Medical Services</option>
+<option value="Electrical_Engineering">Electrical Engineering</option>
+</select>
+<label for="careerPath" class="label-control">Career Path:</label>
+<div class="help-block with-errors"></div>
+</div>
+<div class="form-group">
+<textarea type="text" id="description" class="form-control-input" rows="4" required></textarea>
+<label for="description" class="label-control">Job Description</label>
+<div class="help-block with-errors"></div>
+</div>
+<div class="form-group">
+<input type="submit" class="form-control-submit-button" value="Post Job">
+<div class="help-block with-errors"></div>
+</div>
+<div class="form-group">
+<button id="backToProfile" class="form-control-submit-button">Back to Profile</button>
+<div class="help-block with-errors"></div>
+</div>
+</form>
+    <script>
+        // Array of job titles
+        var jobTitles = ["Job Title 1", "Job Title 2", "Job Title 3"];
+
+        // For each job title, create a form
+        jobTitles.forEach(function(jobTitle, index) {
+            // Create a new form element
+            var form = document.createElement("form");
+            form.id = "jobForm" + (index + 1);
+
+            // Create the form-group div
+            var formGroup = document.createElement("div");
+            formGroup.className = "form-group";
+
+            // Create the input element for the job title
+            var input = document.createElement("input");
+            input.type = "text";
+            input.id = "title" + (index + 1);
+            input.className = "form-control-input";
+            input.required = true;
+            input.value = jobTitle;
+
+            // Create the label for the job title
+            var label = document.createElement("label");
+            label.for = "title" + (index + 1);
+            label.className = "label-control";
+            label.textContent = "Job Title";
+
+            // Add the input and label to the form-group div
+            formGroup.appendChild(input);
+            formGroup.appendChild(label);
+
+            // Add the form-group div to the form
+            form.appendChild(formGroup);
+
+            // Repeat the above steps for the other form fields...
+
+            // Add the form to the body of the HTML document
+            document.body.appendChild(form);
+        });
+    </script>
+</body>
+</html>

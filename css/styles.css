@@ -3097,7 +3097,7 @@ font-size: 2.125rem;
 	align-items: center;
 	min-height: 70vh;
 	background-size: 200% 200%;
-	animation: gradientAnimation 10s ease infinite; /* Updated animation name */
+	animation: gradientAnimation 50s ease infinite; /* Updated animation name */
 	background-image: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab, #ee7752);
 }
 

@@ -81,6 +81,7 @@
             <div class="col-md-12">
                 <h1 class="company_name_welcome" id="company_name" style="margin-bottom: 2rem;"></h1>
                 <a class="profile-button-1" onclick="goToForm()" href="#">NEW CAREER</a>
+                <a class="profile-button-1" onclick="goToEdit()" href="#" style="margin-left: 1rem;">EDIT PROFILE</a>
                 <!-- <a class="profile-button-1" onclick="goToDelete()" href="#">DELETE A JOB</a> -->
             </div> <!-- end of col -->
         </div> <!-- end of row -->
@@ -235,6 +236,10 @@
     <script>
         function goToForm() {
             window.location.href = "career.html";
+        }
+
+        function goToEdit() {
+            window.location.href = "edit.html";
         }
 
         function goToDelete() {

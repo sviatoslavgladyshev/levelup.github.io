@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "firebase": "^10.9.0",
-    "firebase-admin": "^12.0.0"
+    "firebase-admin": "^12.0.0",
+    "node": "^18.20.1"
   },
   "main": "main.js",
   "keywords": [],
