@@ -2296,7 +2296,8 @@ a:hover.back-to-top {
 	.header .image-container .img-wrapper {
 		position: absolute;
 		display: block;
-		width: 470px;
+		width: 800px;
+		height: auto;
 	}
 
 	.header-frame {
@@ -2498,7 +2499,7 @@ a:hover.back-to-top {
 	}
 
 	.header .image-container .img-wrapper {
-		width: 630px;
+		width: 760px;
 	}
 
 	.header-frame {
