@@ -88,103 +88,200 @@
     <form id="questionsForm" class="questionnaire">
     <h1 style="text-align: center; color: #007BFF; font-family: Arial, sans-serif; font-size: 2em; margin: 20px 0;"></h1>
     
-    <!-- Intensity of Work -->
-    <div class="question">
-        <p>How long should employees spend on a non-working lunch break?</p>
-        <input type="radio" id="option1" name="question1" value="0 min" required>
-        <label for="option1"><span>0 min</span></label><br>
-        <input type="radio" id="option2" name="question1" value="10 min">
-        <label for="option2"><span>10 min</span></label><br>
-        <input type="radio" id="option3" name="question1" value="20 min">
-        <label for="option3"><span>20 min</span></label><br>
-        <input type="radio" id="option4" name="question1" value="30 min">
-        <label for="option4"><span>30 min</span></label><br>
-        <input type="radio" id="option5" name="question1" value="30+ min">
-        <label for="option5"><span>30+ min</span></label><br>
-        <button onclick="showPreviousQuestion()" disabled>Back</button>
-        <button type="button" onclick="showNextQuestion()">Next</button>
-    </div>
+            <!-- Question 1: Company Values -->
+            <div class="question">
+                <p>Which of the following best represents the core values of your organization?</p>
+                <input type="radio" id="value1" name="question1" value="Innovation and creativity" required>
+                <label for="value1"><span>Innovation and creativity</span></label><br>
+                <input type="radio" id="value2" name="question1" value="Integrity and transparency">
+                <label for="value2"><span>Integrity and transparency</span></label><br>
+                <input type="radio" id="value3" name="question1" value="Collaboration and teamwork">
+                <label for="value3"><span>Collaboration and teamwork</span></label><br>
+                <button onclick="showPreviousQuestion()" disabled>Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
 
-    <!-- Repeat the same pattern for the rest of the questions -->
+            <!-- Question 2: Work-Life Balance -->
+            <div class="question" style="display: none;">
+                <p>How does your company promote work-life balance for employees?</p>
+                <input type="radio" id="balance1" name="question2" value="Flexible working hours and remote work options">
+                <label for="balance1"><span>Flexible working hours and remote work options</span></label><br>
+                <input type="radio" id="balance2" name="question2" value="Clear boundaries between work and personal time">
+                <label for="balance2"><span>Clear boundaries between work and personal time</span></label><br>
+                <input type="radio" id="balance3" name="question2" value="Wellness programs and stress management initiatives">
+                <label for="balance3"><span>Wellness programs and stress management initiatives</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
 
-    <div class="question" style="display: none;">
-        <p>Do you know what your employees do after work?</p>
-        <input type="radio" id="yes2" name="question2" value="yes">
-        <label for="yes2"><span>Yes</span></label><br>
-        <input type="radio" id="no2" name="question2" value="no">
-        <label for="no2"><span>No</span></label><br>
-        <button type="button" onclick="showPreviousQuestion()">Back</button>
-        <button type="button" onclick="showNextQuestion()">Next</button>
-    </div>
+            <!-- Question 3: Communication Channels -->
+            <div class="question" style="display: none;">
+                <p>What are the primary communication channels used within your organization?</p>
+                <input type="radio" id="channels1" name="question3" value="Regular team meetings and face-to-face interactions">
+                <label for="channels1"><span>Regular team meetings and face-to-face interactions</span></label><br>
+                <input type="radio" id="channels2" name="question3" value="Email, instant messaging, and collaboration tools">
+                <label for="channels2"><span>Email, instant messaging, and collaboration tools</span></label><br>
+                <input type="radio" id="channels3" name="question3" value="Video conferences and virtual team environments">
+                <label for="channels3"><span>Video conferences and virtual team environments</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
 
-    <div class="question" style="display: none;">
-        <p>Have you ever been invited to your employees' home?</p>
-        <input type="radio" id="yes3" name="question3" value="yes">
-        <label for="yes3"><span>Yes</span></label><br>
-        <input type="radio" id="no3" name="question3" value="no">
-        <label for="no3"><span>No</span></label><br>
-        <button type="button" onclick="showPreviousQuestion()">Back</button>
-        <button type="button" onclick="showNextQuestion()">Next</button>
-    </div>
+            <!-- Question 4: Employee Engagement -->
+            <div class="question" style="display: none;">
+                <p>How does your company measure and improve employee engagement?</p>
+                <input type="radio" id="engage1" name="question4" value="Employee surveys and feedback mechanisms">
+                <label for="engage1"><span>Employee surveys and feedback mechanisms</span></label><br>
+                <input type="radio" id="engage2" name="question4" value="Recognition programs and incentives">
+                <label for="engage2"><span>Recognition programs and incentives</span></label><br>
+                <input type="radio" id="engage3" name="question4" value="Opportunities for career growth and development">
+                <label for="engage3"><span>Opportunities for career growth and development</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
 
+            <!-- Question 5: Diversity and Inclusion -->
+            <div class="question" style="display: none;">
+                <p>How does your company promote diversity and inclusion in the workplace?</p>
+                <input type="radio" id="diversity1" name="question5" value="Diversity training programs and inclusive hiring practices">
+                <label for="diversity1"><span>Diversity training programs and inclusive hiring practices</span></label><br>
+                <input type="radio" id="diversity2" name="question5" value="Employee resource groups and cultural celebrations">
+                <label for="diversity2"><span>Employee resource groups and cultural celebrations</span></label><br>
+                <input type="radio" id="diversity3" name="question5" value="Policies that ensure equal opportunities for all employees">
+                <label for="diversity3"><span>Policies that ensure equal opportunities for all employees</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
 
-    <div class="question" style="display: none;">
-        <p>Have you ever hosted employees at your house?</p>
-        <input type="radio" id="yes4" name="question4" value="yes">
-        <label for="yes4"><span>Yes</span></label><br>
-        <input type="radio" id="no4" name="question4" value="no">
-        <label for="no4"><span>No</span></label><br>
-        <button type="button" onclick="showPreviousQuestion()">Back</button>
-        <button type="button" onclick="showNextQuestion()">Next</button>
-    </div>
+            <!-- Question 6: Performance Evaluation -->
+            <div class="question" style="display: none;">
+                <p>How are employee performances evaluated within your organization?</p>
+                <input type="radio" id="performance1" name="question6" value="Regular performance reviews and goal-setting sessions">
+                <label for="performance1"><span>Regular performance reviews and goal-setting sessions</span></label><br>
+                <input type="radio" id="performance2" name="question6" value="Metrics-driven assessments and performance benchmarks">
+                <label for="performance2"><span>Metrics-driven assessments and performance benchmarks</span></label><br>
+                <input type="radio" id="performance3" name="question6" value="Continuous feedback and coaching sessions">
+                <label for="performance3"><span>Continuous feedback and coaching sessions</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
 
-    <div class="question" style="display: none;">
-        <p>Do you socialize with your employees outside of work?</p>
-        <input type="radio" id="yes5" name="question5" value="yes">
-        <label for="yes5"><span>Yes</span></label><br>
-        <input type="radio" id="no5" name="question5" value="no">
-        <label for="no5"><span>No</span></label><br>
-        <button type="button" onclick="showPreviousQuestion()">Back</button>
-        <button type="button" onclick="showNextQuestion()">Next</button>
-    </div>
-    <div class="question" id="question6" style="display: none;">
-        <p>How often do you socialize?</p>
-        <input type="radio" id="often" name="question6" value="often">
-        <label for="often"><span>Often</span></label><br>
-        <input type="radio" id="rarely" name="question6" value="rarely">
-        <label for="rarely"><span>Rarely</span></label><br>
-        <button type="button" onclick="showPreviousQuestion()">Back</button>
-        <button type="button" onclick="showNextQuestion()">Next</button>
-    </div>
-    <div class="question" style="display: none;">
-        <p>What portion of supervisors and your time is spent training or upskilling employees?</p>
-        <input type="radio" id="yes7" name="question7" value="yes">
-        <label for="yes7"><span>Yes</span></label><br>
-        <input type="radio" id="no7" name="question7" value="no">
-        <label for="no7"><span>No</span></label><br>
-        <button type="button" onclick="showPreviousQuestion()">Back</button>
-        <button type="button" onclick="showNextQuestion()">Next</button>
-    </div>
+            <!-- Question 7: Company Growth and Stability -->
+            <div class="question" style="display: none;">
+                <p>What is the company’s approach to growth and ensuring long-term stability?</p>
+                <input type="radio" id="growth1" name="question7" value="Strategic planning and market analysis">
+                <label for="growth1"><span>Strategic planning and market analysis</span></label><br>
+                <input type="radio" id="growth2" name="question7" value="Innovation and adaptation to industry trends">
+                <label for="growth2"><span>Innovation and adaptation to industry trends</span></label><br>
+                <input type="radio" id="growth3" name="question7" value="Financial stability and investment in infrastructure">
+                <label for="growth3"><span>Financial stability and investment in infrastructure</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
 
-    <div class="question" style="display: none;">
-        <p>Do you talk to your employees about setting goals for the workplace during work?</p>
-        <input type="radio" id="yes8" name="question8" value="yes">
-        <label for="yes8"><span>Yes</span></label><br>
-        <input type="radio" id="no8" name="question8" value="no">
-        <label for="no8"><span>No</span></label><br>
-        <button type="button" onclick="showPreviousQuestion()">Back</button>
-        <button type="button" onclick="showNextQuestion()">Next</button>
-    </div>
+            <!-- Question 8: Leadership Support -->
+            <div class="question" style="display: none;">
+                <p>How does leadership demonstrate support for employees’ professional growth?</p>
+                <input type="radio" id="leadership1" name="question8" value="Mentorship programs and leadership development initiatives">
+                <label for="leadership1"><span>Mentorship programs and leadership development initiatives</span></label><br>
+                <input type="radio" id="leadership2" name="question8" value="Open-door policy and accessibility to senior management">
+                <label for="leadership2"><span>Open-door policy and accessibility to senior management</span></label><br>
+                <input type="radio" id="leadership3" name="question8" value="Clear career paths and advancement opportunities">
+                <label for="leadership3"><span>Clear career paths and advancement opportunities</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
 
-    <div class="question" style="display: none;">
-        <p>Do you talk to your employees about setting goals for the workplace outside of work?</p>
-        <input type="radio" id="yes9" name="question9" value="yes">
-        <label for="yes9"><span>Yes</span></label><br>
-        <input type="radio" id="no9" name="question9" value="no">
-        <label for="no9"><span>No</span></label><br>
-        <button type="button" onclick="showPreviousQuestion()">Back</button>
-        <input type="submit" value="Submit">
-    </div>
+            <!-- Question 9: Workplace Wellness -->
+            <div class="question" style="display: none;">
+                <p>What initiatives does your company have to promote employee wellness?</p>
+                <input type="radio" id="wellness1" name="question9" value="Wellness programs (e.g., fitness classes, mental health support)">
+                <label for="wellness1"><span>Wellness programs (e.g., fitness classes, mental health support)</span></label><br>
+                <input type="radio" id="wellness2" name="question9" value="Flexible work arrangements (e.g., remote work options)">
+                <label for="wellness2"><span>Flexible work arrangements (e.g., remote work options)</span></label><br>
+                <input type="radio" id="wellness3" name="question9" value="Employee assistance programs (e.g., counseling services)">
+                <label for="wellness3"><span>Employee assistance programs (e.g., counseling services)</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
+
+            <!-- Question 10: Innovation Culture -->
+            <div class="question" style="display: none;">
+                <p>How does your organization foster innovation and creativity among employees?</p>
+                <input type="radio" id="innovation1" name="question10" value="Encouraging experimentation and risk-taking">
+                <label for="innovation1"><span>Encouraging experimentation and risk-taking</span></label><br>
+                <input type="radio" id="innovation2" name="question10" value="Allocating resources for research and development">
+                <label for="innovation2"><span>Allocating resources for research and development</span></label><br>
+                <input type="radio" id="innovation3" name="question10" value="Recognizing and rewarding innovative ideas">
+                <label for="innovation3"><span>Recognizing and rewarding innovative ideas</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
+
+            <!-- Question 11: Corporate Social Responsibility (CSR) -->
+            <div class="question" style="display: none;">
+                <p>What role does CSR play in your organization’s business strategy?</p>
+                <input type="radio" id="csr1" name="question11" value="Active involvement in community projects and charitable initiatives">
+                <label for="csr1"><span>Active involvement in community projects and charitable initiatives</span></label><br>
+                <input type="radio" id="csr2" name="question11" value="Environmental sustainability initiatives and ethical business practices">
+                <label for="csr2"><span>Environmental sustainability initiatives and ethical business practices</span></label><br>
+                <input type="radio" id="csr3" name="question11" value="Promoting social responsibility through partnerships and advocacy">
+                <label for="csr3"><span>Promoting social responsibility through partnerships and advocacy</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
+
+            <!-- Question 12: Team Collaboration -->
+            <div class="question" style="display: none;">
+                <p>How does your company promote collaboration among teams?</p>
+                <input type="radio" id="collaboration1" name="question12" value="Cross-functional projects and team-building activities">
+                <label for="collaboration1"><span>Cross-functional projects and team-building activities</span></label><br>
+                <input type="radio" id="collaboration2" name="question12" value="Collaborative tools and platforms for sharing ideas">
+                <label for="collaboration2"><span>Collaborative tools and platforms for sharing ideas</span></label><br>
+                <input type="radio" id="collaboration3" name="question12" value="Regular communication channels and feedback loops">
+                <label for="collaboration3"><span>Regular communication channels and feedback loops</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
+
+            <!-- Question 13: Technology Integration -->
+            <div class="question" style="display: none;">
+                <p>How does your company integrate technology to enhance productivity?</p>
+                <input type="radio" id="technology1" name="question13" value="Investing in state-of-the-art tools and software solutions">
+                <label for="technology1"><span>Investing in state-of-the-art tools and software solutions</span></label><br>
+                <input type="radio" id="technology2" name="question13" value="Providing training on digital tools and platforms">
+                <label for="technology2"><span>Providing training on digital tools and platforms</span></label><br>
+                <input type="radio" id="technology3" name="question13" value="Emphasizing automation and efficiency in workflows">
+                <label for="technology3"><span>Emphasizing automation and efficiency in workflows</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
+
+            <!-- Question 14: Corporate Culture Alignment -->
+            <div class="question" style="display: none;">
+                <p>What type of employee thrives in your company culture?</p>
+                <input type="radio" id="culture1" name="question14" value="Adaptable individuals who embrace change">
+                <label for="culture1"><span>Adaptable individuals who embrace change</span></label><br>
+                <input type="radio" id="culture2" name="question14" value="Goal-oriented and results-driven professionals">
+                <label for="culture2"><span>Goal-oriented and results-driven professionals</span></label><br>
+                <input type="radio" id="culture3" name="question14" value="Collaborative team players with strong interpersonal skills">
+                <label for="culture3"><span>Collaborative team players with strong interpersonal skills</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <button type="button" onclick="showNextQuestion()">Next</button>
+            </div>
+
+            <!-- Question 15: Employee Recognition -->
+            <div class="question" style="display: none;">
+                <p>How does your organization recognize and celebrate employee achievements?</p>
+                <input type="radio" id="recognition1" name="question15" value="Awards ceremonies and public acknowledgments">
+                <label for="recognition1"><span>Awards ceremonies and public acknowledgments</span></label><br>
+                <input type="radio" id="recognition2" name="question15" value="Peer-to-peer recognition programs and rewards">
+                <label for="recognition2"><span>Peer-to-peer recognition programs and rewards</span></label><br>
+                <input type="radio" id="recognition3" name="question15" value="Opportunities for career advancement based on performance">
+                <label for="recognition3"><span>Opportunities for career advancement based on performance</span></label><br>
+                <button type="button" onclick="showPreviousQuestion()">Back</button>
+                <input type="submit" value="Submit">
+            </div>
 </form>
 </div>
 <!-- Footer -->
@@ -215,7 +312,7 @@
                     <ul class="list-unstyled li-space-lg p-small">
                         <li class="media">
                             <i class="fas fa-map-marker-alt"></i>
-                            <div class="media-body">Florence, AL, USA</div>
+                            <div class="media-body">New York, NY, USA</div>
                         </li>
                         <li class="media">
                             <i class="fas fa-envelope"></i>
@@ -270,96 +367,64 @@ firebase.auth().onAuthStateChanged((user) => {
         });
 
         let currentQuestion = 0;
-        const questions = document.querySelectorAll('.question');
+    const questions = document.querySelectorAll('.question');
 
-        function showQuestion(index) {
-            questions.forEach((question, i) => {
-                question.style.display = i === index ? 'block' : 'none';
-            });
-        }
-
-
-        function showNextQuestion() {
-            // Hide current question
-            questions[currentQuestion].style.display = 'none';
-
-            // Check if the current question is about socializing outside of work
-            if (currentQuestion === 4) {
-                var answer = document.querySelector('input[name="question5"]:checked').value;
-                if (answer === 'no') {
-                    // If the answer is "no", increment the currentQuestion counter twice to skip the next question
-                    currentQuestion += 2;
-                } else {
-                    // If the answer is "yes", just go to the next question
-                    currentQuestion++;
-                }
-            } else {
-                // For other questions, just go to the next one
-                currentQuestion++;
-            }
-
-            // Show next question
-            if (currentQuestion < questions.length) {
-                questions[currentQuestion].style.display = 'block';
-            }
-        }
-        
-
-        function showPreviousQuestion() {
-            if (currentQuestion > 0) {
-                // If the current question is the one after the skipped question
-                if (currentQuestion === 6) {
-                    var answer = document.querySelector('input[name="question5"]:checked').value;
-                    if (answer === 'no') {
-                        // If the answer to the socializing question was "no", decrement the currentQuestion counter twice to skip the next question
-                        currentQuestion -= 2;
-                    } else {
-                        // If the answer was "yes", just go to the previous question
-                        currentQuestion--;
-                    }
-                } else {
-                    // For other questions, just go to the previous one
-                    currentQuestion--;
-                }
-                showQuestion(currentQuestion);
-            }
-        }
-
-        // Initialize the form to show the first question
-        showQuestion(currentQuestion);
-
-        document.getElementById('questionsForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const answers = {};
-            for (let i = 1; i <= 9; i++) {
-                const radios = document.getElementsByName('question' + i);
-                for (let j = 0; j < radios.length; j++) {
-                    if (radios[j].checked) {
-                        answers['question' + i] = radios[j].value;
-                        break;
-                    }
-                }
-            }
-
-            // Add timestamp to answers
-            answers['timestamp'] = firebase.firestore.FieldValue.serverTimestamp();
-
-            const user = firebase.auth().currentUser;
-            if (user) {
-                db.collection('employers').doc(user.uid).collection('questions_employer').add(answers)
-                    .then(() => {
-                        console.log('Document successfully written!');
-                        alert('Your answers have been saved!');
-                        setTimeout(() => {
-                            window.location.href = 'profile.html'; // Redirect to profile page
-                        }, 1000); // Redirect after 2 seconds
-                    })
-                    .catch((error) => {
-                        console.error('Error writing document: ', error);
-                    });
-            }
+    function showQuestion(index) {
+        questions.forEach((question, i) => {
+            question.style.display = i === index ? 'block' : 'none';
         });
+    }
+
+    function showNextQuestion() {
+        // Hide current question
+        questions[currentQuestion].style.display = 'none';
+        currentQuestion++;
+        // Show next question
+        if (currentQuestion < questions.length) {
+            questions[currentQuestion].style.display = 'block';
+        }
+    }
+
+    function showPreviousQuestion() {
+        currentQuestion--;
+        showQuestion(currentQuestion);
+    }
+
+    // Initialize the form to show the first question
+    showQuestion(currentQuestion);
+
+    document.getElementById('questionsForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const answers = {};
+        for (let i = 1; i <= 15; i++) {
+            const radios = document.getElementsByName('question' + i);
+            for (let j = 0; j < radios.length; j++) {
+                if (radios[j].checked) {
+                    answers['question' + i] = radios[j].value;
+                    break;
+                }
+            }
+        }
+
+        // Add timestamp to answers
+        answers['timestamp'] = firebase.firestore.FieldValue.serverTimestamp();
+
+        const user = firebase.auth().currentUser;
+        if (user) {
+            db.collection('employers').doc(user.uid).collection('questions_employer').add(answers)
+                .then(() => {
+                    console.log('Document successfully written!');
+                    alert('Your answers have been saved!');
+                    setTimeout(() => {
+                        window.location.href = 'profile.html'; // Redirect to profile page
+                    }, 1000); // Redirect after 2 seconds
+                })
+                .catch((error) => {
+                    console.error('Error writing document: ', error);
+                });
+        }
+    });
     </script>
     <script>
         function signOut() {
