@@ -86,8 +86,10 @@
     </header> <!-- end of ex-header -->
     <div class="questionsContainter">
     <form id="questionsForm" class="questionnaire">
+        <div id="progressBarContainerQuestionaire">
+            <div id="progressBarQuestionaire""></div>
+          </div>
     <h1 style="text-align: center; color: #007BFF; font-family: Arial, sans-serif; font-size: 2em; margin: 20px 0;"></h1>
-    
             <!-- Question 1: Company Values -->
             <div class="question">
                 <p>Which of the following best represents the core values of your organization?</p>
@@ -340,23 +342,26 @@
     </div> <!-- end of copyright --> 
     <!-- end of copyright -->
     <script>
+        // Firebase configuration
         var firebaseConfig = {
-        apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
-          authDomain: "levelup-65b5b.firebaseapp.com",
-          projectId: "levelup-65b5b",
-          storageBucket: "levelup-65b5b.appspot.com",
-          messagingSenderId: "13469845736",
-          appId: "1:13469845736:web:aa4b300ead478eac30215d",
-          measurementId: "G-B7HVG7T7VZ"
-    };
-// Initialize Firebase with your configuration
-firebase.initializeApp(firebaseConfig);
-
-// Get a reference to the Firestore database
-const db = firebase.firestore();
-firebase.auth().onAuthStateChanged((user) => {
+            apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
+            authDomain: "levelup-65b5b.firebaseapp.com",
+            projectId: "levelup-65b5b",
+            storageBucket: "levelup-65b5b.appspot.com",
+            messagingSenderId: "13469845736",
+            appId: "1:13469845736:web:aa4b300ead478eac30215d",
+            measurementId: "G-B7HVG7T7VZ"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    
+        // Initialize Firestore
+        const db = firebase.firestore();
+    
+        // Authentication state observer
+        firebase.auth().onAuthStateChanged((user) => {
             var loginLink = document.getElementById("navbarDropdown-profile");
-
+    
             if (user) {
                 loginLink.textContent = "MY PROFILE";
                 loginLink.href = "profile.html";
@@ -365,78 +370,92 @@ firebase.auth().onAuthStateChanged((user) => {
                 loginLink.href = "log-in.html";
             }
         });
-
+    
+        // Question navigation
         let currentQuestion = 0;
-    const questions = document.querySelectorAll('.question');
-
-    function showQuestion(index) {
-        questions.forEach((question, i) => {
-            question.style.display = i === index ? 'block' : 'none';
-        });
-    }
-
-    function showNextQuestion() {
-        // Hide current question
-        questions[currentQuestion].style.display = 'none';
-        currentQuestion++;
-        // Show next question
-        if (currentQuestion < questions.length) {
-            questions[currentQuestion].style.display = 'block';
+        const questions = document.querySelectorAll('.question');
+        const progressBar = document.getElementById('progressBar');
+    
+        function showQuestion(index) {
+            questions.forEach((question, i) => {
+                question.style.display = i === index ? 'block' : 'none';
+            });
+            updateProgressBar();
         }
-    }
-
-    function showPreviousQuestion() {
-        currentQuestion--;
-        showQuestion(currentQuestion);
-    }
-
-    // Initialize the form to show the first question
-    showQuestion(currentQuestion);
-
-    document.getElementById('questionsForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const answers = {};
-        for (let i = 1; i <= 15; i++) {
-            const radios = document.getElementsByName('question' + i);
-            for (let j = 0; j < radios.length; j++) {
-                if (radios[j].checked) {
-                    answers['question' + i] = radios[j].value;
-                    break;
-                }
+    
+        function showNextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                questions[currentQuestion].style.display = 'none';
+                currentQuestion++;
+                questions[currentQuestion].style.display = 'block';
+                updateProgressBar();
             }
         }
-
-        // Add timestamp to answers
-        answers['timestamp'] = firebase.firestore.FieldValue.serverTimestamp();
-
-        const user = firebase.auth().currentUser;
-        if (user) {
-            db.collection('employers').doc(user.uid).collection('questions_employer').add(answers)
-                .then(() => {
-                    console.log('Document successfully written!');
-                    alert('Your answers have been saved!');
-                    setTimeout(() => {
-                        window.location.href = 'profile.html'; // Redirect to profile page
-                    }, 1000); // Redirect after 2 seconds
-                })
-                .catch((error) => {
-                    console.error('Error writing document: ', error);
-                });
+    
+        function showPreviousQuestion() {
+            if (currentQuestion > 0) {
+                questions[currentQuestion].style.display = 'none';
+                currentQuestion--;
+                questions[currentQuestion].style.display = 'block';
+                updateProgressBar();
+            }
         }
-    });
-    </script>
-    <script>
-        function signOut() {
-        firebase.auth().signOut().then(() => {
-            // Sign-out successful.
-            window.location.href = "/index.html"; // replace with the path to your home page
-        }).catch((error) => {
-            // An error happened.
-            console.error("Sign out error", error);
+    
+        function updateProgressBar() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            progressBarQuestionaire.style.width = progress + '%';
+        }
+    
+        // Initialize the form to show the first question
+        document.addEventListener('DOMContentLoaded', () => {
+            showQuestion(currentQuestion);
         });
-    }
-    </script>
+    
+        // Form submission handler
+        document.getElementById('questionsForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            const answers = {};
+            for (let i = 1; i <= 15; i++) {
+                const radios = document.getElementsByName('question' + i);
+                for (let j = 0; j < radios.length; j++) {
+                    if (radios[j].checked) {
+                        answers['question' + i] = radios[j].value;
+                        break;
+                    }
+                }
+            }
+    
+            // Add timestamp to answers
+            answers['timestamp'] = firebase.firestore.FieldValue.serverTimestamp();
+    
+            const user = firebase.auth().currentUser;
+            if (user) {
+                db.collection('employers').doc(user.uid).collection('questions_employer').add(answers)
+                    .then(() => {
+                        console.log('Document successfully written!');
+                        alert('Your answers have been saved!');
+                        setTimeout(() => {
+                            window.location.href = 'profile.html'; // Redirect to profile page
+                        }, 1000); // Redirect after 1 second
+                    })
+                    .catch((error) => {
+                        console.error('Error writing document: ', error);
+                    });
+            }
+        });
+    
+        // Sign out function
+        function signOut() {
+            firebase.auth().signOut().then(() => {
+                // Sign-out successful
+                window.location.href = "/index.html"; // replace with the path to your home page
+            }).catch((error) => {
+                // An error happened
+                console.error("Sign out error", error);
+            });
+        }
+    </script>    
     <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
     <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
     <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
