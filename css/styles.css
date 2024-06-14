@@ -3148,3 +3148,21 @@ input[type="radio"] {
 input[type="radio"]:checked {
 	background: rgb(135, 25, 206);
 }
+
+#progressBarContainerQuestionaire {
+	width: 80%;
+	background-color: #f3f3f3;
+	margin: 20px auto;
+	border-radius: 50px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+}
+
+#progressBarQuestionaire {
+	width: 0%;
+	height: 20px;
+	background: linear-gradient(90deg, #007BFF, #00BFFF);
+	border-radius: 50px;
+	transition: width 0.4s ease-in-out;
+}
+
