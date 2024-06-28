@@ -909,8 +909,8 @@ input[type='checkbox'] {
 /* Adjustments for smaller screens, such as phones */
 @media (max-width: 600px) {
 	.header h1 {
-		font-size: 1rem; /* Smaller font size for phones */
-		line-height: 1.5rem; /* Adjusted for decreased font size */
+		font-size: 0.3rem; /* Smaller font size for phones */
+		line-height: 0.8rem; /* Adjusted for decreased font size */
 	}
 
 	.header .p-large {
