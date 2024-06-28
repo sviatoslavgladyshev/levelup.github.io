@@ -178,40 +178,70 @@ a.white {
 	text-decoration: none;
 }
 
-.btn-solid-lg {
+.btn-solid-lg-4, .btn-solid-lg-2, .btn-solid-lg-3 {
 	display: inline-block;
-	padding: 1.375rem 2.625rem 1.375rem 2.625rem;
-	border: 0.125rem solid rgb(135, 25, 206);
+	padding: 1.375rem 2.625rem; /* Ensures consistent padding */
 	border-radius: 2rem;
-	background-color: rgb(135, 25, 206);
-	color: #fff;
 	font: 700 0.875rem/0 "Open Sans", sans-serif;
 	text-decoration: none;
 	transition: all 0.2s;
+	margin-right: 1rem; /* Adjust the right margin as needed */
 }
 
-.btn-solid-lg:hover {
-	background-color: transparent;
-	color: rgb(135, 25, 206);
+.btn-solid-lg-4 {
+	border: 0.125rem solid #007BFF;
+	background-color: #007BFF; /* Updated background color to blue */
+	color: #fff;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Added shadow */
 	text-decoration: none;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.btn-solid-lg-4:hover {
+	background-color: #003e81;
+	border: 0.125rem solid #003e81;
+	color: #fff; /* Updated text color to match the new background color */
+	text-decoration: none;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .btn-solid-lg-2 {
-	display: inline-block;
-	padding: 1.375rem 2.625rem 1.375rem 2.625rem;
-	border: 0.125rem solid rgb(255, 255, 255);
-	border-radius: 2rem;
-	background-color: transparent;
-	color: #fff;
-	font: 700 0.875rem/0 "Open Sans", sans-serif;
+	border: 0.125rem solid #218e21; /* Bright green border */
+	background-color: #218e21; /* Bright green background */
+	color: #ffffff; /* White text for contrast */
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Shadow for depth */
 	text-decoration: none;
-	transition: all 0.2s;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .btn-solid-lg-2:hover {
+	border: 0.125rem solid #195a19; /* Bright green border */
+	background-color: #195a19; /* Darker green for contrast similar to #007BFF to #003e81 */
+	color: #ffffff; /* Keep text color white for contrast */
+	text-decoration: none;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Remove or adjust this if it's causing layout issues */
+.btn-solid-lg-3 {
+	padding-left: 9.725rem; /* Further increased left padding */
+	padding-right: 9.725rem; /* Further increased right padding */
+	margin-bottom: 1rem;
+	border: 0.125rem solid rgb(255, 255, 255);
 	background-color: rgb(255, 255, 255);
 	color: rgb(135, 25, 206);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Added shadow */
 	text-decoration: none;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1)
+}
+
+.btn-solid-lg-3:hover {
+	background-color: transparent;
+	color: rgb(255, 255, 255);
+	border: 0.125rem solid rgb(255, 255, 255);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	text-decoration: none;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1)
 }
 
 .btn-outline-reg {
@@ -828,19 +858,22 @@ input[type='checkbox'] {
 }
 
 .header .text-container {
-	margin-bottom: 3rem;
+	margin-bottom: 1rem;
 }
 
 .header h1 {
 	margin-bottom: 1rem;
 	color: #fff;
-	font-size: 2.5rem;
-	line-height: 3rem;
+	font-size: 7rem; /* Increased from 5rem to 7rem */
+	line-height: 7.5rem; /* Adjusted for increased font size */
+	text-align: center;
 }
 
 .header .p-large {
 	margin-bottom: 2rem;
 	color: #f3f7fd;
+	font-size: 1.3rem; /* Proportionally adjusted based on h1 size increase */
+	line-height: 1.8rem; /* Adjusted for increased font size */
 }
 
 .header .btn-solid-lg {
@@ -2298,25 +2331,28 @@ a:hover.back-to-top {
 
 	/* Header */
 	.header .header-content {
-		text-align: left;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.header .text-container {
 		margin-top: 4rem;
 		margin-bottom: 0;
+		text-align: center;
 	}
 
-	.header .image-container {
+	/* .header .image-container {
 		position: relative;
 		margin-top: 3rem;
-	}
+	} */
 	
-	.header .image-container .img-wrapper {
+	/* .header .image-container .img-wrapper {
 		position: absolute;
 		display: block;
 		width: 800px;
 		height: auto;
-	}
+	} */
 
 	.header-frame {
 		height: 8rem;
@@ -2502,23 +2538,26 @@ a:hover.back-to-top {
 
 	/* Header */
 	.header .header-content {
-		padding-top: 11rem;
-		padding-bottom: 5rem;
+		padding-top: 5rem;
+		padding-bottom: 2rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.header .text-container {
 		margin-top: 5.5rem;
-		margin-right: 0.5rem;
+		/* margin-right: 0.5rem; */
 	}
 
-	.header .image-container {
+	/* .header .image-container {
 		margin-top: 1rem;
 		margin-left: 1.5rem;
 	}
 
 	.header .image-container .img-wrapper {
 		width: 760px;
-	}
+	} */
 
 	.header-frame {
 		height: 9.375rem;
@@ -3189,8 +3228,164 @@ input[type="radio"]:checked {
 	font-weight: bold; /* Makes the text bold */
 	margin-right: 10px; /* Adds some space between the text and the image */
 	vertical-align: middle; /* Aligns the text vertically with the image */
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+	line-height: 1.5; /* Improved line spacing for readability */
 }
 
 .no-underline {
 	text-decoration: none;
+}
+
+.stats-section {
+    padding: 50px 0;
+    /* background-color: #f9f9f9; */
+}
+
+.stats-heading {
+	font-size: 2rem;
+	margin-bottom: 20px;
+	text-align: center;
+	font-weight: bold; /* Makes the heading stand out */
+	color: #333; /* Dark grey for strong visibility */
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+	line-height: 1.3; /* Improved line spacing for readability */
+}
+
+.stats-subheading {
+	font-size: 1.2rem;
+	margin-bottom: 50px;
+	color: #666; /* Lighter grey for subheading */
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+	line-height: 1.5; /* Increased line height for better readability */
+}
+
+
+.stats-text {
+    font-size: 1rem;
+    color: #666;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+	line-height: 1.3; /* Improved line spacing for readability */
+}
+
+@keyframes fadeIn {
+	from {
+	  opacity: 0;
+	  transform: translateY(-20px);
+	}
+	to {
+	  opacity: 1;
+	  transform: translateY(0);
+	}
+  }
+  
+.stats-heading, .stats-subheading {
+	opacity: 0;
+	transform: translateY(-20px);
+	animation: none; /* Remove any initial animation */
+}
+
+.animate {
+	animation: fadeIn 2s ease-out forwards;
+}
+
+@keyframes colorCycle1 {
+	0% { color: #3498db; }
+	50% { color: #9b59b6; }
+	100% { color: #3498db; }
+}
+
+@keyframes colorCycle2 {
+	0% { color: #e74c3c; }
+	50% { color: #f1c40f; }
+	100% { color: #e74c3c; }
+}
+
+@keyframes colorCycle3 {
+	0% { color: #1abc9c; }
+	50% { color: #2ecc71; }
+	100% { color: #1abc9c; }
+}
+
+@keyframes colorCycle4 {
+	0% { color: #34495e; }
+	50% { color: #95a5a6; }
+	100% { color: #34495e; }
+}
+
+.row > .col-md-3:nth-child(1) .stats-number {
+	animation: colorCycle1 5s infinite;
+}
+
+.row > .col-md-3:nth-child(2) .stats-number {
+	animation: colorCycle2 5s infinite;
+}
+
+.row > .col-md-3:nth-child(3) .stats-number {
+	animation: colorCycle3 5s infinite;
+}
+
+.row > .col-md-3:nth-child(4) .stats-number {
+	animation: colorCycle4 5s infinite;
+}
+
+@keyframes liquidEffect {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.stats-number {
+	display: inline-block;
+	background: linear-gradient(-45deg, #6a11cb, #2575fc, #2ebf91, #fc4a1a);
+	background-size: 400% 400%;
+	animation: liquidEffect 10s ease infinite;
+	color: transparent;
+	-webkit-background-clip: text;
+	background-clip: text;
+	font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+	line-height: 1.5; /* Improved line spacing for readability */
+}
+
+.liquid-fill {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	opacity: 0.8;
+}
+.liquid-fill svg {
+	width: 100%;
+	height: 100%;
+}
+
+.header .container {
+	display: flex;
+	justify-content: center; /* Center horizontally */
+	align-items: center; /* Center vertically */
+	height: 100%; /* Full height of the header */
+	text-align: center; /* Center text */
+}
+
+.header .row {
+	width: 100%; /* Ensure the row takes full width */
+	display: flex;
+	justify-content: center; /* Center its children horizontally */
+	align-items: center; /* Center its children vertically */
+	flex-direction: column; /* Stack children vertically */
+}
+
+.text-container {
+	max-width: 600px; /* Adjust based on your preference */
+	margin: 0 auto; /* Center the text container if it has a max-width */
 }
