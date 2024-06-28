@@ -243,6 +243,36 @@ a.white {
 	text-decoration: none;
 	text-shadow: 1px 1px 2px rgba(0,0,0,0.1)
 }
+.comment-usa {
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1); 
+	color: white; font: 400 0.875rem/1.5rem 'Open Sans', sans-serif; 
+	margin-top: 0.6rem; 
+	text-align: left; 
+	margin-left: 10rem;
+}
+
+@media (max-width: 600px) {
+	.btn-solid-lg-4, .btn-solid-lg-2, .btn-solid-lg-3 {
+		display: block; /* Make buttons full width */
+		width: 100%; /* Full width for better touch targets */
+		padding: 1rem; /* Adjust padding for smaller screens */
+		margin-right: 0; /* Remove right margin */
+		margin-bottom: 1rem; /* Add space between buttons */
+		border-radius: 1rem; /* Slightly reduce border-radius for a more mobile-friendly design */
+	}
+
+	.btn-solid-lg-3 {
+		padding-left: 1rem; /* Adjust left padding for consistency */
+		padding-right: 1rem; /* Adjust right padding for consistency */
+	}
+}
+@media (max-width: 600px) {
+	.comment-usa {
+		margin-left: 0.01rem; /* Adjust left margin for smaller screens */
+		text-align: center; /* Optionally center text on smaller screens */
+	}
+}
+
 
 .btn-outline-reg {
 	display: inline-block;
