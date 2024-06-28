@@ -3412,6 +3412,31 @@ input[type="radio"]:checked {
 	height: 100%;
 }
 
+@media (max-width: 600px) {
+	.stats-section {
+		padding: 20px 0; /* Reduced padding for smaller screens */
+	}
+
+	.stats-heading {
+		font-size: 1.5rem; /* Smaller font size for better readability on phones */
+		margin-bottom: 15px; /* Reduced margin */
+	}
+
+	.stats-subheading {
+		font-size: 1rem; /* Smaller font size for better readability on phones */
+		margin-bottom: 30px; /* Reduced margin */
+	}
+
+	.stats-text {
+		font-size: 0.9rem; /* Slightly smaller font size for phones */
+		line-height: 1.2; /* Adjusted line spacing for readability */
+	}
+
+	.stats-number {
+		font-size: 2.5rem; /* Smaller font size for stats numbers on phones */
+	}
+}
+
 .header .container {
 	display: flex;
 	justify-content: center; /* Center horizontally */
@@ -3431,4 +3456,15 @@ input[type="radio"]:checked {
 .text-container {
 	max-width: 600px; /* Adjust based on your preference */
 	margin: 0 auto; /* Center the text container if it has a max-width */
+}
+
+@media (max-width: 600px) {
+	.header .container, .header .row {
+		flex-direction: column; /* Ensure vertical stacking for smaller screens */
+		padding: 20px; /* Add some padding for smaller screens */
+	}
+
+	.text-container {
+		padding: 0 20px; /* Add padding on the sides for smaller screens */
+	}
 }
