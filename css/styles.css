@@ -864,7 +864,7 @@ input[type='checkbox'] {
 .header h1 {
 	margin-bottom: 1rem;
 	color: #fff;
-	font-size: 7rem; /* Increased from 5rem to 7rem */
+	font-size: 7rem; /* Default for larger screens */
 	line-height: 7.5rem; /* Adjusted for increased font size */
 	text-align: center;
 }
@@ -872,8 +872,21 @@ input[type='checkbox'] {
 .header .p-large {
 	margin-bottom: 2rem;
 	color: #f3f7fd;
-	font-size: 1.3rem; /* Proportionally adjusted based on h1 size increase */
+	font-size: 1.3rem; /* Default for larger screens */
 	line-height: 1.8rem; /* Adjusted for increased font size */
+}
+
+/* Adjustments for smaller screens, such as phones */
+@media (max-width: 600px) {
+	.header h1 {
+		font-size: 4rem; /* Smaller font size for phones */
+		line-height: 4.5rem; /* Adjusted for decreased font size */
+	}
+
+	.header .p-large {
+		font-size: 1rem; /* Smaller font size for phones */
+		line-height: 1.4rem; /* Adjusted for decreased font size */
+	}
 }
 
 .header .btn-solid-lg {
