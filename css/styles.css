@@ -43,6 +43,7 @@ html {
 body, p {
 	color: #555; 
 	font: 400 1rem/1.625rem "Open Sans", sans-serif;;
+	overflow-x: hidden;
 }
 
 .p-large {
@@ -909,8 +910,8 @@ input[type='checkbox'] {
 /* Adjustments for smaller screens, such as phones */
 @media (max-width: 600px) {
 	.header h1 {
-		font-size: 0.3rem; /* Smaller font size for phones */
-		line-height: 0.8rem; /* Adjusted for decreased font size */
+		font-size: 2rem; /* Smaller font size for phones */
+		line-height: 2.5rem; /* Adjusted for decreased font size */
 	}
 
 	.header .p-large {
@@ -1037,6 +1038,7 @@ input[type='checkbox'] {
 .tabs .nav-link.active {
 	background: transparent;
 	color: rgb(135, 25, 206);
+	/* color: rgb(255, 255, 255); */
 }
 
 .tabs .nav-link .fas {
@@ -1049,6 +1051,7 @@ input[type='checkbox'] {
 
 .tabs .list-unstyled .fas {
 	color: rgb(135, 25, 206);
+	/* color: rgb(255, 255, 255); */
 	font-size: 0.5rem;
 	line-height: 1.625rem;
 }
@@ -1354,9 +1357,6 @@ input[type='checkbox'] {
 	color: #fff;
 }
 
-.company_name_welcome{
-
-}
 
 .profile-list {
     margin-bottom: 20px;
@@ -1364,10 +1364,6 @@ input[type='checkbox'] {
 
 .profile-list-item {
     margin-bottom: 10px;
-}
-
-.profile-list-item i {
-    /* margin-right: 10px; */
 }
 
 .profile-button {
@@ -3282,6 +3278,7 @@ input[type="radio"]:checked {
 .stats-section {
     padding: 50px 0;
     /* background-color: #f9f9f9; */
+	padding-bottom: 80px;
 }
 
 .stats-heading {
@@ -3289,9 +3286,9 @@ input[type="radio"]:checked {
 	margin-bottom: 20px;
 	text-align: center;
 	font-weight: bold; /* Makes the heading stand out */
-	color: #333; /* Dark grey for strong visibility */
+	color: rgb(28, 28, 30); /* Dark grey for strong visibility */
 	text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-	line-height: 1.3; /* Improved line spacing for readability */
+	margin-top: 73px;
 }
 
 .stats-subheading {
@@ -3304,10 +3301,18 @@ input[type="radio"]:checked {
 
 
 .stats-text {
-    font-size: 1rem;
-    color: #666;
+	font-size: 1rem;
+	color: #666;
 	text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle shadow for depth */
 	line-height: 1.3; /* Improved line spacing for readability */
+}
+
+.stats-quote {
+	font-size: 0.8rem;
+	color: #666;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+	line-height: 1.1; /* Improved line spacing for readability */
+	margin-top: -10px; /* Reduce space between text and quote */
 }
 
 @keyframes fadeIn {
@@ -3349,27 +3354,21 @@ input[type="radio"]:checked {
 	100% { color: #1abc9c; }
 }
 
-@keyframes colorCycle4 {
-	0% { color: #34495e; }
-	50% { color: #95a5a6; }
-	100% { color: #34495e; }
-}
+/* Removed @keyframes colorCycle4 */
 
-.row > .col-md-3:nth-child(1) .stats-number {
+.row > .col-md-4:nth-child(1) .stats-number {
 	animation: colorCycle1 5s infinite;
 }
 
-.row > .col-md-3:nth-child(2) .stats-number {
+.row > .col-md-4:nth-child(2) .stats-number {
 	animation: colorCycle2 5s infinite;
 }
 
-.row > .col-md-3:nth-child(3) .stats-number {
+.row > .col-md-4:nth-child(3) .stats-number {
 	animation: colorCycle3 5s infinite;
 }
 
-.row > .col-md-3:nth-child(4) .stats-number {
-	animation: colorCycle4 5s infinite;
-}
+/* Updated selectors to .col-md-4 to reflect the new column layout */
 
 @keyframes liquidEffect {
 	0% {
@@ -3385,17 +3384,27 @@ input[type="radio"]:checked {
 
 .stats-number {
 	display: inline-block;
-	background: linear-gradient(-45deg, #6a11cb, #2575fc, #2ebf91, #fc4a1a);
+	background: linear-gradient(-45deg, #6a11cb, #2575fc, #2ebf91); /* Adjusted for three colors */
 	background-size: 400% 400%;
 	animation: liquidEffect 10s ease infinite;
 	color: transparent;
 	-webkit-background-clip: text;
 	background-clip: text;
 	font-size: 3rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-	text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-	line-height: 1.5; /* Improved line spacing for readability */
+	font-weight: bold;
+	margin-bottom: 10px;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+	line-height: 1.5;
+	text-align: center; /* Centers the text inside the element */
+	width: 100%; /* Ensures the element spans the full width of its container */
+	margin: 0 auto; /* Applies automatic margins on both sides, centering the block-level element if it has a specified width */
+}
+
+.stats-number .percentage {
+    color: inherit; /* Inherits the gradient text color */
+    font-size: inherit; /* Inherits the font size */
+    -webkit-background-clip: inherit; /* Inherits the background clip */
+    background-clip: inherit; /* Inherits the background clip */
 }
 
 .liquid-fill {
@@ -3435,7 +3444,7 @@ input[type="radio"]:checked {
 	.stats-number {
 		font-size: 2.5rem; /* Smaller font size for stats numbers on phones */
 	}
-}
+} /* This closing brace was missing */
 
 .header .container {
 	display: flex;
@@ -3467,4 +3476,286 @@ input[type="radio"]:checked {
 	.text-container {
 		padding: 0 20px; /* Add padding on the sides for smaller screens */
 	}
+}
+
+/* Features */
+#features{
+	background-color: #f9f9f9;
+}
+
+.features-heading {
+	font-size: 2rem;
+	margin-bottom: 20px;
+	text-align: center;
+	font-weight: bold; /* Makes the heading stand out */
+	color: rgb(28, 28, 30); /* Dark grey for strong visibility */
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+	line-height: 1.3; /* Improved line spacing for readability */
+	margin-top: 2px;
+}
+
+#features.scrolled-background {
+	background-color: rgb(242, 242, 247); /* New background color */
+	transform: scale(1.05); /* Slightly scale up */
+	opacity: 0.8; /* Slightly transparent */
+	transition: background-color 3s ease, transform 3s ease, opacity 3s ease; /* Smooth transition for all properties */
+}
+
+.effect-container {
+    padding: 50px 0;
+}
+
+.block-effect {
+    font-size: calc(8px + 5vw);
+    color: rgb(28, 28, 30); /* Dark grey for strong visibility */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.text-revealed-effect {
+    padding: 0 50px;
+}
+
+.block-reveal {
+    --t: calc(var(--td) + var(--d));
+    color: transparent;
+    padding: 150px 0; /* Doubled padding */
+    position: relative;
+    overflow: hidden;
+    -webkit-animation: revealBlock 0s var(--t) forwards;
+    animation: revealBlock 0s var(--t) forwards;
+	
+}
+
+.block-reveal-left-to-right::after,
+.block-reveal-right-to-left::after {
+    content: attr(data-text); /* Use data attribute for dynamic text */
+    font-size: 100px;
+    width: 0%;
+    font-weight: bold;
+    text-align: center;
+    height: 150%; /* Increased height for a thicker line */
+    position: absolute;
+    top: -25%; /* Adjusted to center the thicker line */
+    left: 0;
+    background: var(--bc);
+    color: #fff; /* Text color */
+    display: flex;
+    align-items: center; /* Center text vertically */
+    justify-content: center; /* Center text horizontally */
+    white-space: nowrap; /* Ensure text is on a single line */
+}
+
+.block-reveal-left-to-right::after {
+    -webkit-animation: revealingInLeftToRight var(--td) var(--d) forwards, revealingOutLeftToRight var(--td) var(--t) forwards;
+    animation: revealingInLeftToRight var(--td) var(--d) forwards, revealingOutLeftToRight var(--td) var(--t) forwards;
+}
+
+.block-reveal-right-to-left::after {
+    -webkit-animation: revealingInRightToLeft var(--td) var(--d) forwards, revealingOutRightToLeft var(--td) var(--t) forwards;
+    animation: revealingInRightToLeft var(--td) var(--d) forwards, revealingOutRightToLeft var(--td) var(--t) forwards;
+}
+
+.text-revealed-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+	padding-left: 200px;
+    justify-content: center;
+    align-items: flex-start; /* Corrected from left to flex-start */
+    color: #fff; /* Adjust as needed */
+    pointer-events: none; /* Allows clicks to pass through */
+}
+
+.text-revealed-effect2 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    padding-right: 200px; /* Adjust padding to control space on the right */
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end; /* Keeps text aligned to the right */
+    color: #fff; /* Adjust as needed */
+    pointer-events: none; /* Allows clicks to pass through */
+}
+
+/* Animations */
+@-webkit-keyframes revealBlock {
+    100% {
+        color: #0f0f0f;
+    }
+}
+
+@keyframes revealBlock {
+    100% {
+        color: #0f0f0f;
+    }
+}
+
+@-webkit-keyframes revealingInLeftToRight {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes revealingInLeftToRight {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@-webkit-keyframes revealingOutLeftToRight {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes revealingOutLeftToRight {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@-webkit-keyframes revealingInRightToLeft {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes revealingInRightToLeft {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@-webkit-keyframes revealingOutRightToLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes revealingOutRightToLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Animation for moving from left to right */
+@keyframes moveLeftToRight {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Animation for moving from right to left */
+@keyframes moveRightToLeft {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.block-reveal-left-to-right {
+    animation: moveLeftToRight var(--td) var(--d) forwards;
+}
+
+.block-reveal-right-to-left {
+    animation: moveRightToLeft var(--td) var(--d) forwards;
+}
+
+.block-details {
+	font-weight: bold;
+}
+
+.arrow-up-container {
+	display: inline-block;
+	padding-top: 10px;
+	font-size: 24px; /* Adjust size as needed */
+	color: #007BFF; /* Example color */
+	transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.arrow-up-container:hover {
+	transform: translateY(-5px); /* Move up on hover */
+}
+
+/* Optional: Add a continuous animation */
+@keyframes bounceUp {
+	0%, 20%, 50%, 80%, 100% {
+		transform: translateY(0);
+	}
+	40% {
+		transform: translateY(-10px);
+	}
+	60% {
+		transform: translateY(-5px);
+	}
+}
+
+.arrow-up-container {
+	animation: bounceUp 2s infinite; /* Apply the bounce animation */
+}
+
+.arrow-down-container {
+	display: inline-block;
+	padding-bottom: 10px;
+	font-size: 24px; /* Adjust size as needed */
+	color: #007BFF; /* Example color */
+	transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.arrow-down-container:hover {
+	transform: translateY(5px); /* Move down on hover */
+}
+
+/* Optional: Add a continuous animation for arrow down */
+@keyframes bounceDown {
+	0%, 20%, 50%, 80%, 100% {
+		transform: translateY(0);
+	}
+	40% {
+		transform: translateY(10px); /* Adjust for downward bounce */
+	}
+	60% {
+		transform: translateY(5px); /* Adjust for downward bounce */
+	}
+}
+
+.arrow-down-container {
+	animation: bounceDown 2s infinite; /* Apply the bounce animation for down */
 }
