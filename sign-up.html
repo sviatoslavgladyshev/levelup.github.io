@@ -84,148 +84,36 @@
         </div> <!-- end of container -->
     </div> <!-- end of ex-basic-1
     end of breadcrumbs -->
-    <header id="header" class="ex-2-header">
+    <header id="header" class="ex-2-header signup" style="background-color: brown;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-    <h1>Sign Up</h1>
-    <p>Fill out the form below to sign up for LevelUp. Already signed up? Then just <a class="white" href="log-in.html">Log In</a></p> 
+    <h1>Start Your LevelUp</h1>
+    <p>Already signed up? Then just <a class="white" href="log-in.html">Log In</a></p> 
     <div class="form-container", style="padding: 2.25rem 1.75rem 0.01rem 1.75rem; margin-bottom: 10rem;">
     <form id="sign-up-form">
         <div class="form-group">
-        <input type="text" id="company_name" class="form-control-input" required>
-        <label for="company_name" class="label-control" >Company Name:</label>
-        <div class="help-block with-errors"></div>
+            <input type="text" id="company_name" class="form-control-input" required>
+            <label for="company_name" class="label-control" >Company Name:</label>
+            <!-- <div class="help-block with-errors"></div> -->
+            </div>
+        <div class="form-group">
+        <input type="email" id="business_email" class="form-control-input" required>
+        <label for="email" class="label-control" >Business Email:</label>
+        <div class="help-block with-errors" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1);"></div>
         </div>
         <div class="form-group">
-        <input type="email" id="email" class="form-control-input" required>
-        <label for="email" class="label-control" >Email:</label>
-        <div class="help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-        <input type="password" id="password" class="form-control-input" required minlength="8">
-        <label for="password" class="label-control">Password:</label>
-        <div class="help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-        <input type="text" id="phone" class="form-control-input" required pattern="\+1\d{10}" title="Phone number must start with +1 followed by ten digits">
-        <label for="phone" class="label-control">Phone (starting with +1):</label>
-        </div>
-        <div class="form-group">
-        <input type="text" id="address"  class="form-control-input" required>
-        <label for="address" class="label-control">Address:</label>
-        <div class="help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-        <input type="text" id="city" class="form-control-input" required>
-        <label for="city" class="label-control">City:</label>
-        <div class="help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-        <select id="state" class="form-control-input" required>
-            <option value="" class="form-control-input" ></option>
-            <option value="Alabama">Alabama</option>
-            <option value="Alaska">Alaska</option>
-            <option value="Arizona">Arizona</option>
-            <option value="Arkansas">Arkansas</option>
-            <option value="California">California</option>
-            <option value="Colorado">Colorado</option>
-            <option value="Connecticut">Connecticut</option>
-            <option value="Delaware">Delaware</option>
-            <option value="Florida">Florida</option>
-            <option value="Georgia">Georgia</option>
-            <option value="Hawaii">Hawaii</option>
-            <option value="Idaho">Idaho</option>
-            <option value="Illinois">Illinois</option>
-            <option value="Indiana">Indiana</option>
-            <option value="Iowa">Iowa</option>
-            <option value="Kansas">Kansas</option>
-            <option value="Kentucky">Kentucky</option>
-            <option value="Louisiana">Louisiana</option>
-            <option value="Maine">Maine</option>
-            <option value="Maryland">Maryland</option>
-            <option value="Massachusetts">Massachusetts</option>
-            <option value="Michigan">Michigan</option>
-            <option value="Minnesota">Minnesota</option>
-            <option value="Mississippi">Mississippi</option>
-            <option value="Missouri">Missouri</option>
-            <option value="Montana">Montana</option>
-            <option value="Nebraska">Nebraska</option>
-            <option value="Nevada">Nevada</option>
-            <option value="New Hampshire">New Hampshire</option>
-            <option value="New Jersey">New Jersey</option>
-            <option value="New Mexico">New Mexico</option>
-            <option value="New York">New York</option>
-            <option value="North Carolina">North Carolina</option>
-            <option value="North Dakota">North Dakota</option>
-            <option value="Ohio">Ohio</option>
-            <option value="Oklahoma">Oklahoma</option>
-            <option value="Oregon">Oregon</option>
-            <option value="Pennsylvania">Pennsylvania</option>
-            <option value="Rhode Island">Rhode Island</option>
-            <option value="South Carolina">South Carolina</option>
-            <option value="South Dakota">South Dakota</option>
-            <option value="Tennessee">Tennessee</option>
-            <option value="Texas">Texas</option>
-            <option value="Utah">Utah</option>
-            <option value="Vermont">Vermont</option>
-            <option value="Virginia">Virginia</option>
-            <option value="Washington">Washington</option>
-            <option value="West Virginia">West Virginia</option>
-            <option value="Wisconsin">Wisconsin</option>
-            <option value="Wyoming">Wyoming</option>
-            <!-- Add more options as needed -->
-        </select>
-        <label for="state" class="label-control">State:</label>
-        <div class="help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-        <input type="text" id="zipcode" class="form-control-input" required pattern="\d{5}" title="Five digit zip code">
-        <label for="zipcode" class="label-control">Zip Code:</label>
-        <div class="help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-        <select id="industry" class="form-control-input" required>
-            <option value="" class="form-control-input"></option>
-            <option value="accounting">Accounting</option>
-            <option value="advertising">Advertising</option>
-            <option value="agriculture">Agriculture</option>
-            <option value="automotive">Automotive</option>
-            <option value="banking">Banking</option>
-            <option value="construction">Construction</option>
-            <option value="consulting">Consulting</option>
-            <option value="education">Education</option>
-            <option value="energy">Energy</option>
-            <option value="engineering">Engineering</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="environmental">Environmental</option>
-            <option value="finance">Finance</option>
-            <option value="food-service">Food Service</option>
-            <option value="government">Government</option>
-            <option value="healthcare">Healthcare</option>
-            <option value="hospitality">Hospitality</option>
-            <option value="insurance">Insurance</option>
-            <option value="manufacturing">Manufacturing</option>
-            <option value="media">Media</option>
-            <option value="pharmaceutical">Pharmaceutical</option>
-            <option value="real-estate">Real Estate</option>
-            <option value="retail">Retail</option>
-            <option value="sport">Sport</option>
-            <option value="technology">Technology</option>
-            <option value="telecommunications">Telecommunications</option>
-            <option value="tourism">Tourism</option>
-            <option value="transportation">Transportation</option>
-        </select>
-        <label for="industry" class="label-control">Industry:</label>
-        <div class="help-block with-errors"></div>
-        </div>
+            <input type="password" id="password" class="form-control-input" required minlength="8">
+            <label for="password" class="label-control">Password:</label>
+            <div class="help-block with-errors"></div>
+            </div>
         <div class="form-group checkbox">
         <input type="checkbox" id="agree" name="agree" required>
         <label for="agree">I agree with LevelUp's <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-conditions.html">Terms Conditions</a></label>
         </div>
         <input type="hidden" id="timestamp">
         <div class="form-group">
-        <button type="submit" class="form-control-submit-button">Sign Up</button>
+        <button type="submit" id="submitBtn" class="form-control-submit-button">Sign Up</button>
     </div>
     </form>
                     </div>
@@ -234,120 +122,131 @@
         </div> <!-- end of container -->
     </header> <!-- end of ex-header -->
     <script>
-        // Initialize Firebase
-        var firebaseConfig = {
-            apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
+    // Firebase Configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
             authDomain: "levelup-65b5b.firebaseapp.com",
             projectId: "levelup-65b5b",
             storageBucket: "levelup-65b5b.appspot.com",
             messagingSenderId: "13469845736",
             appId: "1:13469845736:web:aa4b300ead478eac30215d"
-        };
-        firebase.initializeApp(firebaseConfig);
+    };
 
-        const auth = firebase.auth();
-        const db = firebase.firestore();
+    firebase.initializeApp(firebaseConfig);
 
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // Helper Function to convert a string to snake case
+    function toSnakeCase(str) {
+        return str.toLowerCase().replace(/\s+/g, '_');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
         const signUpForm = document.getElementById('sign-up-form');
-        signUpForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+        const emailInput = document.getElementById('business_email'); // Corrected ID for business email
+        const errorBlock = document.querySelector(".help-block.with-errors");
+        const submitBtn = document.getElementById('submitBtn'); // Define submit button
 
-            const email = document.getElementById('email').value;
+        const personalEmailDomains = [
+            "gmail.com", "yahoo.com", "outlook.com", "aol.com",
+            "protonmail.com", "zoho.com", "yandex.com", "yandex.ru", "mail.com",
+            "gmx.com", "icloud.com", "fastmail.com", "tutanota.com",
+            "mail.ru", "hushmail.com", "airmail.net", "lycos.com",
+            "netcourrier.com", "zimbra.com", "rediffmail.com", "mailinator.com",
+            "yandex.net", "yastatic.net", "yandex.com.tr", "yandex.kz", "yandex.ua"
+        ];
+
+        signUpForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const email = emailInput.value;
+            const domain = email.split('@')[1];
+            if (personalEmailDomains.includes(domain)) {
+                errorBlock.textContent = "Please enter a business email address.";
+                return;
+            } else {
+                errorBlock.textContent = "";
+            }
+
+            // Indicate loading
+            submitBtn.innerHTML = 'Signing Up...';
+            submitBtn.disabled = true;
+
+            // Collect form data
+            const companyName = document.getElementById('company_name').value;
             const password = document.getElementById('password').value;
-            const address = document.getElementById('address').value;
-            const city = document.getElementById('city').value;
-            const zipcode = document.getElementById('zipcode').value;
-            const phone = document.getElementById('phone').value;
-            const company_name = document.getElementById('company_name').value;
-            const state = document.getElementById('state').value;
-            const industry = document.getElementById('industry').value;
             const agree = document.getElementById('agree').checked;
-            const timestamp = new Date().toISOString();
+            const timestamp = new Date().toISOString(); // Example of how you might set a timestamp
 
-            document.getElementById('timestamp').value = timestamp;
-
-            auth.createUserWithEmailAndPassword(email, password)
+            // Create user with email and password
+            firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then((cred) => {
-                    localStorage.setItem('userID', cred.user.uid);
                     // Send email verification
                     return cred.user.sendEmailVerification().then(() => {
-                        // Update user data in Firestore
-                        return db.collection('employers').doc(cred.user.uid).set({
-                            email: email,
-                            address: address,
-                            city: city,
-                            zipcode: zipcode,
-                            phone: phone,
-                            company_name: company_name,
-                            state: state,
-                            industry: industry,
+                        // Save additional user data to Firestore
+                        const sanitizedCompanyName = companyName.replace(/[^a-zA-Z0-9-_]/g, '_');
+                        return db.collection('employers').doc(sanitizedCompanyName).set({
+                            company_name: companyName,
+                            business_email: email,
                             agree: agree,
                             timestamp: timestamp
                         });
-                    }).then(() => {
-                        // Redirect after verification email is sent
-                        window.location.assign('question.html');
-                    }).catch((error) => {
-                        console.error("Error sending email verification:", error);
-                        alert("Error: Unable to send email verification. Please try again later.");
+                    })
+                    .then(() => {
+                        window.location.assign('get_started.html'); // Redirect after successful account creation and data saving
                     });
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     console.error("Error creating user:", error);
                     alert("Error: Unable to create user. Please try again later.");
+                })
+                .finally(() => {
+                    // Revert button to original state regardless of success or failure
+                    submitBtn.innerHTML = 'Sign Up';
+                    submitBtn.disabled = false;
                 });
         });
-        window.onload = function() {
-        firebase.auth().onAuthStateChanged((user) => {
-            var loginLink = document.getElementById("navbarDropdown-profile"); // select the <a> element by id
 
+        firebase.auth().onAuthStateChanged((user) => {
+            const loginLink = document.getElementById("navbarDropdown-profile");
             if (user) {
-                // User is signed in, you can use the user object to get information about the user
-                // Change navigation bar text and link
                 loginLink.textContent = "MY PROFILE";
-                loginLink.href = "/profile.html"; // replace with the path to your profile page
+                loginLink.href = "/profile.html";
             } else {
-                // User is signed out
-                // Change navigation bar text and link
                 loginLink.textContent = "LOG IN FOR AN EMPLOYER";
-                loginLink.href = "/log-in.html"; // replace with the path to your log in page
+                loginLink.href = "/log-in.html";
             }
         });
-    };
-    document.getElementById('state').addEventListener('change', function() {
-        if (this.value) {
-            this.classList.add('notEmpty');
-        } else {
-            this.classList.remove('notEmpty');
-        }
-    });
-    document.getElementById('industry').addEventListener('change', function() {
-        if (this.value) {
-            this.classList.add('notEmpty');
-        } else {
-            this.classList.remove('notEmpty');
-        }
-    });
-    </script>
-    <!-- Scripts -->
-    <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
-    <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
-    <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
-    <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
-    <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
-    <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
-    <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
-    <script src="js/scripts.js"></script> <!-- Custom scripts -->
-    <script>
-                    function signOut() {
-        firebase.auth().signOut().then(() => {
-            // Sign-out successful.
-            window.location.href = "/index.html"; // replace with the path to your home page
-        }).catch((error) => {
-            // An error happened.
-            console.error("Sign out error", error);
+
+        const handleSelectChange = (event) => {
+            if (event.target.value) {
+                event.target.classList.add('notEmpty');
+            } else {
+                event.target.classList.remove('notEmpty');
+            }
+        };
+
+        document.getElementById('state').addEventListener('change', handleSelectChange);
+        document.getElementById('industry').addEventListener('change', handleSelectChange);
+
+        document.getElementById('sign-out-button').addEventListener('click', () => {
+            auth.signOut().then(() => {
+                window.location.href = "/index.html";
+            }).catch((error) => {
+                console.error("Sign out error", error);
+            });
         });
-    }
-    </script>
-    <!-- <script>
+    });
+</script>
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/jquery.magnific-popup.js"></script>
+    <script src="js/validator.min.js"></script>
+    <script src="js/scripts.js"></script>   
 </body>
 </html>
