@@ -137,56 +137,67 @@
                 <div class="row text-center justify-content-center">
                     <div class="col-md-4">
                         <div data-aos="fade-up" data-aos-delay="200">
-                            <h3 class="stats-number" data-count="34">0<span class="percentage"></h3>
+                            <h3 class="stats-number" data-count="34"><span class="number">0</span><span class="percentage">%</span></h3>
                             <p class="stats-text">Average SDR</p>
                             <p class="stats-quote" style="font-style: italic;">Forbes (2021)</p>
                         </div>
                     </div>                                
                     <div class="col-md-4">
                         <div data-aos="fade-up" data-aos-delay="400">
-                            <h3 class="stats-number" data-count="40000">0</h3>
+                            <h3 class="stats-number" data-count="40000">$<span class="number">0</span></h3>
                             <p class="stats-text">Turnover per-employee cost</p>
                             <p class="stats-quote" style="font-style: italic;">Salesforce (2024)</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div data-aos="fade-up" data-aos-delay="600">
-                            <h3 class="stats-number" data-count="60">0</h3>
+                            <h3 class="stats-number" data-count="60"><span class="number">0</span> days</h3>
                             <p class="stats-text">Position fill times</p>
                             <p class="stats-quote" style="font-style: italic;">HCMI (2024)</p>
                         </div>
                     </div>
                 </div>
+                               
             </div>
         </div>
-        <!-- Separated Section -->
-        <div class="effect-container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="stats-heading" style="margin-top: 0px;">LevelUp Solution</h2>
-                    <!-- <p class="stats-subheading">Here are some impressive numbers that showcase the impact of <span style="color: #8719CE;">LevelUp</span></p> -->
+        <div class="main-calculation">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2 class="stats-heading" style="margin-top: 0px; color: #323232; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Calculate your turnover</h2>
+                    </div>
+                </div>
+                <div class="turnover-calculator">
+                    <div class="turnover-index">
+                        <h3 style="color: #323232; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Turnover rate</h3>
+                        <div class="form-group-calc">
+                            <label for="PastYearAvgNumberEmployees1">Past Year Average Number Employees:</label>
+                            <input type="number" id="PastYearAvgNumberEmployees1" class="form-control-calc" placeholder="Enter the number of employees">
+                        </div>
+                        <div class="form-group-calc">
+                            <label for="PastYearTotalSeparations1">Past Year Total Separations:</label>
+                            <input type="number" id="PastYearTotalSeparations1" class="form-control-calc" placeholder="Enter the total number of separations">
+                        </div>
+                        <button onclick="calculateTurnoverRate()" class="btn-calculation btn-calculation-primary">Calculate Turnover Rate</button>
+                        <div class="result" id="result1"></div>
+                    </div>
+                    <div class="OTE-index">
+                        <h3 style="color: #323232; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Turnover total cost/per employee cost</h3>
+                        <div class="form-group-calc">
+                            <label for="AverageOTE">Average OTE:</label>
+                            <input type="text" id="AverageOTE" class="form-control-calc" placeholder="Enter the number">
+                        </div>
+                        <!-- <div class="form-group-calc">
+                            <label for="PastYearTotalSeparations2">Past Year Total Separations:</label>
+                            <input type="number" id="PastYearTotalSeparations2" class="form-control-calc" placeholder="Enter the total number of separations">
+                        </div> -->
+                        <button onclick="calculateTurnoverCost()" class="btn-calculation btn-calculation-primary">Calculate Turnover Cost</button>
+                        <div class="result" id="result2"></div>
+                    </div>
                 </div>
             </div>
-            <!-- <div class="container"> -->
-            <section class="block-effect" style="--td: 2.4s"> <!-- Doubled the total duration -->
-                <div class="block-reveal block-reveal-left-to-right" style="--bc: #007BFF; --d: .1s; --td: 2.4s" data-text="For Employer">
-                    <div class="text-revealed-effect" style="background-color: rgb(228, 228, 230);"> 
-                        <h2 style="color: #007BFF;">For Employer</h2>
-                        <p class="block-details"><span class="arrow-up-container">&#8593;</span><span>Profitability</span> by 23%</p>
-                        <p class="block-details"><span class="arrow-down-container">&#8595;</span>Turnover by 43%</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="block-reveal block-reveal-right-to-left" style="--bc: #218e21; --d: .5s; --td: 2.4s; margin-top: -50px; margin-bottom: 50px;" data-text="For Employee">
-                    <div class="text-revealed-effect2"> 
-                        <h2 style="color: #218e21;">For Employee</h2>
-                        <p class="block-details"><span class="arrow-up-container">&#8593;</span>Productivity by 18%</p>
-                        <p class="block-details"><span class="arrow-down-container">&#8595;</span>Absenteeism by 81%</p>
-                    </div>
-                </div>
-            </section>
-            <!-- </div> -->
-        </div>              
+        </div>           
+        <!-- Separated Section -->            
     <!-- Footer -->
     <svg class="footer-frame" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 79"><defs><style>.cls-2{fill:rgb(135, 25, 206)
         ;}</style></defs><title>footer-frame</title><path class="cls-2" d="M0,72.427C143,12.138,255.5,4.577,328.644,7.943c147.721,6.8,183.881,60.242,320.83,53.737,143-6.793,167.826-68.128,293-60.9,109.095,6.3,115.68,54.364,225.251,57.319,113.58,3.064,138.8-47.711,251.189-41.8,104.012,5.474,109.713,50.4,197.369,46.572,89.549-3.91,124.375-52.563,227.622-50.155A338.646,338.646,0,0,1,1920,23.467V79.75H0V72.427Z" transform="translate(0 -0.188)"/></svg>
@@ -353,9 +364,9 @@ document.getElementById('betaTester').addEventListener('submit', function(e) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init();
-
+    
         let lastScrollTop = 0; // Variable to store the last scroll position
-
+    
         // Function to animate counting up or down
         function animateCount(el, countFrom, countTo) {
             const duration = 2000;
@@ -363,7 +374,7 @@ document.getElementById('betaTester').addEventListener('submit', function(e) {
             const range = countTo - countFrom;
             const increment = range / (duration / 50);
             const isCountingDown = range < 0;
-
+    
             const countInterval = setInterval(() => {
                 start += increment;
                 if ((isCountingDown && start <= countTo) || (!isCountingDown && start >= countTo)) {
@@ -373,15 +384,15 @@ document.getElementById('betaTester').addEventListener('submit', function(e) {
                 el.innerText = Math.floor(start);
             }, 50);
         }
-
+    
         document.addEventListener('DOMContentLoaded', () => {
             // Intersection Observer for triggering count animation
             const countObserver = new IntersectionObserver((entries, observer) => {
                 const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 entries.forEach(entry => {
                     if (entry.isIntersecting && currentScrollTop > lastScrollTop) {
-                        const el = entry.target;
-                        const countTo = parseInt(el.getAttribute('data-count'), 10);
+                        const el = entry.target.querySelector('.number');
+                        const countTo = parseInt(entry.target.getAttribute('data-count'), 10);
                         const countFrom = 0; // Reset to start from 0 each time
                         animateCount(el, countFrom, countTo);
                     }
@@ -390,12 +401,12 @@ document.getElementById('betaTester').addEventListener('submit', function(e) {
             }, {
                 threshold: 0.1
             });
-
+    
             // Observe each .stats-number element
             document.querySelectorAll('.stats-number').forEach(el => {
                 countObserver.observe(el);
             });
-
+    
             // Intersection Observer for other animations with reset for scroll down
             const observer = new IntersectionObserver((entries) => {
                 const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -414,11 +425,11 @@ document.getElementById('betaTester').addEventListener('submit', function(e) {
             }, {
                 threshold: 0.1 // Adjust as needed
             });
-
+    
             const elements = document.querySelectorAll('.stats-heading, .stats-subheading');
             elements.forEach(el => observer.observe(el));
         });
-    </script>
+    </script>    
     <script>
         window.addEventListener('scroll', function() {
             var element = document.getElementById('features');
@@ -442,6 +453,57 @@ document.getElementById('betaTester').addEventListener('submit', function(e) {
         $(document).ready(adjustFontSize);
         $(window).resize(adjustFontSize);
     </script>
+    <script>
+function calculateTurnoverRate() {
+    const PastYearAvgNumberEmployees = parseFloat(document.getElementById('PastYearAvgNumberEmployees1').value);
+    const PastYearTotalSeparations = parseFloat(document.getElementById('PastYearTotalSeparations1').value);
 
-    </body>
+    if (isNaN(PastYearAvgNumberEmployees) || isNaN(PastYearTotalSeparations)) {
+        document.getElementById('result1').innerText = 'Please enter valid numbers';
+        return;
+    }
+
+    const turnoverRate = (PastYearTotalSeparations / PastYearAvgNumberEmployees) * 100;
+    document.getElementById('result1').innerText = `Your turnover rate is: ${turnoverRate.toFixed(2)}%`;
+}
+
+function calculateTurnoverCost() {
+    const valueWithDollar = document.getElementById('AverageOTE').value;
+    const valueWithoutDollar = valueWithDollar.replace('$', '');
+    const AverageOTE = parseFloat(valueWithoutDollar);
+    // Assuming PastYearTotalSeparations and PastYearAvgNumberEmployees are the same as for the turnover rate calculation
+    const PastYearTotalSeparations = parseFloat(document.getElementById('PastYearTotalSeparations1').value);
+    const PastYearAvgNumberEmployees = parseFloat(document.getElementById('PastYearAvgNumberEmployees1').value);
+
+    if (isNaN(AverageOTE) || isNaN(PastYearTotalSeparations) || isNaN(PastYearAvgNumberEmployees)) {
+        document.getElementById('result2').innerText = 'Please enter valid numbers';
+        return;
+    }
+
+    const turnoverCostPerEmployee = AverageOTE * 0.5;
+    const turnoverRate = (PastYearTotalSeparations / PastYearAvgNumberEmployees) * 100;
+    const turnoverCost = turnoverCostPerEmployee * PastYearTotalSeparations; // Adjusted to use total separations directly
+    document.getElementById('result2').innerText = `Your turnover cost is: $${turnoverCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+}
+    </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const inputField = document.getElementById('AverageOTE');
+
+    inputField.addEventListener('input', function() {
+        let value = inputField.value;
+
+        // Remove all characters except numbers, decimal points, and the dollar sign
+        value = value.replace(/[^\d.]/g, '');
+
+        // Prepend a dollar sign if the value starts with a number or is not empty
+        if (value && !value.startsWith('$')) {
+            value = '$' + value;
+        }
+
+        inputField.value = value;
+    });
+});
+    </script>
+</body>
 </html>
