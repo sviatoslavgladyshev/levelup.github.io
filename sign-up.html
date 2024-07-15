@@ -125,11 +125,11 @@
     // Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
-            authDomain: "levelup-65b5b.firebaseapp.com",
-            projectId: "levelup-65b5b",
-            storageBucket: "levelup-65b5b.appspot.com",
-            messagingSenderId: "13469845736",
-            appId: "1:13469845736:web:aa4b300ead478eac30215d"
+        authDomain: "levelup-65b5b.firebaseapp.com",
+        projectId: "levelup-65b5b",
+        storageBucket: "levelup-65b5b.appspot.com",
+        messagingSenderId: "13469845736",
+        appId: "1:13469845736:web:aa4b300ead478eac30215d"
     };
 
     firebase.initializeApp(firebaseConfig);
@@ -154,7 +154,7 @@
             "gmx.com", "icloud.com", "fastmail.com", "tutanota.com",
             "mail.ru", "hushmail.com", "airmail.net", "lycos.com",
             "netcourrier.com", "zimbra.com", "rediffmail.com", "mailinator.com",
-            "yandex.net", "yastatic.net", "yandex.com.tr", "yandex.kz", "yandex.ua"
+            "yandex.net", "yastatic.net", "yandex.com.tr", "yandex.kz", "yandex.ua", "mac.com"
         ];
 
         signUpForm.addEventListener('submit', function(event) {
@@ -181,31 +181,30 @@
 
             // Create user with email and password
             firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then((cred) => {
-                    // Send email verification
-                    return cred.user.sendEmailVerification().then(() => {
-                        // Save additional user data to Firestore
-                        const sanitizedCompanyName = companyName.replace(/[^a-zA-Z0-9-_]/g, '_');
-                        return db.collection('employers').doc(sanitizedCompanyName).set({
-                            company_name: companyName,
-                            business_email: email,
-                            agree: agree,
-                            timestamp: timestamp
-                        });
-                    })
-                    .then(() => {
-                        window.location.assign('get_started.html'); // Redirect after successful account creation and data saving
+            .then((cred) => {
+                // Send email verification
+                return cred.user.sendEmailVerification().then(() => {
+                    // Save additional user data to Firestore using UID as the document name
+                    return db.collection('employers').doc(cred.user.uid).set({
+                        company_name: companyName,
+                        business_email: email,
+                        agree: agree,
+                        timestamp: timestamp
                     });
                 })
-                .catch((error) => {
-                    console.error("Error creating user:", error);
-                    alert("Error: Unable to create user. Please try again later.");
-                })
-                .finally(() => {
-                    // Revert button to original state regardless of success or failure
-                    submitBtn.innerHTML = 'Sign Up';
-                    submitBtn.disabled = false;
+                .then(() => {
+                    window.location.assign('get_started.html'); // Redirect after successful account creation and data saving
                 });
+            })
+            .catch((error) => {
+                console.error("Error creating user:", error);
+                alert("Error: Unable to create user. Please try again later.");
+            })
+            .finally(() => {
+                // Revert button to original state regardless of success or failure
+                submitBtn.innerHTML = 'Sign Up';
+                submitBtn.disabled = false;
+            });
         });
 
         firebase.auth().onAuthStateChanged((user) => {
