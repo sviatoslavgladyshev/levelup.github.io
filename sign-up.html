@@ -60,7 +60,7 @@
                     </ul>
                     <span class="nav-item">
                         <li class="nav-item dropdown">
-                            <a class="btn-outline-sm", id="navbarDropdown", role="button", aria-haspopup="true" aria-expanded="false" href="log-in.html">EMPLOYER LOG IN</a>
+                            <a class="btn-outline-sm", id="navbarDropdown", role="button", aria-haspopup="true" aria-expanded="false" href="log-in.html">LOG IN FOR AN EMPLOYER</a>
                             <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown", style="background-color: rgb(135, 25, 206); border: 1.5px solid rgb(50)">
                                 <a class="dropdown-item" href="#" onclick="signOut()"><span class="item-text">SIGN OUT</span></a>
                             </div> -->
@@ -122,122 +122,155 @@
         </div> <!-- end of container -->
     </header> <!-- end of ex-header -->
     <script>
-    // Firebase Configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
-        authDomain: "levelup-65b5b.firebaseapp.com",
-        projectId: "levelup-65b5b",
-        storageBucket: "levelup-65b5b.appspot.com",
-        messagingSenderId: "13469845736",
-        appId: "1:13469845736:web:aa4b300ead478eac30215d"
-    };
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
+            authDomain: "levelup-65b5b.firebaseapp.com",
+            projectId: "levelup-65b5b",
+            storageBucket: "levelup-65b5b.appspot.com",
+            messagingSenderId: "13469845736",
+            appId: "1:13469845736:web:aa4b300ead478eac30215d"
+        };
+    
+        firebase.initializeApp(firebaseConfig);
+    
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+    
+        // Helper Function to convert a string to snake case
+        function toSnakeCase(str) {
+            return str.toLowerCase().replace(/\s+/g, '_');
+        }
+    
+        // Helper Function to generate a random string
+        function generateRandomString(length) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        const charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
 
-    firebase.initializeApp(firebaseConfig);
-
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-
-    // Helper Function to convert a string to snake case
     function toSnakeCase(str) {
         return str.toLowerCase().replace(/\s+/g, '_');
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        const signUpForm = document.getElementById('sign-up-form');
-        const emailInput = document.getElementById('business_email'); // Corrected ID for business email
-        const errorBlock = document.querySelector(".help-block.with-errors");
-        const submitBtn = document.getElementById('submitBtn'); // Define submit button
+    function calculateChecksum(name) {
+        return name.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0) % 10;
+    }
 
-        const personalEmailDomains = [
-            "gmail.com", "yahoo.com", "outlook.com", "aol.com",
-            "protonmail.com", "zoho.com", "yandex.com", "yandex.ru", "mail.com",
-            "gmx.com", "icloud.com", "fastmail.com", "tutanota.com",
-            "mail.ru", "hushmail.com", "airmail.net", "lycos.com",
-            "netcourrier.com", "zimbra.com", "rediffmail.com", "mailinator.com",
-            "yandex.net", "yastatic.net", "yandex.com.tr", "yandex.kz", "yandex.ua", "mac.com"
-        ];
 
-        signUpForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            const email = emailInput.value;
-            const domain = email.split('@')[1];
-            if (personalEmailDomains.includes(domain)) {
-                errorBlock.textContent = "Please enter a business email address.";
-                return;
-            } else {
-                errorBlock.textContent = "";
-            }
-
-            // Indicate loading
-            submitBtn.innerHTML = 'Signing Up...';
-            submitBtn.disabled = true;
-
-            // Collect form data
-            const companyName = document.getElementById('company_name').value;
-            const password = document.getElementById('password').value;
-            const agree = document.getElementById('agree').checked;
-            const timestamp = new Date().toISOString(); // Example of how you might set a timestamp
-
-            // Create user with email and password
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((cred) => {
-                // Send email verification
-                return cred.user.sendEmailVerification().then(() => {
-                    // Save additional user data to Firestore using UID as the document name
-                    return db.collection('employers').doc(cred.user.uid).set({
-                        company_name: companyName,
-                        business_email: email,
-                        agree: agree,
-                        timestamp: timestamp
+    function generateEmployerCode(companyName) {
+        const snakeCaseName = toSnakeCase(companyName);
+        const currentYear = new Date().getFullYear().toString().slice(-2); // Get last two digits of the current year
+        const checksum = calculateChecksum(companyName);
+        const randomString = generateRandomString(5); 
+        const employerCode = `${snakeCaseName.substring(0, 3)}${currentYear}${checksum}${randomString}`;
+        return employerCode.substring(0, 15); 
+    }
+    
+        document.addEventListener("DOMContentLoaded", function() {
+            const signUpForm = document.getElementById('sign-up-form');
+            const emailInput = document.getElementById('business_email'); // Corrected ID for business email
+            const errorBlock = document.querySelector(".help-block.with-errors");
+            const submitBtn = document.getElementById('submitBtn'); // Define submit button
+    
+            const personalEmailDomains = [
+                "gmail.com", "yahoo.com", "outlook.com", "aol.com",
+                "protonmail.com", "zoho.com", "yandex.com", "yandex.ru", "mail.com",
+                "gmx.com", "icloud.com", "fastmail.com", "tutanota.com",
+                "mail.ru", "hushmail.com", "airmail.net", "lycos.com",
+                "netcourrier.com", "zimbra.com", "rediffmail.com", "mailinator.com",
+                "yandex.net", "yastatic.net", "yandex.com.tr", "yandex.kz", "yandex.ua", "mac.com"
+            ];
+    
+            signUpForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+    
+                const email = emailInput.value;
+                const domain = email.split('@')[1];
+                if (personalEmailDomains.includes(domain)) {
+                    errorBlock.textContent = "Please enter a business email address.";
+                    return;
+                } else {
+                    errorBlock.textContent = "";
+                }
+    
+                // Indicate loading
+                submitBtn.innerHTML = 'Signing Up...';
+                submitBtn.disabled = true;
+    
+                // Collect form data
+                const companyName = document.getElementById('company_name').value;
+                const password = document.getElementById('password').value;
+                const agree = document.getElementById('agree').checked;
+                const timestamp = new Date().toISOString(); // Example of how you might set a timestamp
+    
+                // Generate employer code
+                const employerCode = generateEmployerCode(companyName);
+    
+                // Create user with email and password
+                firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((cred) => {
+                    // Send email verification
+                    return cred.user.sendEmailVerification().then(() => {
+                        // Save additional user data to Firestore using UID as the document name
+                        return db.collection('employers').doc(cred.user.uid).set({
+                            company_name: companyName,
+                            business_email: email,
+                            employer_code: employerCode,
+                            agree: agree,
+                            timestamp: timestamp
+                        });
+                    })
+                    .then(() => {
+                        window.location.assign('get_started.html'); // Redirect after successful account creation and data saving
                     });
                 })
-                .then(() => {
-                    window.location.assign('get_started.html'); // Redirect after successful account creation and data saving
+                .catch((error) => {
+                    console.error("Error creating user:", error);
+                    alert("Error: Unable to create user. Please try again later.");
+                })
+                .finally(() => {
+                    // Revert button to original state regardless of success or failure
+                    submitBtn.innerHTML = 'Sign Up';
+                    submitBtn.disabled = false;
                 });
-            })
-            .catch((error) => {
-                console.error("Error creating user:", error);
-                alert("Error: Unable to create user. Please try again later.");
-            })
-            .finally(() => {
-                // Revert button to original state regardless of success or failure
-                submitBtn.innerHTML = 'Sign Up';
-                submitBtn.disabled = false;
+            });
+    
+            firebase.auth().onAuthStateChanged((user) => {
+                const loginLink = document.getElementById("navbarDropdown-profile");
+                if (user) {
+                    loginLink.textContent = "MY PROFILE";
+                    loginLink.href = "/profile.html";
+                } else {
+                    loginLink.textContent = "LOG IN FOR AN EMPLOYER";
+                    loginLink.href = "/log-in.html";
+                }
+            });
+    
+            const handleSelectChange = (event) => {
+                if (event.target.value) {
+                    event.target.classList.add('notEmpty');
+                } else {
+                    event.target.classList.remove('notEmpty');
+                }
+            };
+    
+            document.getElementById('state').addEventListener('change', handleSelectChange);
+            document.getElementById('industry').addEventListener('change', handleSelectChange);
+    
+            document.getElementById('sign-out-button').addEventListener('click', () => {
+                auth.signOut().then(() => {
+                    window.location.href = "/index.html";
+                }).catch((error) => {
+                    console.error("Sign out error", error);
+                });
             });
         });
-
-        firebase.auth().onAuthStateChanged((user) => {
-            const loginLink = document.getElementById("navbarDropdown-profile");
-            if (user) {
-                loginLink.textContent = "MY PROFILE";
-                loginLink.href = "/profile.html";
-            } else {
-                loginLink.textContent = "LOG IN FOR AN EMPLOYER";
-                loginLink.href = "/log-in.html";
-            }
-        });
-
-        const handleSelectChange = (event) => {
-            if (event.target.value) {
-                event.target.classList.add('notEmpty');
-            } else {
-                event.target.classList.remove('notEmpty');
-            }
-        };
-
-        document.getElementById('state').addEventListener('change', handleSelectChange);
-        document.getElementById('industry').addEventListener('change', handleSelectChange);
-
-        document.getElementById('sign-out-button').addEventListener('click', () => {
-            auth.signOut().then(() => {
-                window.location.href = "/index.html";
-            }).catch((error) => {
-                console.error("Sign out error", error);
-            });
-        });
-    });
-</script>
+    </script>    
     <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
