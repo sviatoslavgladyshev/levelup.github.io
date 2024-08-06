@@ -559,73 +559,55 @@ document.addEventListener('DOMContentLoaded', function() {
 });
     </script>
 <script>
-  document.getElementById('alphaTesters').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    // Get the submit button and change its text to "Loading..."
-    const submitButton = document.querySelector('.btn-solid-reg');
-    submitButton.innerHTML = 'Loading...';
-    submitButton.disabled = true;
-
-    // Get form values
-    const name = document.getElementById('name').value;
-    const position = document.getElementById('position').value;
-    const company = document.getElementById('company').value;
-    const businessEmail = document.getElementById('businessEmail').value;
-    const phoneNumber = document.getElementById('phoneNumber').value;
-    const timestamp = new Date().toISOString();
-
-    // Email and phone number validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phonePattern = /^\(\d{3}\) \d{3}-\d{4}$/; // USA phone number format (123) 456-7890
-
-    if (!emailPattern.test(businessEmail)) {
-      document.getElementById('message1').innerHTML = '<span style="color: #a94442;"><strong>Error!</strong> Invalid email format.</span>';
-      submitButton.innerHTML = 'Submit';
-      submitButton.disabled = false;
-      return;
-    }
-
-    if (!phonePattern.test(phoneNumber)) {
-      document.getElementById('message1').innerHTML = '<span style="color: #a94442;"><strong>Error!</strong> Invalid phone number format. Use (123) 456-7890.</span>';
-      submitButton.innerHTML = 'Submit';
-      submitButton.disabled = false;
-      return;
-    }
-
-    // Add a new document with a generated ID
-    db.collection('alpha_testers').add({
-      name: name,
-      position: position,
-      company: company,
-      businessEmail: businessEmail,
-      phoneNumber: phoneNumber,
-      timestamp: timestamp
-    })
-    .then((docRef) => {
-      console.log('Document written with ID: ', docRef.id);
-      document.getElementById('message1').innerHTML = '<span style="color: #3c763d;"><strong>Success!</strong> Form submitted successfully!</span>';
-
-      // Clear form fields
-      document.getElementById('name').value = '';
-      document.getElementById('position').value = '';
-      document.getElementById('company').value = '';
-      document.getElementById('businessEmail').value = '';
-      document.getElementById('phoneNumber').value = '';
-
-      // Reset the submit button
-      submitButton.innerHTML = 'Submit';
-      submitButton.disabled = false;
-    })
-    .catch((error) => {
-      console.error('Error adding document: ', error);
-      document.getElementById('message1').innerHTML = '<span style="color: #a94442;"><strong>Error!</strong> Error submitting form. Please try again.</span>';
-
-      // Reset the submit button
-      submitButton.innerHTML = 'Submit';
-      submitButton.disabled = false;
+    document.getElementById('alphaTesters').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the default form submission
+  
+      // Get the submit button and change its text to "Loading..."
+      const submitButton = document.querySelector('.btn-solid-reg');
+      submitButton.innerHTML = 'Loading...';
+      submitButton.disabled = true;
+  
+      // Get form values
+      const name = document.getElementById('name').value;
+      const position = document.getElementById('position').value;
+      const company = document.getElementById('company').value;
+      const businessEmail = document.getElementById('businessEmail').value;
+      const phoneNumber = document.getElementById('phoneNumber').value;
+      const timestamp = new Date().toISOString();
+  
+      // Add a new document with a generated ID
+      db.collection('alpha_testers').add({
+        name: name,
+        position: position,
+        company: company,
+        businessEmail: businessEmail,
+        phoneNumber: phoneNumber,
+        timestamp: timestamp
+      })
+      .then((docRef) => {
+        console.log('Document written with ID: ', docRef.id);
+        document.getElementById('message1').innerHTML = '<span style="color: #3c763d;"><strong>Success!</strong> Form submitted successfully!</span>';
+  
+        // Clear form fields
+        document.getElementById('name').value = '';
+        document.getElementById('position').value = '';
+        document.getElementById('company').value = '';
+        document.getElementById('businessEmail').value = '';
+        document.getElementById('phoneNumber').value = '';
+  
+        // Reset the submit button
+        submitButton.innerHTML = 'Submit';
+        submitButton.disabled = false;
+      })
+      .catch((error) => {
+        console.error('Error adding document: ', error);
+        document.getElementById('message').innerText = 'Error submitting form. Please try again.';
+  
+        // Reset the submit button
+        submitButton.innerHTML = 'Submit';
+        submitButton.disabled = false;
+      });
     });
-  });
-</script>
+  </script>
 </body>
 </html>
