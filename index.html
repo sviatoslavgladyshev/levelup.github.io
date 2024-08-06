@@ -19,6 +19,7 @@
 	
 	<!-- Favicon  -->
     <link rel="icon" href="images/white_logo.png">
+
     <!-- <style>
         .ol1 {
             list-style-type: none;
@@ -107,7 +108,59 @@
                             <p class="p-large" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1)">Reduce your turnover</p>
                             <a class="btn-solid-lg-3 page-scroll" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1)" href="sign-up.html">Get Started</a>
                             <a class="btn-solid-lg-4 page-scroll" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1)" href="https://apps.apple.com/us/app/lvlup/id6482978554">For employees<sup>*</sup></a>
-                            <a class="btn-solid-lg-2 page-scroll" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1)" href="https://calendly.com/britt-b-burney/lvlup-demo">Book a demo</a>
+                            <!-- Trigger Button -->
+                            <a class="btn-solid-lg-2 page-scroll popup-with-move-anim" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1)" href="#details-lightbox-3">Join the Alpha</a>
+                            <div id="details-lightbox-3" class="lightbox-basic zoom-anim-dialog mfp-hide">
+                                <div class="container">
+                                    <div class="row">
+                                        <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
+                                        <div class="col-lg-8">
+                                            <h5>Join the Alpha</h5>
+                                            <hr>
+                                            <p>To join the alpha, please follow the instructions below:</p>
+                                            <ol class="ol1">
+                                                <li class="li1">Submit Your name, position, business email address, personal phone number <br><span style="color:gray; font-size:1.5em; display: block; text-align: center; margin-right: 30rem; margin-top: 1rem; margin-bottom: 1rem;">⬇️</span></li>
+                                                <li class="li1">Get an email from us with the confirmation<br><span style="color:gray; font-size:1.5em; display: block; text-align: center; margin-right: 30rem; margin-top: 1rem; margin-bottom: 1rem;">⬇️</span></li>
+                                                <!-- <li class="li1">Enjoy our product!<br><span style="color:gray; font-size:1.5em; display: block; text-align: center; margin-right: 30rem; margin-top: 1rem; margin-bottom: 1rem;">⬇️</span></li>
+                                                <li class="li1">Accept the Invitation<br><span style="color:gray; font-size:1.5em; display: block; text-align: center; margin-right: 30rem; margin-top: 1rem; margin-bottom: 1rem;">⬇️</span></li> -->
+                                                <li class="li1">Enjoy our product!</li>
+                                            </ol>
+                                            <!-- <p>For more information, you can find it <a href="https://testflight.apple.com/#:~:text=Install%20TestFlight%20on%20the%20iOS,the%20app%20on%20your%20device.">here</a>.</p> -->
+                                        </div> <!-- end of col -->
+                                        <div class="col-lg-4">
+                                            <h3>Alpha Testers Details</h3>
+                                            <hr>
+                                            <p>Provide the following information, so we could add you to our team of Alpha testers. By submitting this form you agree to our <a href="terms-conditions.html" style="color: rgb(135, 25, 206); font-weight: bold;">terms and conditions</a> and <a href="privacy-policy.html" style="color: rgb(135, 25, 206); font-weight: bold;"> privacy policy</a>.</p>
+                                            <form id="alphaTesters">
+                                                <div class="form-group">
+                                                    <label for="name">Name:</label>
+                                                    <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="position">Position:</label>
+                                                    <input type="text" class="form-control" id="position" placeholder="Enter your position" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="company">Company:</label>
+                                                    <input type="text" class="form-control" id="company" placeholder="Enter your company" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="businessEmail">Business Email:</label>
+                                                    <input type="text" class="form-control" id="businessEmail" placeholder="Enter your business email" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="phoneNumber">Personal phone number:</label>
+                                                    <input type="text" class="form-control" id="phoneNumber" placeholder="Enter your company" required>
+                                                </div>
+                                                <input type="hidden" id="timestamp" name="timestamp" required>
+                                                <div id="message1"></div>
+                                                <button type="submit" class="btn-solid-reg" onclick="document.getElementById('timestamp').value = new Date().toISOString();">Submit</button>
+                                                <a class="btn-outline-reg mfp-close as-button">BACK</a>
+                                            </form>
+                                        </div> <!-- end of col -->
+                                    </div> <!-- end of row -->
+                                </div> <!-- end of container -->
+                            </div> <!-- end of lightbox-basic -->
                             <p class="comment-usa"><sup>*</sup>USA only</p>
                         </div> <!-- end of text-container -->
                     </div> 
@@ -130,7 +183,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h2 class="stats-heading"  style="margin-top: 100px;">Turnover on the market now</h2>
+                        <h2 class="stats-heading"  style="margin-top: 103px;">Turnover on the market now</h2>
                         <!-- <p class="stats-subheading">Here are some impressive numbers that showcase the impact of <span style="color: #8719CE;">LevelUp</span></p> -->
                     </div>
                 </div>
@@ -505,5 +558,74 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
     </script>
+<script>
+  document.getElementById('alphaTesters').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Get the submit button and change its text to "Loading..."
+    const submitButton = document.querySelector('.btn-solid-reg');
+    submitButton.innerHTML = 'Loading...';
+    submitButton.disabled = true;
+
+    // Get form values
+    const name = document.getElementById('name').value;
+    const position = document.getElementById('position').value;
+    const company = document.getElementById('company').value;
+    const businessEmail = document.getElementById('businessEmail').value;
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const timestamp = new Date().toISOString();
+
+    // Email and phone number validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^\(\d{3}\) \d{3}-\d{4}$/; // USA phone number format (123) 456-7890
+
+    if (!emailPattern.test(businessEmail)) {
+      document.getElementById('message1').innerHTML = '<span style="color: #a94442;"><strong>Error!</strong> Invalid email format.</span>';
+      submitButton.innerHTML = 'Submit';
+      submitButton.disabled = false;
+      return;
+    }
+
+    if (!phonePattern.test(phoneNumber)) {
+      document.getElementById('message1').innerHTML = '<span style="color: #a94442;"><strong>Error!</strong> Invalid phone number format. Use (123) 456-7890.</span>';
+      submitButton.innerHTML = 'Submit';
+      submitButton.disabled = false;
+      return;
+    }
+
+    // Add a new document with a generated ID
+    db.collection('alpha_testers').add({
+      name: name,
+      position: position,
+      company: company,
+      businessEmail: businessEmail,
+      phoneNumber: phoneNumber,
+      timestamp: timestamp
+    })
+    .then((docRef) => {
+      console.log('Document written with ID: ', docRef.id);
+      document.getElementById('message1').innerHTML = '<span style="color: #3c763d;"><strong>Success!</strong> Form submitted successfully!</span>';
+
+      // Clear form fields
+      document.getElementById('name').value = '';
+      document.getElementById('position').value = '';
+      document.getElementById('company').value = '';
+      document.getElementById('businessEmail').value = '';
+      document.getElementById('phoneNumber').value = '';
+
+      // Reset the submit button
+      submitButton.innerHTML = 'Submit';
+      submitButton.disabled = false;
+    })
+    .catch((error) => {
+      console.error('Error adding document: ', error);
+      document.getElementById('message1').innerHTML = '<span style="color: #a94442;"><strong>Error!</strong> Error submitting form. Please try again.</span>';
+
+      // Reset the submit button
+      submitButton.innerHTML = 'Submit';
+      submitButton.disabled = false;
+    });
+  });
+</script>
 </body>
 </html>
