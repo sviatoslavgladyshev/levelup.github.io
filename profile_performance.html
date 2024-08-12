@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LevelUp Dashboard</title>
+    <!-- <link rel="stylesheet" href="css/profile_performance.css"> -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <link rel="icon" href="images/white_logo.png">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    /* background-color: #f5f5f5; */
+    background-color: #ffffff;
+}
+.sidebar {
+        width: 220px; /* Reduced width */
+        height: auto;
+        background-color: rgb(230, 228, 229);
+        padding: 15px; /* Adjusted padding */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-right: 1px solid rgb(212, 210, 211);
+    }
+
+    .logo {
+        width: 100px; /* Increased size */
+        height: 100px;
+        background-color: #8e44ad;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 40px; /* Adjusted font size */
+        margin-bottom: 25px;
+    }
+
+    .logo-text {
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .clocks {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center vertically */
+    margin-bottom: 20px;
+    background-color: white;
+    padding: 7px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 190px;
+    height: 70px;
+}
+
+.clock {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #8e44ad;
+    position: relative;
+}
+
+.hand {
+    width: 50%;
+    height: 2px;
+    background-color: black;
+    position: absolute;
+    top: 50%;
+    transform-origin: 100%;
+    transform: rotate(90deg);
+    transition: transform 0.5s ease-in-out;
+}
+
+.hour {
+    height: 4px;
+    background-color: #333;
+}
+
+.minute {
+    height: 3px;
+    background-color: #666;
+}
+
+.second {
+    height: 2px;
+    background-color: red;
+}
+    .add-button {
+        background-color: #8e44ad;
+        color: white;
+        border: none;
+        padding: 10px;
+        width: 205px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+
+    .add-button:hover {
+        background-color: #732d91;
+    }
+
+    .main-content {
+        flex-grow: 1;
+        padding: 30px; /* Increased padding */
+    }
+
+    h1 {
+        font-size: 34px;
+        margin-bottom: 5px;
+    }
+
+    h2 {
+        font-size: 22px;
+        color: #666;
+        margin-top: 0;
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .daily-schedule, .chart, .circular-chart, .image-placeholder, .notification-center {
+        background-color: rgb(230, 228, 229);
+        padding: 20px; /* Increased padding */
+        border-radius: 10px;
+        box-shadow: 0 3px 7px rgba(0,0,0,0.1);
+    }
+
+    .daily-schedule {
+        grid-column: span 1;
+    }
+
+    .chart {
+        grid-column: span 1;
+        grid-row: span 2;
+    }
+
+    .circular-chart, .image-placeholder, .notification-center {
+        grid-column: span 1;
+    }
+
+    .schedule-item, .notification {
+        background-color: rgba(255,255,255,0.2);
+        padding: 12px; /* Adjusted padding */
+        margin-bottom: 12px;
+        border-radius: 5px;
+    }
+
+    .nav {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 25px;
+        background-color: rgb(230, 228, 229);
+        border-radius: 30px;
+        padding: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        max-width: 500px;
+        margin: 0 auto;
+        border: 0.1px solid rgb(194, 194, 196);
+    }
+
+    .nav-item {
+        padding: 10px 20px;
+        border-radius: 25px;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        flex: 1;
+        text-align: center;
+    }
+
+    .nav-item.active {
+        background-color: #8e44ad;
+        color: white;
+    }
+
+    .nav-item:not(.active):hover {
+        background-color: #e0e0e0;
+    }
+
+.agenda {
+    background-color: white;
+    padding: 7px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 190px;
+    height: 150px;
+}
+
+.agenda-title {
+    font-size: 18px; /* Adjusted font size to fit within the width */
+    margin-bottom: 10px; /* Adjusted margin to fit within the height */
+    margin-left: 10px;
+    color: #3FB1B1;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Adjusted margin to fit more items within the height */
+}
+
+.circle {
+    width: 10px; /* Adjusted size to fit within the item */
+    height: 10px; /* Adjusted size to fit within the item */
+    border-radius: 50%;
+    background-color: #d3d3d3;
+    margin-right: 10px; /* Adjusted margin to fit within the item */
+}
+
+.content {
+    flex-grow: 1;
+    font-size: 14px; /* Adjusted font size to fit within the item */
+}
+
+.weekly-goals {
+    background-color: #4169e1;
+    color: white;
+    padding: 7px; /* Adjusted padding to fit within the agenda */
+    border-radius: 5px;
+    font-weight: bold;
+    align-items: center;
+    font-size: 14px; /* Adjusted font size to fit within the agenda */
+    text-align: center;
+}
+
+.turnover-rate {
+    position: relative;
+    height: 15px;
+    background: linear-gradient(to right, red, yellow, green);
+    border-radius: 10px;
+    margin-top: 10px;
+    width: 150px;
+}
+
+.slider {
+    width: 8px;
+    height: 18px;
+    background-color: #808080;
+    position: absolute;
+    border-radius: 5px;
+    top: 50%; /* Position the slider in the middle */
+    transform: translateY(-50%); /* Adjust for the slider's height */
+    cursor: pointer; /* Change cursor to pointer when hovering over the slider */
+}
+
+    .notification-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #8a2be2;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .notification {
+        background-color: #808080;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+        color: white;
+    }
+
+    .app-name {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .app-icon {
+        width: 20px;
+        height: 20px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+
+    .title {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .time {
+        float: right;
+        font-size: 12px;
+    }
+    .apple-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    padding-right: 40px; /* Add space for the arrow */
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M2 7l10 10L22 7"/></svg>') no-repeat right 10px center;
+    background-size: 10px 10px;
+}
+
+.apple-select:hover {
+    background-color: #f1f1f1;
+}
+
+.apple-select:focus {
+    border-color: #007aff;
+    box-shadow: 0 0 5px rgba(0, 122, 255, 0.5);
+}
+
+.apple-select option {
+    padding: 10px;
+}
+
+.apple-select:disabled {
+    background-color: #e9e9e9;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.apple-select:disabled::after {
+    border-top-color: #999;
+}
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">↑</div>
+        <div class="logo-text" id="company_name"></div>
+        <div class="agenda">
+            <h1 class="agenda-title">Agenda</h1>
+            <div class="item">
+                <div class="circle"></div>
+                <div class="content weekly-goals">Weekly goals</div>
+            </div>
+            <hr>
+            <div class="item">
+                <div class="circle"></div>
+                <div class="content">
+                    <div style="margin-bottom: 5px;">Turnover rate</div>
+                    <div class="turnover-rate">
+                        <div class="slider"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- <hr>
+            <div class="item">
+                <div class="circle"></div>
+                <div class="content">
+                    <div class="turnover-notification"><span>Turnover notification</span></div>
+                    <div class="notification-details">Talk to Jacob Wronski about his performance as a sales assistant</div>
+                </div>
+            </div> -->
+        </div>
+        <!-- <div class="agenda">
+            <div class="agenda-title">Agenda</div>
+            <div class="agenda-item blue">
+                <div class="agenda-item-icon"></div>
+                Weekly goals
+            </div>
+            <div class="agenda-item">
+                <div class="agenda-item-icon"></div>
+                Turnover rate
+            </div>
+            <div class="agenda-item">
+                <div class="agenda-item-icon"></div>
+                Turnover notification
+            </div>
+        </div>
+        <div class="agenda">
+            <div class="agenda-title">Agenda</div>
+            <div class="agenda-item blue">
+                <div class="agenda-item-icon"></div>
+                Weekly goals
+            </div>
+            <div class="agenda-item">
+                <div class="agenda-item-icon"></div>
+                Turnover rate
+            </div>
+            <div class="agenda-item">
+                <div class="agenda-item-icon"></div>
+                Turnover notification
+            </div>
+        </div> -->
+        <div class="clocks">
+            <div class="clock">
+                <div class="hand hour"></div>
+                <div class="hand minute"></div>
+                <div class="hand second"></div>
+            </div>
+            <div class="clock">
+                <div class="hand hour"></div>
+                <div class="hand minute"></div>
+                <div class="hand second"></div>
+            </div>
+            <div class="clock">
+                <div class="hand hour"></div>
+                <div class="hand minute"></div>
+                <div class="hand second"></div>
+            </div>
+        </div>
+        <button class="add-button">+ Add</button>
+    </div>
+    <div class="main-content">
+        <div class="nav">
+            <div class="nav-item active">Home</div>
+            <div class="nav-item">Progression</div>
+            <div class="nav-item">Profile</div>
+            <div class="nav-item">Search</div>
+        </div>
+        <h1>Today</h1>
+        <h2>Wednesday, July 31</h2>
+        <div class="content-grid">
+            <div class="daily-schedule">
+                <h3>Performance</h3>
+                <select id="performanceSelect" class="apple-select" onchange="updateChart()">
+                    <option value="overall">Overall Performance</option>
+                    <!-- Add more options as needed -->
+                </select>
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="daily-schedule">
+                <h1 class="notification-title">Notification center</h1>
+                <div class="notification">
+                    <div class="app-name">
+                        <div class="app-icon"></div>
+                        APP NAME
+                        <span class="time">1h ago</span>
+                    </div>
+                    <div class="title">Title</div>
+                </div>
+                <div class="notification">
+                    <div class="app-name">
+                        <div class="app-icon"></div>
+                        APP NAME
+                        <span class="time">1h ago</span>
+                    </div>
+                    <div class="title">Title</div>
+                </div>
+                <div class="notification">
+                    <div class="app-name">
+                        <div class="app-icon"></div>
+                        APP NAME
+                        <span class="time">1h ago</span>
+                    </div>
+                    <div class="title">Title</div>
+                </div>
+            </div>
+            <div class="chart">
+                <h3>Employees</h3>
+                <div class="schedule-item" id="userList"></div>
+                <div class="schedule-item"></div>
+                <div class="schedule-item"></div>
+                <div class="schedule-item"></div>
+            </div>
+            <!-- <div class="circular-chart">
+
+            </div> -->
+            <div class="image-placeholder" style="background-image: url('images/fil_the_space.jpeg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                <!-- Placeholder for purple image -->
+            </div>
+            <div class="notification-center">
+                <h1 class="notification-title">Notification center</h1>
+                <div class="notification">
+                    <div class="app-name">
+                        <div class="app-icon"></div>
+                        APP NAME
+                        <span class="time">1h ago</span>
+                    </div>
+                    <div class="title">Title</div>
+                </div>
+                <div class="notification">
+                    <div class="app-name">
+                        <div class="app-icon"></div>
+                        APP NAME
+                        <span class="time">1h ago</span>
+                    </div>
+                    <div class="title">Title</div>
+                </div>
+                <div class="notification">
+                    <div class="app-name">
+                        <div class="app-icon"></div>
+                        APP NAME
+                        <span class="time">1h ago</span>
+                    </div>
+                    <div class="title">Title</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Initialize Firebase
+        var firebaseConfig = {
+          apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
+          authDomain: "levelup-65b5b.firebaseapp.com",
+          projectId: "levelup-65b5b",
+          storageBucket: "levelup-65b5b.appspot.com",
+          messagingSenderId: "13469845736",
+          appId: "1:13469845736:web:aa4b300ead478eac30215d",
+          measurementId: "G-B7HVG7T7VZ"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        auth.onAuthStateChanged(user => {
+    if (user) {
+        // Fetch the document with the user id from Firestore
+        localStorage.setItem('userId', user.uid);
+        db.collection("employers").doc(user.uid).get().then(doc => {
+            if (doc.exists) {
+                const employersCode = doc.data().employer_code;
+                const companyName = doc.data().company_name;
+
+                document.getElementById('company_name').textContent = `${companyName}`;
+
+                // Call the function to find documents in the users collection
+                findUsersByEmployerCode(employersCode);
+            } else {
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+        }
+    });
+
+    function findUsersByEmployerCode(employersCode) {
+    db.collection("users").where("employer_code", "==", employersCode).get()
+        .then(querySnapshot => {
+            const userListElement = document.getElementById('userList');
+            const performanceSelect = document.getElementById('performanceSelect');
+            
+            userListElement.innerHTML = '';
+            performanceSelect.innerHTML = '<option value="overall">Overall Performance</option>';
+
+            // Create an ordered list element
+            const orderedList = document.createElement('ol');
+            userListElement.appendChild(orderedList);
+
+            querySnapshot.forEach(doc => {
+                const userData = doc.data();
+                const firstName = userData.first_name;
+                const lastName = userData.last_name;
+                const xpArray = userData.xp;
+                const xpString = xpArray.join(', ');
+                const turnoverRate = calculateTurnoverRate(xpArray);
+
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<span class="first-name">${firstName}</span> <span class="last-name">${lastName}</span> Turnover Rate: ${turnoverRate.toFixed(2)}%`;
+                orderedList.appendChild(listItem);
+
+                // Add a separator after each list item
+                const separator = document.createElement('hr');
+                orderedList.appendChild(separator);
+
+                // Add employee name to the dropdown
+                const option = document.createElement('option');
+                option.value = `${firstName.toLowerCase()}_${lastName.toLowerCase()}`;
+                option.textContent = `${firstName} ${lastName}`;
+                performanceSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.log("Error finding user documents:", error);
+        });
+}
+
+function calculateTurnoverRate(xpArray) {
+    if (xpArray.length < 2) return 0;
+
+    const baselineTurnoverRate = 17;
+    const smoothingFactor = 0.5;
+    const timeWeight = 0.7;
+    const magnitudeWeight = 0.3;
+    const volatilityThreshold = 10;
+
+    let weightedChangeSum = 0;
+    let weightSum = 0;
+    let volatility = 0;
+
+    for (let i = 1; i < xpArray.length; i++) {
+        const change = xpArray[i] - xpArray[i - 1];
+        const timeWeight = Math.pow(smoothingFactor, xpArray.length - 1 - i);
+        const magnitudeWeight = Math.abs(change) / xpArray[i - 1];
+        const combinedWeight = (timeWeight * timeWeight) + (magnitudeWeight * magnitudeWeight);
+        
+        weightedChangeSum += Math.abs(change) * combinedWeight;
+        weightSum += combinedWeight;
+        
+        volatility += Math.pow(change / xpArray[i - 1], 2);
+    }
+
+    const averageChange = weightedChangeSum / weightSum;
+    const initialXp = xpArray[0];
+    const latestXp = xpArray[xpArray.length - 1];
+    const overallGrowth = (latestXp - initialXp) / initialXp;
+    const volatilityScore = Math.sqrt(volatility / (xpArray.length - 1));
+
+    let turnoverRate = baselineTurnoverRate;
+    turnoverRate += (averageChange / initialXp) * 100;
+    turnoverRate -= overallGrowth * 50; // Reduce turnover rate for overall growth
+    turnoverRate += volatilityScore * 10; // Increase turnover rate for high volatility
+
+    // Apply volatility threshold
+    if (volatilityScore > volatilityThreshold) {
+        turnoverRate += (volatilityScore - volatilityThreshold) * 5;
+    }
+
+    return Math.max(0, Math.min(100, turnoverRate)); // Ensure rate is between 0 and 100
+}
+
+    </script>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <script>
+       const ctx = document.getElementById('myChart').getContext('2d');
+       let chart;
+   
+       const overallData = {
+           labels: ['0', '2', '4', '6', '8'],
+           datasets: [{
+               label: 'Main Line',
+               data: [100, 130, 90, 35, 100],
+               borderColor: 'rgb(128, 0, 128)',
+               borderWidth: 2,
+               fill: false,
+               tension: 0.4
+           }, {
+               label: 'Upper Bound',
+               data: [120, 140, 100, 45, 110],
+               borderColor: 'rgba(128, 0, 128, 0.3)',
+               borderWidth: 0,
+               backgroundColor: 'rgba(128, 0, 128, 0.1)',
+               fill: '+1',
+               tension: 0.4
+           }, {
+               label: 'Lower Bound',
+               data: [90, 120, 80, 25, 90],
+               borderColor: 'rgba(128, 0, 128, 0.3)',
+               borderWidth: 0,
+               backgroundColor: 'rgba(128, 0, 128, 0.1)',
+               fill: '-1',
+               tension: 0.4
+           }]
+       };
+   
+       const person1Data = {
+           labels: ['0', '2', '4', '6', '8'],
+           datasets: [{
+               label: 'Person 1',
+               data: [80, 100, 70, 50, 90],
+               borderColor: 'rgb(0, 128, 0)',
+               borderWidth: 2,
+               fill: false,
+               tension: 0.4
+           }]
+       };
+   
+       const person2Data = {
+           labels: ['0', '2', '4', '6', '8'],
+           datasets: [{
+               label: 'Person 2',
+               data: [60, 90, 80, 40, 70],
+               borderColor: 'rgb(0, 0, 128)',
+               borderWidth: 2,
+               fill: false,
+               tension: 0.4
+           }]
+       };
+   
+       function createChart(data) {
+           if (chart) {
+               chart.destroy();
+           }
+           chart = new Chart(ctx, {
+               type: 'line',
+               data: data,
+               options: {
+                   responsive: true,
+                   scales: {
+                       y: {
+                           beginAtZero: true,
+                           max: 150,
+                           ticks: {
+                               stepSize: 25
+                           },
+                           grid: {
+                               color: 'rgba(0, 0, 0, 0.1)'
+                           }
+                       },
+                       x: {
+                           grid: {
+                               color: 'rgba(0, 0, 0, 0.1)'
+                           }
+                       }
+                   },
+                   plugins: {
+                       legend: {
+                           display: false
+                       }
+                   }
+               }
+           });
+       }
+   
+       function updateChart() {
+           const selectedPerformance = document.getElementById('performanceSelect').value;
+           let data;
+           switch (selectedPerformance) {
+               case 'overall':
+                   data = overallData;
+                   break;
+               case 'person1':
+                   data = person1Data;
+                   break;
+               case 'person2':
+                   data = person2Data;
+                   break;
+               default:
+                   data = overallData;
+           }
+           createChart(data);
+       }
+   
+       // Initialize the chart with overall data
+       createChart(overallData);
+   </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.querySelector('.slider');
+    const turnoverRate = document.querySelector('.turnover-rate');
+    const maxPosition = turnoverRate.offsetWidth - slider.offsetWidth;
+    let isDragging = false;
+
+    // Set the initial position of the slider to the middle of the bar
+    const initialPosition = maxPosition / 2;
+    slider.style.left = `${initialPosition}px`;
+
+    slider.addEventListener('mousedown', function(event) {
+        isDragging = true;
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    });
+
+    function onMouseMove(event) {
+        if (!isDragging) return;
+        const rect = turnoverRate.getBoundingClientRect();
+        let newLeft = event.clientX - rect.left - slider.offsetWidth / 2;
+
+        // Ensure the slider stays within the bounds
+        if (newLeft < 0) newLeft = 0;
+        if (newLeft > maxPosition) newLeft = maxPosition;
+
+        slider.style.left = `${newLeft}px`;
+    }
+
+    function onMouseUp() {
+        isDragging = false;
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+    }
+});
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateClock(clock) {
+                const now = new Date();
+                const second = now.getSeconds();
+                const minute = now.getMinutes();
+                const hour = now.getHours();
+        
+                const secondDeg = (second / 60) * 360 + 90;
+                const minuteDeg = (minute / 60) * 360 + (second / 60) * 6 + 90;
+                const hourDeg = (hour / 12) * 360 + (minute / 60) * 30 + 90;
+        
+                clock.querySelector('.second').style.transform = `rotate(${secondDeg}deg)`;
+                clock.querySelector('.minute').style.transform = `rotate(${minuteDeg}deg)`;
+                clock.querySelector('.hour').style.transform = `rotate(${hourDeg}deg)`;
+            }
+        
+            const clocks = document.querySelectorAll('.clock');
+            clocks.forEach(clock => {
+                updateClock(clock);
+                setInterval(() => updateClock(clock), 1000);
+            });
+        });
+        </script>
+</body>
+</html>
