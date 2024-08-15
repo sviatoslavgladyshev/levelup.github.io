@@ -27,6 +27,7 @@
         flex-direction: column;
         align-items: center;
         border-right: 1px solid rgb(212, 210, 211);
+        z-index: 1000;
     }
 
     .logo {
@@ -48,7 +49,42 @@
         text-align: center;
         margin-bottom: 25px;
     }
+    .employer-code-text {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    #employer_code_display {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px;
+}
 
+#employer_code_display::after {
+    content: attr(data-code);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    z-index: 1;
+    font-size: 14px;
+    text-align: center;
+}
+
+#employer_code_display:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
     .clocks {
     display: flex;
     justify-content: space-between;
@@ -339,12 +375,112 @@
 .apple-select:disabled::after {
     border-top-color: #999;
 }
+.performance-title{
+    /* text-align: center; */
+    /* color: black; */
+    /* color: #666; */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+/* Lightbox styles */
+.lightbox {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1001; /* Sit above the sidebar */
+    left: 250px; /* Offset by sidebar width and padding */
+    top: 0;
+    width: calc(100% - 240px); /* Subtract sidebar width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.lightbox-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* Centered */
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 60%; /* Adjust width as needed */
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+#addEmployeeButton {
+    /* background-color: #4CAF50; Green */
+    border: none;
+    color: rgb(135, 25, 206);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    margin-left: 185px;
+    cursor: pointer;
+    border-radius: 10;
+}
+
+#addEmployeeButton:hover {
+    /* background-color: #45a049; */
+    color: rgb(15, 109, 186);
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
     </style>
 </head>
 <body>
     <div class="sidebar">
         <div class="logo">↑</div>
         <div class="logo-text" id="company_name"></div>
+        <div id="employer_code_display">Hover to reveal Employer Code</div>
         <div class="agenda">
             <h1 class="agenda-title">Agenda</h1>
             <div class="item">
@@ -422,15 +558,15 @@
     <div class="main-content">
         <div class="nav">
             <div class="nav-item active">Home</div>
-            <div class="nav-item">Progression</div>
-            <div class="nav-item">Profile</div>
-            <div class="nav-item">Search</div>
+            <a href="progression.html" style="text-decoration: none;"><div class="nav-item" data-tab="progression"><span style="color: black;">Progression</span></div></a>
+            <div class="nav-item" data-tab="profile">Profile</div>
+            <div class="nav-item" data-tab="search">Search</div>
         </div>
         <h1>Today</h1>
-        <h2>Wednesday, July 31</h2>
+        <h2 id="currentDate"></h2>
         <div class="content-grid">
             <div class="daily-schedule">
-                <h3>Performance</h3>
+                <h3 class="performance-title">Performance</h3>
                 <select id="performanceSelect" class="apple-select" onchange="updateChart()">
                     <option value="overall">Overall Performance</option>
                     <!-- Add more options as needed -->
@@ -465,14 +601,43 @@
                 </div>
             </div>
             <div class="chart">
-                <h3>Employees</h3>
-                <div class="schedule-item" id="userList"></div>
-                <div class="schedule-item"></div>
-                <div class="schedule-item"></div>
-                <div class="schedule-item"></div>
+                <h3 style="display: inline-block;">Employees</h3>
+                <button id="addEmployeeButton" style="display: inline-block; background-color: transparent;">+</button>
+                <div class="schedule-item" id="userList" style="background-color: transparent;"></div>
+                <div class="schedule-item" style="background-color: transparent;"></div>
+                <div class="schedule-item" style="background-color: transparent;"></div>
+                <div class="schedule-item" style="background-color: transparent;"></div>
             </div>
+            <div id="lightbox" class="lightbox">
+                <div class="lightbox-content">
+                    <span class="close">&times;</span>
+                    <h3>Add Employee Form</h3>
+                    <form id="addEmployeeForm">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" name="firstName" required><br><br>
+                        
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName" required><br><br>
+                        
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" name="email" required><br><br>
+                        
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div id="userLightbox" class="lightbox">
+                <div class="lightbox-content">
+                    <span class="close-btn" id="closeLightbox">&times;</span>
+                    <h3 id="lightboxTitle"></h3>
+                    <p id="userDetails"></p>
+                    <h4>Contact Information</h4>
+                    <p id="contactInformation"></p>
+                </div>
+            </div>
+            
+            
             <!-- <div class="circular-chart">
-
             </div> -->
             <div class="image-placeholder" style="background-image: url('images/fil_the_space.jpeg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
                 <!-- Placeholder for purple image -->
@@ -532,7 +697,7 @@
                 const companyName = doc.data().company_name;
 
                 document.getElementById('company_name').textContent = `${companyName}`;
-
+                document.getElementById('employer_code_display').setAttribute('data-code', `Employer Code: ${employersCode}`);
                 // Call the function to find documents in the users collection
                 findUsersByEmployerCode(employersCode);
             } else {
@@ -556,6 +721,7 @@
             // Create an ordered list element
             const orderedList = document.createElement('ol');
             userListElement.appendChild(orderedList);
+            const userTurnoverRates = {}; // Store turnover rates for each user
 
             querySnapshot.forEach(doc => {
                 const userData = doc.data();
@@ -564,10 +730,27 @@
                 const xpArray = userData.xp;
                 const xpString = xpArray.join(', ');
                 const turnoverRate = calculateTurnoverRate(xpArray);
+                // Calculate P using the provided formula
+                const P = 1 / (1 + Math.exp(
+                    -(2.3471 
+                    - 0.075 * userData.IncomeSatisfaction 
+                    - 0.252703 * userData.JobSatisfaction 
+                    - 0.024433 * userData.Age 
+                    - 0.021426 * userData.YearsAtCompany 
+                    - 0.082167 * userData.PerformanceRating)
+                ));
+                const baselineTurnoverRate = P * 100;
+                const displayedTurnoverRate = baselineTurnoverRate.toFixed(2);
+                console.log("Baseline Turnover Rate:", baselineTurnoverRate);
 
                 const listItem = document.createElement('li');
-                listItem.innerHTML = `<span class="first-name">${firstName}</span> <span class="last-name">${lastName}</span> Turnover Rate: ${turnoverRate.toFixed(2)}%`;
+                listItem.innerHTML = `<span class="first-name">${firstName}</span> <span class="last-name">${lastName}</span> Turnover Rate: ${displayedTurnoverRate}%`;
                 orderedList.appendChild(listItem);
+
+                // Add click event to list item
+                listItem.addEventListener('click', () => {
+                    showUserDetails(userData);
+                });
 
                 // Add a separator after each list item
                 const separator = document.createElement('hr');
@@ -578,11 +761,94 @@
                 option.value = `${firstName.toLowerCase()}_${lastName.toLowerCase()}`;
                 option.textContent = `${firstName} ${lastName}`;
                 performanceSelect.appendChild(option);
+
+                // Update the chart data dynamically
+                updateChartData(firstName, lastName, turnoverRate);
             });
-        })
-        .catch(error => {
-            console.log("Error finding user documents:", error);
-        });
+
+// Store userTurnoverRates in a global variable or attach it to the window object
+window.userTurnoverRates = userTurnoverRates;
+})
+.catch(error => {
+console.log("Error finding user documents:", error);
+});
+}
+
+
+function showUserDetails(userData) {
+    const userDetailsElement = document.getElementById('userDetails');
+    const lightboxTitleElement = document.getElementById('lightboxTitle');
+    const contactInformation = document.getElementById('contactInformation');
+    const P = 1 / (1 + Math.exp(
+                    -(2.3471 
+                    - 0.075 * userData.IncomeSatisfaction 
+                    - 0.252703 * userData.JobSatisfaction 
+                    - 0.024433 * userData.Age 
+                    - 0.021426 * userData.YearsAtCompany 
+                    - 0.082167 * userData.PerformanceRating)
+                ));
+                const baselineTurnoverRate = P * 100;
+                const displayedTurnoverRate = baselineTurnoverRate.toFixed(2);
+                console.log("Baseline Turnover Rate:", baselineTurnoverRate);
+    
+    // Populate user details
+    userDetailsElement.innerHTML = `
+        <strong>XP:</strong> ${userData.xp.join(', ')}<br>
+        <strong>Turnover Rate:</strong> ${displayedTurnoverRate}%<br>
+        <strong>Role:</strong> ${userData.role}<br>
+    `;
+    // <strong>Turnover Rate:</strong> ${calculateTurnoverRate(userData.xp).toFixed(2)}%<br>
+    // Set the lightbox title
+    lightboxTitleElement.textContent = `${userData.first_name} ${userData.last_name}`;
+    contactInformation.textContent = `Email: ${userData.email}`;
+    
+    // Show the Lightbox
+    const lightbox = document.getElementById('userLightbox');
+    lightbox.style.display = 'block';
+}
+
+// Close lightbox functionality
+document.getElementById('closeLightbox').addEventListener('click', () => {
+    document.getElementById('userLightbox').style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+    const lightbox = document.getElementById('userLightbox');
+    if (event.target == lightbox) {
+        lightbox.style.display = 'none';
+    }
+});
+
+// Close the Lightbox
+document.getElementById('closeLightbox').addEventListener('click', () => {
+    document.getElementById('userLightbox').style.display = 'none';
+});
+
+// Hide Lightbox when clicking outside of it
+window.addEventListener('click', event => {
+    const lightbox = document.getElementById('userLightbox');
+    if (event.target === lightbox) {
+        lightbox.style.display = 'none';
+    }
+});
+
+function updateChartData(firstName, lastName, turnoverRate) {
+    const newLabel = `${firstName} ${lastName}`;
+    const newData = turnoverRate;
+
+    const dataset = {
+        label: newLabel,
+        data: [newData],
+        borderColor: 'rgb(0, 0, 128)',
+        borderWidth: 2,
+        fill: false,
+        tension: 0.4
+    };
+
+    overallData.datasets.push(dataset);
+    
+    // Update the chart
+    updateChart();
 }
 
 function calculateTurnoverRate(xpArray) {
@@ -630,6 +896,7 @@ function calculateTurnoverRate(xpArray) {
 }
 
     </script>
+
    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
    <script>
        const ctx = document.getElementById('myChart').getContext('2d');
@@ -723,26 +990,59 @@ function calculateTurnoverRate(xpArray) {
        }
    
        function updateChart() {
-           const selectedPerformance = document.getElementById('performanceSelect').value;
-           let data;
-           switch (selectedPerformance) {
-               case 'overall':
-                   data = overallData;
-                   break;
-               case 'person1':
-                   data = person1Data;
-                   break;
-               case 'person2':
-                   data = person2Data;
-                   break;
-               default:
-                   data = overallData;
-           }
-           createChart(data);
-       }
-   
-       // Initialize the chart with overall data
-       createChart(overallData);
+    const selectedPerformance = document.getElementById('performanceSelect').value;
+    let data;
+
+    if (selectedPerformance === 'overall') {
+        data = overallData;
+    } else {
+        const turnoverRate = window.userTurnoverRates[selectedPerformance];
+        data = {
+            labels: ['Turnover Rate'],
+            datasets: [{
+                label: selectedPerformance,
+                data: [turnoverRate],
+                backgroundColor: 'rgba(128, 0, 128, 0.5)',
+                borderColor: 'rgb(128, 0, 128)',
+                borderWidth: 1
+            }]
+        };
+    }
+
+    if (chart) {
+        chart.destroy();
+    }
+
+    chart = new Chart(ctx, {
+        type: selectedPerformance === 'overall' ? 'line' : 'bar',
+        data: data,
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: selectedPerformance === 'overall' ? 150 : 100,
+                    ticks: {
+                        stepSize: selectedPerformance === 'overall' ? 25 : 10
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+}
    </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -804,5 +1104,40 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         </script>
+        <script>
+// Get the lightbox
+var lightbox = document.getElementById("lightbox");
+
+// Get the button that opens the lightbox
+var btn = document.getElementById("addEmployeeButton");
+
+// Get the <span> element that closes the lightbox
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the lightbox
+btn.onclick = function() {
+    lightbox.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the lightbox
+span.onclick = function() {
+    lightbox.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the lightbox, close it
+window.onclick = function(event) {
+    if (event.target == lightbox) {
+        lightbox.style.display = "none";
+    }
+}
+        </script>
+        <script>
+document.addEventListener("DOMContentLoaded", function() {
+    var currentDateElement = document.getElementById("currentDate");
+    var today = new Date();
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    currentDateElement.textContent = today.toLocaleDateString('en-US', options);
+});
+</script>
 </body>
 </html>
