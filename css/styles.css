@@ -226,7 +226,7 @@ a.white {
 /* Remove or adjust this if it's causing layout issues */
 .btn-solid-lg-3 {
 	padding-left: 9.725rem; /* Further increased left padding */
-	padding-right: 9.725rem; /* Further increased right padding */
+	padding-right: 10.425rem; /* Further increased right padding */
 	margin-bottom: 1rem;
 	border: 0.125rem solid rgb(255, 255, 255);
 	background-color: rgb(255, 255, 255);
@@ -3880,3 +3880,13 @@ input[type="radio"]:checked {
 	padding: 30px;
 }
 
+.message1 {
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #4CAF50;
+  background-color: #dff0d8;
+  color: #3c763d;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}
