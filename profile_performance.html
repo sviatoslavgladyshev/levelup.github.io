@@ -20,14 +20,17 @@
 }
 .sidebar {
         width: 220px; /* Reduced width */
-        height: auto;
+        height: 100vh;
         background-color: rgb(230, 228, 229);
         padding: 15px; /* Adjusted padding */
         display: flex;
+        position: fixed;
         flex-direction: column;
+        justify-content: space-between;
         align-items: center;
         border-right: 1px solid rgb(212, 210, 211);
         z-index: 1000;
+        box-sizing: border-box; /* Include padding in the element's total width and height */
     }
 
     .logo {
@@ -78,12 +81,15 @@
     padding: 5px;
     z-index: 1;
     font-size: 14px;
-    text-align: center;
+    /* color: rgb(135, 25, 206); */
 }
 
 #employer_code_display:hover::after {
     visibility: visible;
     opacity: 1;
+    margin-left: 8px;
+    color: rgb(135, 25, 206);
+
 }
     .clocks {
     display: flex;
@@ -150,6 +156,8 @@
     .main-content {
         flex-grow: 1;
         padding: 30px; /* Increased padding */
+        margin-left: 220px; /* Adjust based on the sidebar width */
+        height: 100vh;
     }
 
     h1 {
@@ -474,6 +482,43 @@ button {
 button:hover {
     background-color: #45a049;
 }
+.bottom-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: auto; /* Push the bottom section to the bottom */
+}
+
+.divider {
+    width: 100%;
+    border: 0;
+    height: 1px;
+    background: rgb(150, 149, 149); /* Example color for the horizontal rule */
+    margin-bottom: 10px; /* Adjust spacing as needed */
+}
+.home-button {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    padding: 10px 20px;
+    background-color: transparent; /* Example background color */
+    color: rgb(135, 25, 206);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.home-button:hover {
+    background-color: #afafaf; /* Darker shade for hover effect */
+}
+
+.home-button svg {
+    width: 26px;
+    height: 26px;
+    align-self: flex-start;
+    fill: rgb(135, 25, 206);
+}
     </style>
 </head>
 <body>
@@ -497,45 +542,7 @@ button:hover {
                     </div>
                 </div>
             </div>
-            <!-- <hr>
-            <div class="item">
-                <div class="circle"></div>
-                <div class="content">
-                    <div class="turnover-notification"><span>Turnover notification</span></div>
-                    <div class="notification-details">Talk to Jacob Wronski about his performance as a sales assistant</div>
-                </div>
-            </div> -->
         </div>
-        <!-- <div class="agenda">
-            <div class="agenda-title">Agenda</div>
-            <div class="agenda-item blue">
-                <div class="agenda-item-icon"></div>
-                Weekly goals
-            </div>
-            <div class="agenda-item">
-                <div class="agenda-item-icon"></div>
-                Turnover rate
-            </div>
-            <div class="agenda-item">
-                <div class="agenda-item-icon"></div>
-                Turnover notification
-            </div>
-        </div>
-        <div class="agenda">
-            <div class="agenda-title">Agenda</div>
-            <div class="agenda-item blue">
-                <div class="agenda-item-icon"></div>
-                Weekly goals
-            </div>
-            <div class="agenda-item">
-                <div class="agenda-item-icon"></div>
-                Turnover rate
-            </div>
-            <div class="agenda-item">
-                <div class="agenda-item-icon"></div>
-                Turnover notification
-            </div>
-        </div> -->
         <div class="clocks">
             <div class="clock">
                 <div class="hand hour"></div>
@@ -554,6 +561,15 @@ button:hover {
             </div>
         </div>
         <button class="add-button">+ Add</button>
+        <div class="bottom-section">
+            <hr class="divider">
+            <a href="index.html" class="home-button">
+                <svg viewBox="0 0 24 24">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+                Sign Out
+            </a>
+        </div>
     </div>
     <div class="main-content">
         <div class="nav">
@@ -697,7 +713,20 @@ button:hover {
                 const companyName = doc.data().company_name;
 
                 document.getElementById('company_name').textContent = `${companyName}`;
-                document.getElementById('employer_code_display').setAttribute('data-code', `Employer Code: ${employersCode}`);
+                const employerCodeDisplay = document.getElementById('employer_code_display');
+                employerCodeDisplay.setAttribute('data-code', `Employer Code: <span style="letter-spacing: 1px">${employersCode}</span>`);
+
+                employerCodeDisplay.addEventListener('click', function() {
+                    var tempInput = document.createElement('input');
+                    tempInput.style.position = 'absolute';
+                    tempInput.style.left = '-9999px';
+                    tempInput.value = employersCode;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    alert('Employer Code copied to clipboard!');
+                });
                 // Call the function to find documents in the users collection
                 findUsersByEmployerCode(employersCode);
             } else {
