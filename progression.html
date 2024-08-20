@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Performance</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .date-display {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .main-content {
+            flex-grow: 1;
+            border: 2px solid #8A2BE2;
+            border-radius: 20px;
+            padding: 20px;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr 40px;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .employee-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr 40px;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .employee-name, .rating-select {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .select-pill {
+            width: 100%;
+            height: 30px;
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+        .select-pill.active {
+            background-color: #8A2BE2;
+        }
+        .rating-select {
+            appearance: none;
+            -webkit-appearance: none;
+            padding: 10px;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 12px auto;
+        }
+        .add-notes {
+            width: 30px;
+            height: 30px;
+            background-color: #8A2BE2;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="date-display" id="performance-date">8/7/2024</div>
+        <div class="main-content">
+            <div class="header">
+                <span>Employee</span>
+                <span>Select</span>
+                <span>Rating</span>
+                <span></span>
+            </div>
+            <div id="employee-list">
+                <!-- Employee rows will be added here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script>
+        var firebaseConfig = {
+          apiKey: "AIzaSyDWXpvIim5vIzo-mMJvojHF5sJ04WgBvSA",
+          authDomain: "levelup-65b5b.firebaseapp.com",
+          projectId: "levelup-65b5b",
+          storageBucket: "levelup-65b5b.appspot.com",
+          messagingSenderId: "13469845736",
+          appId: "1:13469845736:web:aa4b300ead478eac30215d",
+          measurementId: "G-B7HVG7T7VZ"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        const employees = [
+            {name: "All", isAll: true, selected: false},
+            {name: "Jane Does", selected: false},
+            {name: "John Smith", selected: false},
+            {name: "John Doe", selected: false},
+            // this will need to be replaced with backend obviously 
+        ];
+
+        const employeeList = document.getElementById('employee-list');
+
+        function createEmployeeRow(employee) {
+            const row = document.createElement('div');
+            row.className = 'employee-row';
+            row.innerHTML = `
+                <div class="employee-name">${employee.name}</div>
+                <div class="select-pill" onclick="toggleSelection('${employee.name}')"></div>
+                <select class="rating-select" onchange="updateRating('${employee.name}', this.value)">
+                    <option value="">Select rating</option>
+                    <option value="1">Unsatisfactory</option>
+                    <option value="2">Satisfactory</option>
+                    <option value="3">Exceptional</option>
+                </select>
+                <button class="add-notes" onclick="addNotes('${employee.name}')">+</button>
+            `;
+            return row;
+        }
+
+        employees.forEach(employee => {
+            employeeList.appendChild(createEmployeeRow(employee));
+        });
+
+        function toggleSelection(name) {
+            if (name === 'All') {
+                const allSelected = !employees[0].selected;
+                employees.forEach(emp => emp.selected = allSelected);
+            } else {
+                const employee = employees.find(emp => emp.name === name);
+                employee.selected = !employee.selected;
+                employees[0].selected = employees.slice(1).every(emp => emp.selected);
+            }
+            updateSelectionUI();
+        }
+
+        function updateSelectionUI() {
+            const pills = document.querySelectorAll('.select-pill');
+            employees.forEach((emp, index) => {
+                pills[index].classList.toggle('active', emp.selected);
+            });
+        }
+
+        function updateRating(name, value) {
+            if (name === 'All') {
+                employees.forEach(emp => {
+                    if (emp.selected && !emp.isAll) {
+                        updateEmployeeRating(emp.name, value);
+                    }
+                });
+            } else if (employees.find(emp => emp.name === name).selected) {
+                updateEmployeeRating(name, value);
+            }
+        }
+
+        function updateEmployeeRating(name, value) {
+            const select = document.querySelector(`.employee-row:nth-child(${employees.findIndex(emp => emp.name === name) + 1}) .rating-select`);
+            select.value = value;
+
+            // Save the rating to Firebase
+            saveRatingToFirebase(name, parseInt(value));
+        }
+
+        function saveRatingToFirebase(employeeName, rating) {
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    const userId = user.uid;
+                    const userRef = db.collection('users').doc(userId);
+
+                    userRef.set({
+                        [`performance_ratings.${employeeName}`]: rating
+                    }, { merge: true })
+                    .then(() => {
+                        console.log(`Rating saved for ${employeeName}`);
+                    })
+                    .catch((error) => {
+                        console.error("Error saving rating: ", error);
+                    });
+                } else {
+                    console.log("No user is signed in.");
+                }
+            });
+        }
+
+        function addNotes(employeeName) {
+            alert(`Add notes for ${employeeName}`);
+        }
+
+        document.getElementById('performance-date').addEventListener('click', () => {
+            alert('This would open a date picker');
+        });
+    </script>
+</body>
+</html>
+
